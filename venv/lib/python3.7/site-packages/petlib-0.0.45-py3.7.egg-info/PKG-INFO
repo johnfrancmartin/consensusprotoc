@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: petlib
+Version: 0.0.45
+Summary: A library implementing a number of Privacy Enhancing Technologies (PETs)
+Home-page: https://pypi.python.org/pypi/petlib/
+Author: George Danezis
+Author-email: g.danezis@ucl.ac.uk
+License: 2-clause BSD
+Description: A library wrapping Open SSL low-level cryptographic libraries to build Privacy Enhancing Technoloies (PETs)
+Platform: UNKNOWN

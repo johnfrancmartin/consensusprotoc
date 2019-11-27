@@ -1,0 +1,92 @@
+syntax = "proto2";
+
+package bft;
+
+message Block {
+  repeated int32 commands = 1;
+  optional int32 view = 2 [default = 0];
+  optional int32 height = 3 [default = 0];
+  optional string previous = 4;
+}
+
+message Command {
+  optional string from = 1;
+  optional string to = 2;
+  optional string value = 3;
+}
+
+message BLSHelper {
+  optional int32 t = 1;
+  optional int32 n = 2;
+  optional bytes sk_bytes = 3;
+  optional bytes g1_bytes = 4;
+  optional bytes g2_bytes = 5;
+  optional bool optimize_mult = 6;
+  optional int32 group_nid = 7;
+  repeated bytes sk_bytes_set = 8;
+  repeated bytes vk_bytes_set = 9;
+}
+
+message Signature {
+  optional bool optimize_mult = 1;
+  optional int32 group_nid = 2;
+  optional bytes sig_bytes = 3;
+}
+
+message Certificate {
+  optional bytes cert_bytes = 1;
+}
+
+message Key {
+  optional bool optimize_mult = 1;
+  optional int32 group_nid = 2;
+  optional bytes sig_bytes = 3;
+}
+
+message Status {
+  optional Block locked = 1;
+  optional int32 replica = 2;
+}
+
+message Proposal {
+  optional Block block = 1;
+  optional int32 view = 2;
+  optional Certificate previous = 3;
+  repeated Block status = 4;
+
+}
+
+message Vote {
+
+}
+
+message Blame {
+
+}
+
+class Proposal(Message):
+    def __init__(self, block, view, previous_cert, status, leader, signature):
+        self.block = block
+        self.view = view
+        self.previous_cert = previous_cert
+        self.status = status
+        self.leader = leader
+        self.signature = signature
+        self.reproposal = False
+        super().__init__(MessageType.PROPOSE)
+
+class Vote(Message):
+    def __init__(self, block, view, signature, sender):
+        self.block = block
+        self.view = view
+        self.signature = signature
+        self.sender = sender
+        super().__init__(MessageType.VOTE)
+
+class Blame(Message):
+    def __init__(self, view, sender, status):
+        self.view = view
+        self.sender = sender
+        self.status = status
+        super().__init__(MessageType.BLAME)
+
