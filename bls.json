@@ -1,0 +1,19 @@
+{
+  "skBytes": "JSNkgkAAAAG6NE2AAAAAB/+fgAAAAAAQoQAAAAAAAA0=",
+  "g1Bytes": "AyUjZIJAAAABujRNgAAAAAhhIQAAAAAAE6cAAAAAAAAS",
+  "g2Bytes": "BhoQu1Geti/rjYx+jGHttqRki7tImL8Nke5CJMgD+ysFFqr5unN4MzEKp4xZgqpbH010a643hLcNjDTB59VM8wIYl6Brr5NDmpDglmmMgiMpvQrmvb4JvRnw4HiRzSuaDrsrDnyLFSaPbURW9fONN7CQBv/XOclXii0a7Gs6zps=",
+  "optimizeMult": true,
+  "groupNid": 1,
+  "skBytesSet": [
+    "H7da5scCA9pjIrajBtr5EG8NgDl0vh0pExGK7rSGH/E=",
+    "Fjtb++dZC0cTRZshvTiqISPLaSYwesiJ2yfRVDLI7ZA=",
+    "DL9dEQewErPDaH+gc5ZbMdiJUhLsN3Pqoz4XubELuy8=",
+    "A0NeJigHGiBzi2QfKfQMQo1HOv+n9B9La1ReHy9OiM4="
+  ],
+  "vkBytesSet": [
+    "AA==",
+    "AA==",
+    "AA==",
+    "AA=="
+  ]
+}

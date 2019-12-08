@@ -4,18 +4,30 @@ from MessageType import MessageType, Proposal, Vote, Blame
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from BLSHelper import BLSHelper
+from ReplicaConnection import ReplicaConnection
+import math
+from threading import Thread
+from BFT_pb2 import Wrapper
 
 
 class Replica:
-    def __init__(self, protocol, id, qr, bls_proto):
+    def __init__(self, n, id, bls_proto):
         # Replica Core
-        self.protocol = protocol
+        self.n = n
+        self.f = math.floor(n / 3)  # max-f for now
+        self.qr = 2 * self.f + 1
         self.id = id
-        self.view = 0
+        self.protocol = ReplicaConnection(n, self)
+        # Commands
+        self.commands_queue = []
+        for i in range(0, 20000):
+            self.commands_queue.append(1)
+        # Runtime Variables
+        self.view = 1
         self.leader = False
         self.bls_helper = BLSHelper(0, 0, bls_proto)
-        self.sk = self.bls_helper.sk[id]
-        self.vk = self.bls_helper.vk[id]
+        self.sk = self.bls_helper.sk[id-1]
+        self.vk = self.bls_helper.vk[id-1]
         # Lock
         self.locked = None
         self.lock_time = None
@@ -25,12 +37,11 @@ class Replica:
         self.certified = []
         # Votes
         self.changes = {}
-        # Voting
-        self.qr = qr
         # View Change
         self.status = {}
         # Proposals
         self.proposals = []
+        self.proposal_hashes = []
         # Pending
         self.pending_proposals = []
         # Stop
@@ -38,7 +49,22 @@ class Replica:
 
     # REPLICA FUNCTIONS
 
+    def run(self):
+        connection_t = Thread(target=self.protocol.run, args=())
+        connection_t.start()
+        sleep(3)
+        print(self.id, flush=True)
+        if self.id == self.view % self.protocol.n:
+            print("LEADER", flush=True)
+            try:
+                self.leader = True
+                self.propose(False, {})
+            except Exception as e:
+                print("Exception:", e, flush=True)
+        connection_t.join()
+
     def stop(self):
+        self.protocol.stop = True
         self.stop = True
 
     def view_change(self, status):
@@ -58,10 +84,10 @@ class Replica:
                     self.pending_proposals.remove(prop)
 
     def create_block(self, previous):
-        while len(self.protocol.commands_queue) == 0 and not self.stop:
-            self.protocol.update_commands()
+        while len(self.commands_queue) == 0 and not self.stop:
+            print("SLEEP")
             sleep(0.1)
-        command = self.protocol.commands_queue.pop(0)
+        command = self.commands_queue.pop(0)
         previous_hash = None
         height = 0
         if previous is not None and previous.commands is not None:
@@ -80,38 +106,51 @@ class Replica:
                     previous = block
         else:
             previous = self.locked
-        if previous is not None:
+        if previous is not None and previous.commands is not None:
             previous = previous.clone_for_view(self.view)
-        block = self.create_block(previous)
+            block = self.create_block(previous)
+        else:
+            block = self.create_block(None)
         signature = self.sign_blk(block)
-        proposal = Proposal(block, self.view, previous, status, self, signature)
+        # TODO: ADD SIGNATURE
+        proposal = Proposal(block, self.view, previous, status)
         block.sign(self, signature)
         self.proposals.append(proposal)
-        self.broadcast(proposal)
+        self.proposal_hashes.append(proposal.get_hash())
+        self.broadcast(proposal.get_proto())
+        self.vote(block)
 
     def propose_lock(self, block):
-        signature = self.sign_blk(block)
-        proposal = Proposal(block, self.view, block.previous_hash, {}, self, signature)
-        block.sign(self, signature)
-        self.proposals.append(proposal)
-        self.broadcast(proposal)
+        if self.leader:
+            print(self.id, "PROPOSED UNIQUE", flush=True)
+            signature = self.sign_blk(block)
+            block.sign(self, signature)
+            proposal = Proposal(block, self.view, block.previous_hash, {})
+            self.proposals.append(proposal)
+            self.proposal_hashes.append(proposal.get_hash())
+            prop_proto = proposal.get_proto()
+            self.broadcast(proposal.get_proto())
 
     def receive_proposal(self, proposal):
         if proposal in self.proposals:
             return
+        else:
+            self.proposals.append(proposal)
         if proposal.view > self.view or (self.locked is not None and proposal.block.height > self.locked.height + 1):
             self.pending_proposals.append(proposal)
         elif proposal.view == self.view:
-            self.proposals.append(proposal)
             block = proposal.block
             if (self.proposed is None and self.proposal_extends_status(proposal)) \
                     or (self.proposed is not None and block.previous_hash is not None and block.previous_hash == self.proposed.get_hash()):
                 self.proposed = block
-                proposal.reproposal = True
-                self.broadcast(proposal)
+                self.broadcast(proposal.get_proto())
                 self.vote(block)
-            elif block.unique_cert is not None and self.proposed == block:
-                self.broadcast(proposal)
+            elif block.unique_cert is not None and self.proposed.get_hash() == block.get_hash():
+                self.broadcast(proposal.get_proto())
+                self.vote(block)
+            elif self.proposed.get_hash() == block.get_hash() and block.unique_cert is not None:
+                self.proposed.unique_cert = block.unique_cert
+                self.broadcast(proposal.get_proto())
                 self.vote(block)
 
     def vote(self, block):
@@ -119,10 +158,10 @@ class Replica:
         # Conditionally Sign Block
         if self not in block.signatures:
             block.sign(self, signature)
-            self.broadcast(Vote(block, self.view, signature, self))
+            self.broadcast(Vote(block, self.view, signature, self).get_proto())
         elif len(block.signatures) >= self.qr:
             block.sign(self, signature)
-            self.broadcast(Vote(block, self.view, signature, self))
+            self.broadcast(Vote(block, self.view, signature, self).get_proto())
         if len(block.signatures) >= self.qr and block.unique_cert is None:
             block.certify(self.bls_helper)
             self.propose_lock(block)
@@ -132,40 +171,46 @@ class Replica:
 
     def receive_vote(self, vote):
         block = vote.block
-        sender = vote.sender
+        sender_id = vote.sender
         signature = vote.signature
         block_hash = block.get_hash()
-        verify = self.verify_signature(block, signature, sender)
+        verify = self.verify_signature(block, signature, sender_id)
         if not verify:
             # If signature not valid, blame sender
-            print("BLAME FOR INVALID SIGNATURE")
+            print("BLAME FOR INVALID SIGNATURE", flush=True)
             self.blame()
             return
         elif block_hash in self.blocks:
-            self.blocks[block_hash].signatures[sender.id] = signature
+            self.blocks[block_hash].signatures[sender_id] = signature
         else:
-            if sender.id not in block.signatures:
-                block.signatures[sender.id] = signature
+            if sender_id not in block.signatures:
+                block.signatures[sender_id] = signature
             self.blocks[block_hash] = block
         if vote.view == self.view and self.proposed is not None and block.height == self.proposed.height and block_hash != self.proposed.get_hash():
             # If same view, height and different ID
-            print("BLAME FOR EQUIVOCATING BLOCK")
-            print("PROPOSED", self.proposed.get_hash())
-            print("NEW", block_hash)
+            print("BLAME FOR EQUIVOCATING BLOCK", flush=True)
+            print("PROPOSED", self.proposed.get_hash(), flush=True)
+            print("NEW", block_hash, flush=True)
             self.blame()
             return
         elif vote.view == self.view and block_hash not in self.blocks:
             self.blocks[block_hash] = block
-        if len(self.blocks[block_hash].signatures) >= self.qr:
+        block = self.blocks[block_hash]
+        if len(block.signatures) >= self.qr and block.unique_cert is None:
+            block.certify(self.bls_helper)
+            self.propose_lock(block)
+        elif len(block.signatures) >= self.qr:
+            block.certify(self.bls_helper)
             self.lock(block)
 
     def lock(self, block):
-        if self.locked == block:
+        if self.locked is not None and self.locked.get_hash() == block.get_hash():
             return
         self.locked = block
         self.status[self.id] = block
-        self.protocol.certify_block(block)
+        print(self.id, "CERTIFIED BLOCK", block.get_hash(), flush=True)
         if self.leader:
+            print("LEADER PROPOSE", flush=True)
             self.propose(True, self.status)
         else:
             for prop in self.pending_proposals:
@@ -176,22 +221,30 @@ class Replica:
 
     def blame(self):
         blame = Blame(self.view, self, self.locked)
-        self.protocol.broadcast(self, blame)
+        raise NotImplementedError
+        self.broadcast(blame)
 
     def receive_msg(self, message):
         if message.type == MessageType.PROPOSE:
-            self.receive_proposal(message)
+            if message.get_hash() in self.proposal_hashes:
+                print(self.id, "RECEIVED REPROPOSAL", flush=True)
+            else:
+                self.proposal_hashes.append(message.get_hash())
+                print(self.id, "RECEIVED PROPOSAL", flush=True)
+                self.receive_proposal(message)
         elif message.type == MessageType.VOTE:
+            print(self.id, "RECEIVED VOTE", flush=True)
             self.receive_vote(message)
         elif message.type == MessageType.BLAME:
+            print(self.id, "RECEIVED BLAME", flush=True)
             self.receive_blame(message)
 
     def receive_blame(self, message):
         view = message.view
-        sender = message.sender
+        sender_id = message.sender
         sender_locked = message.status
-        if sender.id not in self.status:
-            self.status[sender.id] = sender_locked
+        if sender_id not in self.status:
+            self.status[sender_id] = sender_locked
         if len(self.status) >= self.qr:
             self.view_change(self.status)
 
@@ -213,7 +266,7 @@ class Replica:
             return False
 
     def broadcast(self, message):
-        self.protocol.broadcast(self, message)
+        self.protocol.broadcast(message)
 
     def sign_blk(self, block):
         hash_str = block.get_hash()
@@ -221,6 +274,8 @@ class Replica:
         return signature
 
     def verify_signature(self, block, signature, signer):
-        signer_vk = signer.vk
+        signer_vk = self.bls_helper.vk[signer - 1]
         hash_str = block.get_hash()
-        return self.bls_helper.verify_signature(signature, signer_vk, str.encode(hash_str, 'utf-8'))
+        verification = self.bls_helper.verify_signature(signature, signer_vk, str.encode(hash_str, 'utf-8'))
+        return verification
+

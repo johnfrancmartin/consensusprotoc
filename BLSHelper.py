@@ -2,7 +2,8 @@ from bls.scheme import *
 import petlib
 from bplib.bp import G1Elem, G2Elem, BpGroup
 import BFT_pb2
-from time import time
+from time import time, sleep
+import uuid
 
 class BLSHelper:
     def __init__(self, t, n, proto=None):
@@ -121,3 +122,42 @@ class BLSHelper:
         vk = [xi * g2*o.random() for xi in sk]
         vk = [G2Elem.from_bytes(str(v).encode(), G) for v in vk]
         return (sk, vk)
+
+
+# print(str(uuid.uuid4()))
+# bls = BLSHelper(2, 5)
+t = time()
+# sleep(1)
+print(time()-t > 1)
+# sk1 = bls.sk[0]
+# sk2 = bls.sk[1]
+# message = b"asoidhion"
+# sig1 = bls.get_signature(sk1, message)
+# sig2 = bls.get_signature(sk2, message)
+# sigma = bls.aggregate_sigs([sig1, sig2])
+# verify = bls.verify_signature(bls.vk, sigma, message)
+# print(verify)
+# print(type(sigma))
+# print(sigma)
+# h = sigma.hex()
+# from_h = Bn.from_hex(h)
+# print(sigma == from_h)
+# print(from_h)
+# print(h)
+#
+# print(h.encode('utf-8'))
+
+
+# spl = bina.split('0'.encode())
+# # blah = bina.decode()
+# print(spl)
+# preback = Bn.from_binary(bina)
+# print(preback)
+# print(bina)
+# bina = bina.replace(b'x', b'')
+# print(bina)
+# back = Bn.from_binary(bina)
+# print(back)
+#
+# print(back == preback)
+

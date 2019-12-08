@@ -2,11 +2,20 @@ syntax = "proto2";
 
 package bft;
 
+message Wrapper {
+    required string id = 1;
+    optional BLSHelper bls = 3;
+    optional Proposal proposal = 8;
+    optional Vote vote = 9;
+    optional Blame blame = 10;
+}
+
 message Block {
   repeated int32 commands = 1;
   optional int32 view = 2 [default = 0];
   optional int32 height = 3 [default = 0];
-  optional string previous = 4;
+  optional bytes unique_cert = 4;
+  optional string previous = 5;
 }
 
 message Command {
@@ -51,42 +60,20 @@ message Status {
 message Proposal {
   optional Block block = 1;
   optional int32 view = 2;
-  optional Certificate previous = 3;
-  repeated Block status = 4;
-
+  optional bytes previous = 4;
+  repeated Block status = 5;
 }
 
 message Vote {
-
+    optional Block block = 1;
+    optional int32 view = 2;
+    optional bytes signature = 3;
+    optional int32 sender = 4;
 }
 
 message Blame {
-
+    optional int32 view = 2;
+    optional int32 sender = 4;
+    repeated Status states = 5;
 }
-
-class Proposal(Message):
-    def __init__(self, block, view, previous_cert, status, leader, signature):
-        self.block = block
-        self.view = view
-        self.previous_cert = previous_cert
-        self.status = status
-        self.leader = leader
-        self.signature = signature
-        self.reproposal = False
-        super().__init__(MessageType.PROPOSE)
-
-class Vote(Message):
-    def __init__(self, block, view, signature, sender):
-        self.block = block
-        self.view = view
-        self.signature = signature
-        self.sender = sender
-        super().__init__(MessageType.VOTE)
-
-class Blame(Message):
-    def __init__(self, view, sender, status):
-        self.view = view
-        self.sender = sender
-        self.status = status
-        super().__init__(MessageType.BLAME)
 
