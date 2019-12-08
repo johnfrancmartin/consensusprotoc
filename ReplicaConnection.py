@@ -44,7 +44,7 @@ class ReplicaConnection:
         print("CONNECTING TO LESSERS", flush=True)
         if self.replica.id == 1:
             return
-        while len(connections) < self.replica.id - 1:
+        while len(connections) < self.replica.id - 1 and not self.stop:
             for i in range(1, self.replica.id):
                 if i in connections:
                     continue
@@ -64,7 +64,7 @@ class ReplicaConnection:
     def accept_from_greaters(self):
         connections = {}
         print("ACCEPTING FROM GREATERS", flush=True)
-        while len(connections) < self.n - self.replica.id:
+        while len(connections) < self.n - self.replica.id and not self.stop:
             for i in range(self.replica.id + 1, self.n):
                 try:
                     if i in connections:
