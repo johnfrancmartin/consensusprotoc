@@ -41,6 +41,7 @@ class ReplicaConnection:
 
     def connect_to_lessers(self):
         connections = {}
+        print("CONNECTING TO LESSERS", flush=True)
         while len(connections) < self.n - self.replica.id:
             for i in range(0, self.replica.id):
                 if i in connections:
@@ -60,6 +61,7 @@ class ReplicaConnection:
 
     def accept_from_greaters(self):
         connections = {}
+        print("ACCEPTING FROM GREATERS", flush=True)
         while len(connections) < self.n - self.replica.id:
             for i in range(self.replica.id + 1, self.n):
                 try:
@@ -113,8 +115,8 @@ class ReplicaConnection:
                 self.messages.append((i, message))
 
     def run(self):
-        self.accept_from_greaters()
         self.connect_to_lessers()
+        self.accept_from_greaters()
 
         listen_t = Thread(target=self.epoll_listen, args=())
         listen_t.start()
