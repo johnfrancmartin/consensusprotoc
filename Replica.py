@@ -183,10 +183,10 @@ class Replica:
             block.sign(self, signature)
             self.broadcast(Vote(block, self.view, signature, self).get_proto())
         if len(block.signatures) >= self.qr and block.unique_cert is None:
-            block.certify(self.bls_helper)
+            block.certify()
             self.propose_lock(block)
         elif len(block.signatures) >= self.qr:
-            block.certify(self.bls_helper)
+            block.certify()
             self.lock(block)
 
     def receive_vote(self, vote):
