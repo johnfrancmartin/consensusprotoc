@@ -122,7 +122,7 @@ class ReplicaConnection:
             sock.close()
 
     def broadcast(self, message):
-        while len(self.sockets_by_id) < self.n/2:
+        while len(self.sockets) < self.n/2:
             sleep(0.5)
         for i in range(1, self.n+1):
             if i != self.replica.id:
