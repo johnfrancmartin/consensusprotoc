@@ -3,7 +3,8 @@ killall python
 killall python3
 
 source ./venv/bin/activate;
-for i in {0..4}; do
+n = 4
+for i in {0..$n}; do
     echo $i
     python3 replicanetwork.py $i &
     sleep 1
