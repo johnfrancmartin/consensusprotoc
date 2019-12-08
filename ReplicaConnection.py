@@ -43,7 +43,7 @@ class ReplicaConnection:
         connections = {}
         print("CONNECTING TO LESSERS", flush=True)
         while len(connections) < self.n - self.replica.id:
-            for i in range(0, self.replica.id):
+            for i in range(1, self.replica.id):
                 if i in connections:
                     continue
                 try:
