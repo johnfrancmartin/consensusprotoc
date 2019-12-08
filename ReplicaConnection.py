@@ -99,6 +99,19 @@ class ReplicaConnection:
                     self.epoll.unregister(fileno)
                     self.sockets[fileno].connect()
 
+    def epoll_send(self):
+        while not self.stop:
+            if len(self.messages) == 0:
+                continue
+            (replica_id, message) = self.messages.pop(0)
+            try:
+                fileno = self.filenos[replica_id]
+                sock = self.sockets[fileno]
+                print(self.replica.id, "SENT MSG", message.id, flush=True)
+                sendMsg(sock, message)
+            except Exception as e:
+                self.messages.append((replica_id, message))
+                print("FAILED TO SEND", flush=True)
 
     def exit_handler(self):
         print("EXITING", self.replica.id)
@@ -114,6 +127,8 @@ class ReplicaConnection:
                 message.id = str(uuid.uuid4())
                 self.messages.append((i, message))
 
+
+
     def run(self):
         self.connect_to_lessers()
         self.accept_from_greaters()
@@ -124,7 +139,7 @@ class ReplicaConnection:
         execute_t = Thread(target=self.execute, args=())
         execute_t.start()
 
-        send_t = Thread(target=self.send, args=())
+        send_t = Thread(target=self.epoll_send, args=())
         send_t.start()
 
         listen_t.join()
