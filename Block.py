@@ -2,8 +2,7 @@ from Certificate import Certificate
 import hashlib
 from time import time
 import BFT_pb2
-from bls.scheme import Bn
-
+from petlib.bn import Bn
 
 class Block:
     def __init__(self, command, height, view, previous_hash):
