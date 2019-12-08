@@ -150,16 +150,13 @@ class ReplicaConnection:
             if len(self.messages) == 0:
                 continue
             (replica_id, message) = self.messages.pop(0)
-            if message.HasField('proposal') and message.proposal.block.HasField('unique_cert'):
-                print("UNIQUE PROPOSAL")
-                message = Wrapper()
-                message.id = str(uuid.uuid4())
             try:
                 sock = self.sockets_by_id[replica_id]
-                print(self.replica.id, "SENT MSG", message.id)
+                print(self.replica.id, "SENT MSG", message.id, flush=True)
                 sendMsg(sock, message)
             except Exception as e:
                 self.messages.append((replica_id, message))
+                print("FAILED TO SEND", flush=True)
 
     def execute(self):
         while not self.stop:
