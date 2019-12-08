@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/BLSHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/BLSHelper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Replica.py" beforeDir="false" afterPath="$PROJECT_DIR$/Replica.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.7/site-packages/bls/scheme.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/lib/python3.7/site-packages/bls/scheme.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +44,7 @@
           <entry key="json" value="1" />
           <entry key="md" value="1" />
           <entry key="proto" value="8" />
-          <entry key="py" value="111" />
+          <entry key="py" value="115" />
           <entry key="sh" value="7" />
           <entry key="txt" value="6" />
         </counts>
@@ -56,7 +56,7 @@
           <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="7" />
           <entry key="PROTO" value="8" />
-          <entry key="Python" value="111" />
+          <entry key="Python" value="115" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -64,7 +64,7 @@
           <entry key="dummy" value="27" />
           <entry key="md" value="262" />
           <entry key="proto" value="1322" />
-          <entry key="py" value="46441" />
+          <entry key="py" value="46520" />
           <entry key="sh" value="185" />
         </counts>
       </usages-collector>
@@ -74,7 +74,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="27" />
           <entry key="PROTO" value="1322" />
-          <entry key="Python" value="46441" />
+          <entry key="Python" value="46520" />
         </counts>
       </usages-collector>
     </session>
@@ -84,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Replica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="272" column="40" lean-forward="true" selection-start-line="272" selection-start-column="40" selection-end-line="272" selection-end-column="40" />
+            <state relative-caret-position="488">
+              <caret line="255" column="6" selection-start-line="255" selection-start-column="6" selection-end-line="255" selection-end-column="6" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -118,12 +118,36 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BLSHelper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
+            <state relative-caret-position="313">
+              <caret line="123" column="12" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="12" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
-                <marker date="1575800739156" expanded="true" signature="574:580" ph="..." />
-                <marker date="1575800739156" expanded="true" signature="1812:1818" ph="..." />
+                <marker date="1575801930230" expanded="true" signature="591:597" ph="..." />
+                <marker date="1575801930230" expanded="true" signature="1829:1835" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/bls/scheme.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="372">
+              <caret line="55" column="60" lean-forward="true" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="60" />
+              <folding>
+                <element signature="e#29#65#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/bplib/bp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="119" column="14" selection-start-line="119" selection-start-column="8" selection-end-line="119" selection-end-column="14" />
+              <folding>
+                <element signature="e#537#558#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -180,8 +204,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>== bl</find>
-      <find>==</find>
       <find>proposed.get</find>
       <find>BLAH</find>
       <find>propose_lock</find>
@@ -209,6 +231,8 @@
       <find>Bn(</find>
       <find>cffi</find>
       <find>import Bn</find>
+      <find>hashG1</find>
+      <find>sign(</find>
       <find>print</find>
     </findStrings>
     <dirStrings>
@@ -247,7 +271,6 @@
         <option value="$PROJECT_DIR$/run.sh" />
         <option value="$PROJECT_DIR$/RunNetwork.sh" />
         <option value="$PROJECT_DIR$/CreateBLS.py" />
-        <option value="$PROJECT_DIR$/venv/lib/python3.7/site-packages/bls/scheme.py" />
         <option value="$PROJECT_DIR$/venv/lib/python3.7/site-packages/petlib/bn.py" />
         <option value="$PROJECT_DIR$/BFT.proto" />
         <option value="$PROJECT_DIR$/replicanetwork.py" />
@@ -260,6 +283,7 @@
         <option value="$PROJECT_DIR$/Block.py" />
         <option value="$PROJECT_DIR$/MessageType.py" />
         <option value="$PROJECT_DIR$/Replica.py" />
+        <option value="$PROJECT_DIR$/venv/lib/python3.7/site-packages/bls/scheme.py" />
         <option value="$PROJECT_DIR$/BLSHelper.py" />
       </list>
     </option>
@@ -273,7 +297,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="18" />
     <option name="y" value="23" />
-    <option name="width" value="1530" />
+    <option name="width" value="1041" />
     <option name="height" value="959" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -293,6 +317,36 @@
               <item name="ConsensusProtocol" type="b2602c69:ProjectViewProjectNode" />
               <item name="ConsensusProtocol" type="462c0819:PsiDirectoryNode" />
               <item name="venv" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ConsensusProtocol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ConsensusProtocol" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ConsensusProtocol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ConsensusProtocol" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ConsensusProtocol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ConsensusProtocol" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ConsensusProtocol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ConsensusProtocol" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="bplib" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -433,15 +487,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="18" y="23" width="1530" height="959" extended-state="0" />
+    <frame x="18" y="23" width="1041" height="959" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18413979" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27427426" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32911393" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19146483" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19146483" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3979239" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -542,16 +596,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/bplib/bp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1577">
-          <caret line="169" selection-start-line="169" selection-end-line="169" />
-          <folding>
-            <element signature="e#537#558#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -634,6 +678,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1050">
           <caret line="76" column="35" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -854,34 +901,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Replica.py">
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/bplib/bp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="272" column="40" lean-forward="true" selection-start-line="272" selection-start-column="40" selection-end-line="272" selection-end-column="40" />
+        <state relative-caret-position="208">
+          <caret line="119" column="14" selection-start-line="119" selection-start-column="8" selection-end-line="119" selection-end-column="14" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#537#558#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/bls/scheme.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
+        <state relative-caret-position="372">
+          <caret line="55" column="60" lean-forward="true" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="60" />
           <folding>
             <element signature="e#29#65#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Replica.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="255" column="6" selection-start-line="255" selection-start-column="6" selection-end-line="255" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BLSHelper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
+        <state relative-caret-position="313">
+          <caret line="123" column="12" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="12" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
-            <marker date="1575800739156" expanded="true" signature="574:580" ph="..." />
-            <marker date="1575800739156" expanded="true" signature="1812:1818" ph="..." />
+            <marker date="1575801930230" expanded="true" signature="591:597" ph="..." />
+            <marker date="1575801930230" expanded="true" signature="1829:1835" ph="..." />
           </folding>
         </state>
       </provider>

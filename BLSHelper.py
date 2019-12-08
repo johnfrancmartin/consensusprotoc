@@ -5,6 +5,7 @@ import BFT_pb2
 from time import time, sleep
 import uuid
 from petlib.bn import Bn
+import traceback
 
 class BLSHelper:
     def __init__(self, t, n, proto=None):
@@ -113,7 +114,14 @@ class BLSHelper:
         print(type(sk))
         print(message)
         print(type(message))
-        return sign(self.params, sk, message)
+        try:
+            return sign(self.params, sk, message)
+        except Exception as e:
+            try:
+                raise TypeError("Again !?!")
+            except:
+                pass
+            traceback.print_tb(e.__traceback__)
 
     def keygen(self, params, t, n):
         """ generate keys for threshold signature (executed by a TTP) """
