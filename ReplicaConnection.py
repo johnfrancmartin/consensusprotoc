@@ -41,6 +41,8 @@ class ReplicaConnection:
         self.serversocket.listen(self.n)
 
         self.recv_times = []
+        self.send_times = []
+        self.process_times = []
 
     def connect_to_lessers(self):
         connections = {}
@@ -91,15 +93,18 @@ class ReplicaConnection:
                 if event & select.EPOLLIN:
                     sock = self.sockets[fileno]
                     wrapper = Wrapper()
+                    start = time()
                     msg = self.recv_msg(sock, wrapper)
                     if msg is None:
                         continue
+                    recv_time = time() - start
+                    self.recv_times.append(recv_time)
                     # print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
                     python_msg = self.get_python_message(msg)
                     start = time()
                     self.replica.receive_msg(python_msg)
                     process_time = time() - start
-                    self.recv_times.append(process_time)
+                    self.process_times.append(process_time)
                     # self.received.append(python_msg)
                     # message = self.sockets[fileno].recv(1024)
                 elif event & select.EPOLLOUT:
@@ -120,7 +125,10 @@ class ReplicaConnection:
                 fileno = self.filenos[replica_id]
                 sock = self.sockets[fileno]
                 # print(self.replica.id, "SENT MSG", message.id, flush=True)
+                start = time()
                 self.send_msg(sock, message)
+                recv_time = time() - start
+                self.send_times.append(recv_time)
             except Exception as e:
                 self.messages.append((replica_id, message))
                 # print("FAILED TO SEND", flush=True)
@@ -136,7 +144,9 @@ class ReplicaConnection:
         print("AVG CERT TIME", avg_cert)
         per_sec = 1/avg_cert
         print("CERTS PER SEC", per_sec)
-        print("AVERAGE RECEIVE PROCESSING TIME", sum(self.recv_times)/len(self.recv_times))
+        print("AVERAGE RECEIVE TIME:", sum(self.recv_times)/len(self.recv_times))
+        print("AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
+        print("AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
         self.local_sock.close()
         for replica_id, sock in self.sockets_by_id.items():
             sock.close()
