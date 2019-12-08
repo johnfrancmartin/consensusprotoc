@@ -125,7 +125,7 @@ class ReplicaConnection:
         self.local_sock.close()
         for replica_id, sock in self.sockets_by_id.items():
             sock.close()
-        for sock in self.sockets:
+        for f, sock in self.sockets.items():
             sock.close()
         self.stop = True
 
