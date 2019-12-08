@@ -243,7 +243,7 @@ class ReplicaConnection:
             proposal = Proposal.get_from_proto(message.proposal)
             return proposal
         elif message.HasField('vote'):
-            return Vote.get_from_proto(message.vote)
+            return Vote.get_from_proto(message.vote, self.replica.bls_helper.params[0])
         elif message.HasField('blame'):
             blame_proto = message.blame
             raise NotImplementedError

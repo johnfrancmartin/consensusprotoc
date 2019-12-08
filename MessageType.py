@@ -2,6 +2,7 @@ from enum import Enum
 import BFT_pb2
 from Block import Block
 from petlib.bn import Bn
+from bplib.bp import G1Elem
 import hashlib
 
 class MessageType(Enum):
@@ -61,12 +62,14 @@ class Vote(Message):
         wrapper_proto.vote.view = self.view
         # proto.signature =
         wrapper_proto.vote.sender = self.sender.id
-        wrapper_proto.vote.signature = self.signature.hex().encode('utf-8')
+        # wrapper_proto.vote.signature = self.signature.hex().encode('utf-8')
+        wrapper_proto.vote.signature = self.signature.export()
         return wrapper_proto
 
     @staticmethod
-    def get_from_proto(proto):
-        signature = Bn.from_hex(proto.signature.decode('utf-8'))
+    def get_from_proto(proto, group):
+        # signature = Bn.from_hex(proto.signature.decode('utf-8'))
+        signature = G1Elem.from_bytes(proto.signature, )
         return Vote(Block.get_from_proto(proto.block), proto.view, signature, proto.sender)
 
 class Blame(Message):
