@@ -1,6 +1,5 @@
 import sys
 from Replica import Replica
-from BLSHelper import BLSHelper
 import BFT_pb2
 from google.protobuf.json_format import Parse
 

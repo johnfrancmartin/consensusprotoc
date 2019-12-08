@@ -1,13 +1,8 @@
 from Block import Block
 from time import time, sleep
 from MessageType import MessageType, Proposal, Vote, Blame
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import padding
-from BLSHelper import BLSHelper
 from ReplicaConnection import ReplicaConnection
 import math
-from threading import Thread
-from BFT_pb2 import Wrapper
 import json
 from Crypto.PublicKey import RSA
 import Crypto.Util.number as CUN

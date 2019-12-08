@@ -1,4 +1,3 @@
-from BLSHelper import BLSHelper
 import sys
 from google.protobuf.json_format import MessageToJson
 

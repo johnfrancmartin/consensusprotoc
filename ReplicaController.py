@@ -8,7 +8,6 @@ from MessageType import MessageType
 from time import sleep
 from CONFIG import PROTOCOL_PORT
 from SocketHelper import SocketDisconnectedException
-from BLSHelper import BLSHelper
 
 # Central Authority
 class ReplicaController:

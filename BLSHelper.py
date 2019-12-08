@@ -136,17 +136,17 @@ class BLSHelper:
 # Bn(0)
 
 # print(str(uuid.uuid4()))
-bls = BLSHelper(3, 5)
-sk1 = bls.sk[0]
-sk2 = bls.sk[1]
-sk3 = bls.sk[2]
-message = b"asoidhion"
-sig1 = bls.get_signature(sk1, message)
-sig2 = bls.get_signature(sk2, message)
-sig3 = bls.get_signature(sk3, message)
-sigma = bls.aggregate_sigs([sig1])
-verify = bls.verify_signatures(bls.vk, [sig1], message)
-print(verify)
+# bls = BLSHelper(3, 5)
+# sk1 = bls.sk[0]
+# sk2 = bls.sk[1]
+# sk3 = bls.sk[2]
+# message = b"asoidhion"
+# sig1 = bls.get_signature(sk1, message)
+# sig2 = bls.get_signature(sk2, message)
+# sig3 = bls.get_signature(sk3, message)
+# sigma = bls.aggregate_sigs([sig1])
+# verify = bls.verify_signatures(bls.vk, [sig1], message)
+# print(verify)
 # print(verify)
 # print(type(sigma))
 # print(sigma)
