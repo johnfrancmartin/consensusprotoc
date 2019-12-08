@@ -69,10 +69,10 @@ class Block:
 
     def certify(self):
         if self.unique_cert is None:
-            sigs = [sig for sender, sig in self.signatures.items()]
+            sigs = [str(sig) for sender, sig in self.signatures.items()]
             self.unique_cert = ":".join(sigs)
         else:
-            sigs = [sig for sender, sig in self.signatures.items()]
+            sigs = [str(sig) for sender, sig in self.signatures.items()]
             self.certification = ":".join(sigs)
 
     def verify_cert(self, public_keys_dict, cert, qr):
