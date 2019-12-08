@@ -1,7 +1,7 @@
 from enum import Enum
 import BFT_pb2
 from Block import Block
-from bls.scheme import Bn
+from petlib.bn import Bn
 import hashlib
 
 class MessageType(Enum):

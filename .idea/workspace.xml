@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Block.py" beforeDir="false" afterPath="$PROJECT_DIR$/Block.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MessageType.py" beforeDir="false" afterPath="$PROJECT_DIR$/MessageType.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +43,7 @@
           <entry key="json" value="1" />
           <entry key="md" value="1" />
           <entry key="proto" value="8" />
-          <entry key="py" value="109" />
+          <entry key="py" value="110" />
           <entry key="sh" value="7" />
           <entry key="txt" value="6" />
         </counts>
@@ -55,7 +55,7 @@
           <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="7" />
           <entry key="PROTO" value="8" />
-          <entry key="Python" value="109" />
+          <entry key="Python" value="110" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -125,11 +125,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Block.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+            <state relative-caret-position="32">
+              <caret line="4" column="15" selection-start-line="4" selection-end-line="5" />
               <folding>
                 <marker date="1575800101799" expanded="true" signature="126:131" ph="..." />
                 <marker date="1575800101799" expanded="true" signature="613:619" ph="..." />
@@ -158,6 +158,20 @@
               <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MessageType.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+              <folding>
+                <marker date="1575800153303" expanded="true" signature="126:131" ph="..." />
+                <marker date="1575800153303" expanded="true" signature="199:204" ph="..." />
+                <marker date="1575800153303" expanded="true" signature="280:285" ph="..." />
               </folding>
             </state>
           </provider>
@@ -207,7 +221,6 @@
       <find>EXCEPTION SENDING</find>
       <find>Error</find>
       <find>select</find>
-      <find>print</find>
       <find>sockets_by_id</find>
       <find>uuid</find>
       <find>unique</find>
@@ -218,6 +231,7 @@
       <find>import Bn</find>
       <find>cffi</find>
       <find>Bn(</find>
+      <find>print</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/venv</dir>
@@ -257,7 +271,6 @@
         <option value="$PROJECT_DIR$/CreateBLS.py" />
         <option value="$PROJECT_DIR$/venv/lib/python3.7/site-packages/bls/scheme.py" />
         <option value="$PROJECT_DIR$/venv/lib/python3.7/site-packages/petlib/bn.py" />
-        <option value="$PROJECT_DIR$/MessageType.py" />
         <option value="$PROJECT_DIR$/BFT.proto" />
         <option value="$PROJECT_DIR$/replicanetwork.py" />
         <option value="$PROJECT_DIR$/ReplicaConnection.py" />
@@ -269,6 +282,7 @@
         <option value="$PROJECT_DIR$/BLSHelper.py" />
         <option value="$PROJECT_DIR$/Main.sh" />
         <option value="$PROJECT_DIR$/Block.py" />
+        <option value="$PROJECT_DIR$/MessageType.py" />
       </list>
     </option>
   </component>
@@ -781,35 +795,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MessageType.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="47" selection-start-line="47" selection-end-line="47" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <marker date="1575789425053" expanded="true" signature="127:132" ph="..." />
-            <marker date="1575789425053" expanded="true" signature="200:205" ph="..." />
-            <marker date="1575789425053" expanded="true" signature="281:286" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ReplicaController.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="618">
           <caret line="106" column="31" selection-start-line="106" selection-start-column="31" selection-end-line="106" selection-end-column="31" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ReplicaMain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -885,11 +876,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Block.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+        <state relative-caret-position="32">
+          <caret line="4" column="15" selection-start-line="4" selection-end-line="5" />
           <folding>
             <marker date="1575800101799" expanded="true" signature="126:131" ph="..." />
             <marker date="1575800101799" expanded="true" signature="613:619" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ReplicaMain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MessageType.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <marker date="1575800153303" expanded="true" signature="126:131" ph="..." />
+            <marker date="1575800153303" expanded="true" signature="199:204" ph="..." />
+            <marker date="1575800153303" expanded="true" signature="280:285" ph="..." />
           </folding>
         </state>
       </provider>
