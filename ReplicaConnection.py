@@ -42,7 +42,7 @@ class ReplicaConnection:
     def connect_to_lessers(self):
         connections = {}
         print("CONNECTING TO LESSERS", flush=True)
-        while len(connections) < self.n - self.replica.id:
+        while len(connections) < self.replica.id - 1:
             for i in range(1, self.replica.id):
                 if i in connections:
                     continue
