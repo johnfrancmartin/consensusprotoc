@@ -16,6 +16,7 @@ HOST = "127.0.0.1"
 
 class ReplicaConnection:
     def __init__(self, n, replica):
+        self.print = replica.print
         self.n = n
         self.start = time()
         self.replica = replica
@@ -108,9 +109,11 @@ class ReplicaConnection:
                     # self.received.append(python_msg)
                     # message = self.sockets[fileno].recv(1024)
                 elif event & select.EPOLLOUT:
-                    print("EOLLOUT!")
+                    if self.print:
+                        print("EOLLOUT!")
                 elif event & select.EPOLLHUP:
-                    print("EPOLLHUP!")
+                    if self.print:
+                        print("EPOLLHUP!")
                     self.epoll.unregister(fileno)
                     self.sockets[fileno].connect()
 
@@ -157,7 +160,8 @@ class ReplicaConnection:
     def broadcast(self, message):
         while len(self.sockets) < self.n/2:
             continue
-        print("BROADCAST", flush=True)
+        if self.print:
+            print("BROADCAST", flush=True)
         for i in range(1, self.n+1):
             if i != self.replica.id:
                 message.id = str(uuid.uuid4())
@@ -210,11 +214,13 @@ class ReplicaConnection:
             (replica_id, message) = self.messages.pop(0)
             try:
                 sock = self.sockets_by_id[replica_id]
-                print(self.replica.id, "SENT MSG", message.id, flush=True)
+                if self.print:
+                    print(self.replica.id, "SENT MSG", message.id, flush=True)
                 self.send_msg(sock, message)
             except Exception as e:
                 self.messages.append((replica_id, message))
-                print("FAILED TO SEND", flush=True)
+                if self.print:
+                    print("FAILED TO SEND", flush=True)
 
     def execute(self):
         while not self.stop:
@@ -330,14 +336,16 @@ class ReplicaConnection:
             try:
                 msg = prototype.SerializeToString()
             except:
-                print("ERROR SERIALIZING TO STRING")
+                if self.print:
+                    print("ERROR SERIALIZING TO STRING")
             if msg is None:
                 raise Exception
             _EncodeVarint(s.sendall, len(msg), None)
             try:
                 s.sendall(msg)
             except:
-                print("SOCKET DISCONNECTED EXCEPTION")
+                if self.print:
+                    print("SOCKET DISCONNECTED EXCEPTION")
                 raise SocketDisconnectedException("Socket Disconnected")
 
     def recv_msg(self, sock, prototype):

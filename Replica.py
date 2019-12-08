@@ -12,6 +12,7 @@ import os
 class Replica:
     def __init__(self, n, id):
         # Replica Core
+        self.print = False
         self.n = n
         self.f = math.floor(n / 3)  # max-f for now
         self.qr = 2 * self.f + 1
@@ -71,12 +72,14 @@ class Replica:
 
     def network_initialized(self):
         if self.id == self.view % self.protocol.n:
-            print("LEADER", flush=True)
+            if self.print:
+                print("LEADER", flush=True)
             try:
                 self.leader = True
                 self.propose(False, {})
             except Exception as e:
-                print("Exception:", e, flush=True)
+                if self.print:
+                    print("Exception:", e, flush=True)
 
     def stop(self):
         self.protocol.stop = True
@@ -100,7 +103,8 @@ class Replica:
 
     def create_block(self, previous):
         while len(self.commands_queue) == 0 and not self.stop:
-            print("SLEEP", flush=True)
+            if self.print:
+                print("SLEEP", flush=True)
             sleep(0.1)
         command = self.commands_queue.pop(0)
         previous_hash = None
@@ -137,7 +141,8 @@ class Replica:
 
     def propose_lock(self, block):
         if self.leader:
-            print(self.id, "PROPOSED UNIQUE", flush=True)
+            if self.print:
+                print(self.id, "PROPOSED UNIQUE", flush=True)
             signature = self.sign_blk(block)
             block.sign(self.id, signature)
             proposal = Proposal(block, self.view, block.previous_hash, {})
@@ -189,7 +194,8 @@ class Replica:
         verify = self.verify_signature(block, signature, sender_id)
         if not verify:
             # If signature not valid, blame sender
-            print("BLAME FOR INVALID SIGNATURE", flush=True)
+            if self.print:
+                print("BLAME FOR INVALID SIGNATURE", flush=True)
             self.blame()
             return
         elif block_hash in self.blocks:
@@ -200,9 +206,10 @@ class Replica:
             self.blocks[block_hash] = block
         if vote.view == self.view and self.proposed is not None and block.height == self.proposed.height and block_hash != self.proposed.get_hash():
             # If same view, height and different ID
-            print("BLAME FOR EQUIVOCATING BLOCK", flush=True)
-            print("PROPOSED", self.proposed.get_hash(), flush=True)
-            print("NEW", block_hash, flush=True)
+            if self.print:
+                print("BLAME FOR EQUIVOCATING BLOCK", flush=True)
+                print("PROPOSED", self.proposed.get_hash(), flush=True)
+                print("NEW", block_hash, flush=True)
             self.blame()
             return
         elif vote.view == self.view and block_hash not in self.blocks:
@@ -220,10 +227,12 @@ class Replica:
             return
         self.locked = block
         self.status[self.id] = block
-        print(self.id, "CERTIFIED BLOCK", block.get_hash(), flush=True)
+        if self.print:
+            print(self.id, "CERTIFIED BLOCK", block.get_hash(), flush=True)
         self.certified.append(block)
         if self.leader:
-            print("LEADER PROPOSE", flush=True)
+            if self.print:
+                print("LEADER PROPOSE", flush=True)
             self.propose(True, self.status)
         else:
             for prop in self.pending_proposals:
@@ -240,16 +249,20 @@ class Replica:
     def receive_msg(self, message):
         if message.type == MessageType.PROPOSE:
             if message.get_hash() in self.proposal_hashes:
-                print(self.id, "RECEIVED REPROPOSAL", flush=True)
+                if self.print:
+                    print(self.id, "RECEIVED REPROPOSAL", flush=True)
             else:
                 self.proposal_hashes.append(message.get_hash())
-                print(self.id, "RECEIVED PROPOSAL", flush=True)
+                if self.print:
+                    print(self.id, "RECEIVED PROPOSAL", flush=True)
                 self.receive_proposal(message)
         elif message.type == MessageType.VOTE:
-            print(self.id, "RECEIVED VOTE", flush=True)
+            if self.print:
+                print(self.id, "RECEIVED VOTE", flush=True)
             self.receive_vote(message)
         elif message.type == MessageType.BLAME:
-            print(self.id, "RECEIVED BLAME", flush=True)
+            if self.print:
+                print(self.id, "RECEIVED BLAME", flush=True)
             self.receive_blame(message)
 
     def receive_blame(self, message):
