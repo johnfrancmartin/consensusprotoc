@@ -40,6 +40,8 @@ class ReplicaConnection:
         self.serversocket.bind((socket.gethostname(), self.local_port))
         self.serversocket.listen(self.n)
 
+        self.recv_times = []
+
     def connect_to_lessers(self):
         connections = {}
         print("CONNECTING TO LESSERS", flush=True)
@@ -94,7 +96,10 @@ class ReplicaConnection:
                         continue
                     # print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
                     python_msg = self.get_python_message(msg)
+                    start = time()
                     self.replica.receive_msg(python_msg)
+                    process_time = start - time()
+                    self.recv_times.append(process_time)
                     # self.received.append(python_msg)
                     # message = self.sockets[fileno].recv(1024)
                 elif event & select.EPOLLOUT:
@@ -131,6 +136,7 @@ class ReplicaConnection:
         print("AVG CERT TIME", avg_cert)
         per_sec = 1/avg_cert
         print("CERTS PER SEC", per_sec)
+        print("AVERAGE RECEIVE PROCESSING TIME", sum(self.recv_times)/len(self.recv_times))
         self.local_sock.close()
         for replica_id, sock in self.sockets_by_id.items():
             sock.close()
