@@ -11,7 +11,7 @@ python3 ./ReplicaMain.py 4 2 &
 sleep 1
 python3 ./ReplicaMain.py 4 3 &
 sleep 1
-python3 ./ReplicaMain.py 4 4 &
+python3 ./ReplicaMain.py 4 4;
 
 #n = 4
 #for i in {1..4}; do
