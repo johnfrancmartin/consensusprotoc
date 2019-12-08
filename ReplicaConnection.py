@@ -124,6 +124,7 @@ class ReplicaConnection:
     def broadcast(self, message):
         while len(self.sockets) < self.n/2:
             sleep(0.5)
+        print("BROADCAST", flush=True)
         for i in range(1, self.n+1):
             if i != self.replica.id:
                 message.id = str(uuid.uuid4())
