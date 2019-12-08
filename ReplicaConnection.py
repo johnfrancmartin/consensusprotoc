@@ -92,7 +92,7 @@ class ReplicaConnection:
                     msg = self.recv_msg(sock, wrapper)
                     if msg is None:
                         continue
-                    print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
+                    # print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
                     python_msg = self.get_python_message(msg)
                     self.replica.receive_msg(python_msg)
                     # self.received.append(python_msg)
@@ -111,11 +111,10 @@ class ReplicaConnection:
                 sleep(1)
                 continue
             (replica_id, message) = self.messages.pop(0)
-            print("MESSAGE TO", replica_id, flush=True)
             try:
                 fileno = self.filenos[replica_id]
                 sock = self.sockets[fileno]
-                print(self.replica.id, "SENT MSG", message.id, flush=True)
+                # print(self.replica.id, "SENT MSG", message.id, flush=True)
                 self.send_msg(sock, message)
             except Exception as e:
                 self.messages.append((replica_id, message))
@@ -337,7 +336,6 @@ class ReplicaConnection:
         try:
             whole_msg = sock.recv(msg_len)
             prototype.ParseFromString(whole_msg)
-            print("RECEIVED", prototype.id)
             sock.setblocking(0)
             return prototype
         except BlockingIOError:
@@ -349,7 +347,6 @@ class ReplicaConnection:
             try:
                 whole_msg = sock.recv(msg_len)
                 prototype.ParseFromString(whole_msg)
-                print("RECEIVED", prototype.id)
                 sock.setblocking(0)
                 return prototype
             except:
