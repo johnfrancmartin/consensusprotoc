@@ -108,7 +108,7 @@ class ReplicaConnection:
         while not self.stop:
             if len(self.messages) == 0:
                 # print("NO MESSAGES TO SEND", flush=True)
-                sleep(0.01)
+                # sleep(0.01)
                 continue
             (replica_id, message) = self.messages.pop(0)
             try:
@@ -138,7 +138,7 @@ class ReplicaConnection:
 
     def broadcast(self, message):
         while len(self.sockets) < self.n/2:
-            sleep(0.1)
+            continue
         print("BROADCAST", flush=True)
         for i in range(1, self.n+1):
             if i != self.replica.id:
@@ -158,11 +158,9 @@ class ReplicaConnection:
         # execute_t = Thread(target=self.execute, args=())
         # execute_t.start()
 
-        send_t = Thread(target=self.epoll_send, args=())
-        send_t.start()
+        self.epoll_send()
 
         listen_t.join()
-        send_t.join()
         # execute_t.join()
 
         # connect_t = Thread(target=self.connect_to_replicas, args=())
