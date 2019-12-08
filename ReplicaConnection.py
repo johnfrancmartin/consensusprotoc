@@ -98,7 +98,7 @@ class ReplicaConnection:
                     python_msg = self.get_python_message(msg)
                     start = time()
                     self.replica.receive_msg(python_msg)
-                    process_time = start - time()
+                    process_time = time() - start
                     self.recv_times.append(process_time)
                     # self.received.append(python_msg)
                     # message = self.sockets[fileno].recv(1024)
