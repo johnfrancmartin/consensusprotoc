@@ -129,6 +129,8 @@ class ReplicaConnection:
         print("IN", duration, "seconds")
         avg_cert = duration/total_certs
         print("AVG CERT TIME", avg_cert)
+        per_sec = 1/avg_cert
+        print("CERTS PER SEC", per_sec)
         self.local_sock.close()
         for replica_id, sock in self.sockets_by_id.items():
             sock.close()
