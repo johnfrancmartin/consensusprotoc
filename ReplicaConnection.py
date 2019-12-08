@@ -107,8 +107,8 @@ class ReplicaConnection:
     def epoll_send(self):
         while not self.stop:
             if len(self.messages) == 0:
-                print("NO MESSAGES TO SEND", flush=True)
-                sleep(0.05)
+                # print("NO MESSAGES TO SEND", flush=True)
+                sleep(0.01)
                 continue
             (replica_id, message) = self.messages.pop(0)
             try:
@@ -339,7 +339,7 @@ class ReplicaConnection:
                 if new_pos != 0:
                     break
             except Exception as e:
-                print("ERROR RECEIVING MSG", e)
+                # print("ERROR RECEIVING MSG", e)
                 pass
         try:
             whole_msg = sock.recv(msg_len)
