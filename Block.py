@@ -77,6 +77,7 @@ class Block:
             self.unique_cert = cert
         else:
             self.certification = cert
+        print("MADE CERTIFICATE", self.unique_cert, type(self.unique_cert), flush=True)
 
 
     def verify_cert(self, public_keys_dict, cert, qr):
