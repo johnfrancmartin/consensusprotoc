@@ -64,7 +64,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1328" />
-          <entry key="py" value="51622" />
+          <entry key="py" value="51639" />
           <entry key="sh" value="229" />
         </counts>
       </usages-collector>
@@ -74,7 +74,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1328" />
-          <entry key="Python" value="51622" />
+          <entry key="Python" value="51639" />
         </counts>
       </usages-collector>
     </session>
@@ -97,13 +97,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Block.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="78" column="37" lean-forward="true" selection-start-line="78" selection-start-column="37" selection-end-line="78" selection-end-column="37" />
+            <state relative-caret-position="71">
+              <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <marker date="1575847322451" expanded="true" signature="101:106" ph="..." />
-                <marker date="1575847322451" expanded="true" signature="588:594" ph="..." />
-                <marker date="1575847322451" expanded="true" signature="2669:3015" ph="..." />
+                <marker date="1575847629439" expanded="true" signature="101:106" ph="..." />
+                <marker date="1575847629439" expanded="true" signature="598:604" ph="..." />
+                <marker date="1575847629439" expanded="true" signature="2689:3035" ph="..." />
               </folding>
             </state>
           </provider>
@@ -201,7 +201,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>G2Elem</find>
       <find>__mul</find>
       <find>mul</find>
       <find>G1ELE</find>
@@ -231,6 +230,7 @@
       <find>print</find>
       <find>SocketHelper</find>
       <find>.sign</find>
+      <find>self.unique</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/venv</dir>
@@ -912,13 +912,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Block.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="78" column="37" lean-forward="true" selection-start-line="78" selection-start-column="37" selection-end-line="78" selection-end-column="37" />
+        <state relative-caret-position="71">
+          <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <marker date="1575847322451" expanded="true" signature="101:106" ph="..." />
-            <marker date="1575847322451" expanded="true" signature="588:594" ph="..." />
-            <marker date="1575847322451" expanded="true" signature="2669:3015" ph="..." />
+            <marker date="1575847629439" expanded="true" signature="101:106" ph="..." />
+            <marker date="1575847629439" expanded="true" signature="598:604" ph="..." />
+            <marker date="1575847629439" expanded="true" signature="2689:3035" ph="..." />
           </folding>
         </state>
       </provider>

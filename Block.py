@@ -16,8 +16,8 @@ class Block:
         if height > 0 and previous_hash is None:
             raise NotImplementedError
         self.signatures = {}
-        self.unique_cert = None
-        self.certification = None
+        self.unique_cert: str = None
+        self.certification: str = None
 
     def get_proto(self):
         proto = BFT_pb2.Block()
@@ -46,7 +46,7 @@ class Block:
         block = Block(command, proto.height, proto.view, proto.previous)
         unique_cert = proto.unique_cert
         if unique_cert is not None and unique_cert != "":
-            block.unique_cert = proto.unique_cert
+            block.unique_cert = str(proto.unique_cert)
         return block
 
     def clone_for_view(self, view):
@@ -72,7 +72,7 @@ class Block:
         for sender, sig in self.signatures.items():
             str_sig = str(sig)
             siggies.append(str_sig)
-        cert = ":".join(siggies)
+        cert: str = ":".join(siggies)
         if self.unique_cert is None:
             self.unique_cert = cert
         else:
