@@ -14,7 +14,7 @@ def main():
         bls_proto = BFT_pb2.BLSHelper()
         Parse(data, bls_proto)
     replica = Replica(n, id, bls_proto)
-    print("Running Replica,", id, flush=True)
+    print("Running Replica,", id)
     try:
         replica.run()
     except KeyboardInterrupt:

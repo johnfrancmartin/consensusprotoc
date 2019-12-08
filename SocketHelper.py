@@ -17,14 +17,14 @@ def sendMsg(s, protoType):
         try:
             msg = protoType.SerializeToString()
         except:
-            print("ERROR SERIALIZING TO STRING", flush=True)
+            print("ERROR SERIALIZING TO STRING")
         if msg is None:
             raise Exception
         _EncodeVarint(s.sendall, len(msg), None)
         try:
             s.sendall(msg)
         except:
-            print("SOCKET DISCONNECTED EXCEPTION", flush=True)
+            print("SOCKET DISCONNECTED EXCEPTION")
             raise SocketDisconnectedException("Socket Disconnected")
 
 def recvMsg(sock, prototype):
@@ -32,7 +32,7 @@ def recvMsg(sock, prototype):
     while True:
         buf = sock.recv(1)
         if not buf:
-            print("RETURNING DUE TO EMPTY BUF", flush=True)
+            print("RETURNING DUE TO EMPTY BUF")
             return
         var_int_buff += buf
         try:
@@ -40,7 +40,7 @@ def recvMsg(sock, prototype):
             if new_pos != 0:
                 break
         except Exception as e:
-            print("ERROR RECEIVING MSG", e, flush=True)
+            print("ERROR RECEIVING MSG", e)
             pass
     print(msg_len)
     whole_msg = sock.recv(msg_len)
@@ -56,11 +56,11 @@ def recvMsg2(s, protoType):
     if ready[0]:
         while True:
             if time() - start > 0.1:
-                print("RETURNING DUE TO TIMEOUT", flush=True)
+                print("RETURNING DUE TO TIMEOUT")
                 return
             buf = s.recv(1)
             if not buf:
-                print("RETURNING DUE TO EMPTY BUF", flush=True)
+                print("RETURNING DUE TO EMPTY BUF")
                 return
             var_int_buff += buf
             try:
@@ -68,7 +68,7 @@ def recvMsg2(s, protoType):
                 if new_pos != 0:
                     break
             except Exception as e:
-                print("ERROR RECEIVING MSG", e, flush=True)
+                print("ERROR RECEIVING MSG", e)
                 pass
         print(msg_len)
         whole_msg = s.recv(msg_len)
@@ -76,7 +76,7 @@ def recvMsg2(s, protoType):
         print("RECEIVED", protoType.id)
         return protoType
     else:
-        # print("RETURNING DUE TO TIMEOUT", flush=True)
+        # print("RETURNING DUE TO TIMEOUT")
         return
 
 

@@ -42,7 +42,7 @@ class Block:
             commands.append(command)
         if len(commands) == 0:
             command = 0
-            print("NO COMMANDS", flush=True)
+            print("NO COMMANDS")
         else:
             command = commands[0]
         block = Block(command, proto.height, proto.view, proto.previous)

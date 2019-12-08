@@ -21,7 +21,7 @@ class ReplicaConnection:
         self.stop = False
         self.sockets_by_id = {}
         port = 2000+replica.id
-        print(port, flush=True)
+        print(port)
         self.local_sock = self.listen_socket_init(socket.gethostname(), 2000+replica.id)
         self.messages = []
         self.received = []
@@ -48,7 +48,7 @@ class ReplicaConnection:
             self.sockets[s.fileno()] = s
             self.IDs[s.fileno()] = i
             self.filenos[i] = s.fileno()
-            print(self.replica.id, "connected to", i, flush=True)
+            print(self.replica.id, "connected to", i)
 
     def accept_from_greaters(self):
         for i in range(self.replica.id + 1, self.n):
@@ -70,7 +70,7 @@ class ReplicaConnection:
                     msg = recvMsg(sock, wrapper)
                     if msg is None:
                         continue
-                    print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
+                    print(self.replica.id, "RECEIVED MESSAGE", msg.id)
                     python_msg = self.get_python_message(msg)
                     self.received.append(python_msg)
                     message = self.sockets[fileno].recv(1024)
@@ -83,7 +83,7 @@ class ReplicaConnection:
 
 
     def exit_handler(self):
-        print("EXITING", self.replica.id, flush=True)
+        print("EXITING", self.replica.id)
         self.local_sock.close()
         for replica_id, sock in self.sockets_by_id.items():
             sock.close()
@@ -141,12 +141,12 @@ class ReplicaConnection:
                 continue
             (replica_id, message) = self.messages.pop(0)
             if message.HasField('proposal') and message.proposal.block.HasField('unique_cert'):
-                print("UNIQUE PROPOSAL", flush=True)
+                print("UNIQUE PROPOSAL")
                 message = Wrapper()
                 message.id = str(uuid.uuid4())
             try:
                 sock = self.sockets_by_id[replica_id]
-                print(self.replica.id, "SENT MSG", message.id, flush=True)
+                print(self.replica.id, "SENT MSG", message.id)
                 sendMsg(sock, message)
             except Exception as e:
                 self.messages.append((replica_id, message))
@@ -175,14 +175,14 @@ class ReplicaConnection:
                 msg = recvMsg(sock, wrapper)
                 if msg is None:
                     continue
-                print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
+                print(self.replica.id, "RECEIVED MESSAGE", msg.id)
                 python_msg = self.get_python_message(msg)
                 self.received.append(python_msg)
             except IndexError as e:
-                print("INDEX ERROR", flush=True)
+                print("INDEX ERROR")
                 raise e
             except Exception as e:
-                print("ERROR: Listen for Replicas Thread.", e, flush=True)
+                print("ERROR: Listen for Replicas Thread.", e)
                 pass
             replica_id = self.get_next_replica_id(replica_id)
 
@@ -192,10 +192,10 @@ class ReplicaConnection:
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind((host, port))
             sock.listen(10)
-            print("Listen Socket Initialized at:", host, port, flush=True)
+            print("Listen Socket Initialized at:", host, port)
             return sock
         except Exception as e:
-            print("Error initializing listen sock", e, flush=True)
+            print("Error initializing listen sock", e)
 
 
     def get_next_replica_id(self, current):
@@ -224,10 +224,10 @@ class ReplicaConnection:
 
 
     def connect_to_replicas(self):
-        print("CONNECTING TO REPLICAS", flush=True)
+        print("CONNECTING TO REPLICAS")
         for i in range(1, self.replica.id):
             if i == self.replica.id:
-                print("SELF", flush=True)
+                print("SELF")
                 continue
             sock = self.connect_socket_init(socket.gethostname(), 2000+i, i)
             self.sockets_by_id[i] = sock
@@ -239,23 +239,23 @@ class ReplicaConnection:
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 sock.bind((socket.gethostname(), send_port))
-                print("Trying to connect from", send_port, "...", flush=True)
+                print("Trying to connect from", send_port, "...")
                 sock.connect((host, port))
                 # sock.setblocking(0)
                 return sock
             except Exception as e:
-                print("Exception connecting to", replica_id, e, send_port, flush=True)
+                print("Exception connecting to", replica_id, e, send_port)
                 sleep(1)
                 pass
 
     def accept_replica_sockets(self):
-        print("ACCEPTING REPLICAS", flush=True)
+        print("ACCEPTING REPLICAS")
         while True:
             client, address = self.local_sock.accept()
             (host, port) = address
             sender_id = int(((port-self.replica.id)/100)-100)
-            print("ACCEPTED", flush=True)
-            print("Accepted request at", self.replica.id, "FROM:", sender_id, client.getsockname(), address, flush=True)
+            print("ACCEPTED")
+            print("Accepted request at", self.replica.id, "FROM:", sender_id, client.getsockname(), address)
             self.sockets_by_id[sender_id] = client
 
 
