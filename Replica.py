@@ -296,13 +296,15 @@ class Replica:
         print(type(self.private_key))
         print(type(hash_str))
         print(type(K))
-        signature = self.private_key.sign(hash_str, K)
+        hash_enc = hash_str.encode()
+        signature = self.private_key.sign(hash_enc, K)
         print("SIGN BLK 2", flush=True)
         return signature[0]
 
     def verify_signature(self, block, signature, signer):
         signer_pub_key = self.public_keys[signer]
         hash_str = block.get_hash()
-        verification = signer_pub_key.verify(hash_str, (signature,))
+        hash_enc = hash_str.encode()
+        verification = signer_pub_key.verify(hash_enc, (signature,))
         return verification
 
