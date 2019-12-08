@@ -4,7 +4,7 @@ killall python
 killall python3
 #source ./venv/bin/activate;
 #pip list;
-python3 ./CreateBLS.py 2 4;
+python3 ./GenerateKeys.py.py 4;
 python3 ./ReplicaMain.py 4 1 &
 sleep 1
 python3 ./ReplicaMain.py 4 2 &
