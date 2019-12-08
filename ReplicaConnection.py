@@ -302,6 +302,7 @@ class ReplicaConnection:
             self.sockets_by_id[sender_id] = client
 
     def send_msg(self, s, prototype):
+        print(prototype)
         if prototype is not None:
             msg = None
             try:
@@ -320,9 +321,11 @@ class ReplicaConnection:
     def recv_msg(self, sock, prototype):
         var_int_buff = []
         msg_len = 0
+        sock.setblocking(1)
         while not self.stop:
             buf = sock.recv(1)
             if not buf:
+                sock.setblocking(0)
                 return
             var_int_buff += buf
             try:
@@ -336,6 +339,7 @@ class ReplicaConnection:
             whole_msg = sock.recv(msg_len)
             prototype.ParseFromString(whole_msg)
             print("RECEIVED", prototype.id)
+            sock.setblocking(0)
             return prototype
         except BlockingIOError:
             return self.recv_blocked_msg(sock, prototype, msg_len)
@@ -347,10 +351,12 @@ class ReplicaConnection:
                 whole_msg = sock.recv(msg_len)
                 prototype.ParseFromString(whole_msg)
                 print("RECEIVED", prototype.id)
+                sock.setblocking(0)
                 return prototype
             except:
                 attempts += 1
                 if attempts > 10:
+                    sock.setblocking(0)
                     return None
                 pass
 
