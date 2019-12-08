@@ -40,25 +40,35 @@ class ReplicaConnection:
         self.serversocket.listen(self.n)
 
     def connect_to_lessers(self):
-        for i in range(0, self.replica.id):
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((socket.gethostname(), BASE + i))
-            s.setblocking(0)
-            self.epoll.register(s.fileno(), select.EPOLLIN)
-            self.sockets[s.fileno()] = s
-            self.IDs[s.fileno()] = i
-            self.filenos[i] = s.fileno()
-            print(self.replica.id, "connected to", i)
+        connections = {}
+        while len(connections) < self.n - self.replica.id:
+            for i in range(0, self.replica.id):
+                if i in connections:
+                    continue
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s.connect((socket.gethostname(), BASE + i))
+                s.setblocking(0)
+                self.epoll.register(s.fileno(), select.EPOLLIN)
+                self.sockets[s.fileno()] = s
+                self.IDs[s.fileno()] = i
+                self.filenos[i] = s.fileno()
+                print(self.replica.id, "connected to", i)
+                connections[i] = True
 
     def accept_from_greaters(self):
-        for i in range(self.replica.id + 1, self.n):
-            s, addr = self.serversocket.accept()
-            s.setblocking(0)
-            self.epoll.register(s.fileno(), select.EPOLLIN)
-            self.sockets[s.fileno()] = s
-            self.IDs[s.fileno()] = i
-            self.filenos[i] = s.fileno()
-            print(self.replica.id, "Accept", i)
+        connections = {}
+        while len(connections) < self.n - self.replica.id:
+            for i in range(self.replica.id + 1, self.n):
+                if i in connections:
+                    continue
+                s, addr = self.serversocket.accept()
+                s.setblocking(0)
+                self.epoll.register(s.fileno(), select.EPOLLIN)
+                self.sockets[s.fileno()] = s
+                self.IDs[s.fileno()] = i
+                self.filenos[i] = s.fileno()
+                connections[i] = True
+                print(self.replica.id, "Accept", i)
 
     def epoll_listen(self):
         while not self.stop:
@@ -97,8 +107,8 @@ class ReplicaConnection:
                 self.messages.append((i, message))
 
     def run(self):
-        self.connect_to_lessers()
         self.accept_from_greaters()
+        self.connect_to_lessers()
 
         listen_t = Thread(target=self.epoll_listen, args=())
         listen_t.start()
