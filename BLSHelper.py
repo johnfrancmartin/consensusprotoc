@@ -4,6 +4,7 @@ from bplib.bp import G1Elem, G2Elem, BpGroup
 import BFT_pb2
 from time import time, sleep
 import uuid
+from petlib.bn import Bn
 
 class BLSHelper:
     def __init__(self, t, n, proto=None):
@@ -124,11 +125,13 @@ class BLSHelper:
         return (sk, vk)
 
 
+# Bn(0)
+
 # print(str(uuid.uuid4()))
 # bls = BLSHelper(2, 5)
-t = time()
+# t = time()
 # sleep(1)
-print(time()-t > 1)
+# print(time()-t > 1)
 # sk1 = bls.sk[0]
 # sk2 = bls.sk[1]
 # message = b"asoidhion"
