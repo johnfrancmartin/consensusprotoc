@@ -64,8 +64,8 @@ class Block:
         hash_bytes = str.encode(hash_str)
         return hashlib.sha256(hash_bytes).hexdigest()
 
-    def sign(self, sender, signature):
-        self.signatures[sender.id] = signature
+    def sign(self, sender_id, signature):
+        self.signatures[sender_id] = signature
 
     def certify(self):
         if self.unique_cert is None:
@@ -76,6 +76,12 @@ class Block:
             self.certification = ":".join(sigs)
         print("MADE CERTIFICATE", self.unique_cert, flush=True)
         print("FROM SIGS", self.signatures, flush=True)
+        for sender, sig in self.signatures.items():
+            print(type(sig))
+            str_sig = str(sig)
+            print(str_sig)
+            print(type(str_sig))
+
 
     def verify_cert(self, public_keys_dict, cert, qr):
         cert_sigs = [int(s) for s in cert.split(":")]

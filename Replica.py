@@ -129,7 +129,7 @@ class Replica:
         signature = self.sign_blk(block)
         # TODO: ADD SIGNATURE
         proposal = Proposal(block, self.view, previous, status)
-        block.sign(self, signature)
+        block.sign(self.id, signature)
         self.proposals.append(proposal)
         self.proposal_hashes.append(proposal.get_hash())
         self.broadcast(proposal.get_proto())
@@ -139,7 +139,7 @@ class Replica:
         if self.leader:
             print(self.id, "PROPOSED UNIQUE", flush=True)
             signature = self.sign_blk(block)
-            block.sign(self, signature)
+            block.sign(self.id, signature)
             proposal = Proposal(block, self.view, block.previous_hash, {})
             self.proposals.append(proposal)
             self.proposal_hashes.append(proposal.get_hash())
@@ -172,10 +172,7 @@ class Replica:
         signature = self.sign_blk(block)
         # Conditionally Sign Block
         if self not in block.signatures:
-            block.sign(self, signature)
-            self.broadcast(Vote(block, self.view, signature, self).get_proto())
-        elif len(block.signatures) >= self.qr:
-            block.sign(self, signature)
+            block.sign(self.id, signature)
             self.broadcast(Vote(block, self.view, signature, self).get_proto())
         if len(block.signatures) >= self.qr and block.unique_cert is None:
             block.certify()
@@ -196,10 +193,10 @@ class Replica:
             self.blame()
             return
         elif block_hash in self.blocks:
-            self.blocks[block_hash].signatures[sender_id] = signature
+            self.blocks[block_hash].sign(sender_id, signature)
         else:
             if sender_id not in block.signatures:
-                block.signatures[sender_id] = signature
+                block.sign(sender_id, signature)
             self.blocks[block_hash] = block
         if vote.view == self.view and self.proposed is not None and block.height == self.proposed.height and block_hash != self.proposed.get_hash():
             # If same view, height and different ID
