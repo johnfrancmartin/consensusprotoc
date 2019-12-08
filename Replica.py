@@ -97,36 +97,27 @@ class Replica:
         return block
 
     def propose(self, steady_state, status):
-        print("A")
         if status is None:
             status = {}
-        print("B")
         if not steady_state:
-            print("BB")
             previous = Block(None, 0, 0, None)
-            print("BB")
             for sender, block in status.items():
                 if block.view >= previous.view and block.height >= previous.height: # TODO: ADD VERIFY THRESHOLD SIGNATURE
                     previous = block
         else:
             previous = self.locked
-        print("C")
         if previous is not None and previous.commands is not None:
             previous = previous.clone_for_view(self.view)
             block = self.create_block(previous)
         else:
             block = self.create_block(None)
-        print("D")
         signature = self.sign_blk(block)
-        print("E")
         # TODO: ADD SIGNATURE
         proposal = Proposal(block, self.view, previous, status)
         block.sign(self, signature)
         self.proposals.append(proposal)
         self.proposal_hashes.append(proposal.get_hash())
-        print("HERE")
         self.broadcast(proposal.get_proto())
-        print("NOT HERE")
         self.vote(block)
 
     def propose_lock(self, block):
@@ -278,8 +269,11 @@ class Replica:
         self.protocol.broadcast(message)
 
     def sign_blk(self, block):
+        print("A")
         hash_str = block.get_hash()
+        print("B")
         signature = self.bls_helper.get_signature(self.sk, str.encode(hash_str, 'utf-8'))
+        print("C")
         return signature
 
     def verify_signature(self, block, signature, signer):
