@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Block.py" beforeDir="false" afterPath="$PROJECT_DIR$/Block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graveyard/Protocol.py" beforeDir="false" afterPath="$PROJECT_DIR$/Graveyard/Protocol.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReplicaController.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SocketHelper.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +64,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1328" />
-          <entry key="py" value="51563" />
+          <entry key="py" value="51597" />
           <entry key="sh" value="229" />
         </counts>
       </usages-collector>
@@ -78,7 +74,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1328" />
-          <entry key="Python" value="51563" />
+          <entry key="Python" value="51597" />
         </counts>
       </usages-collector>
     </session>
@@ -101,13 +97,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Block.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="76" column="37" selection-start-line="76" selection-start-column="37" selection-end-line="76" selection-end-column="37" />
+            <state relative-caret-position="241">
+              <caret line="77" column="13" lean-forward="true" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <marker date="1575847114037" expanded="true" signature="101:106" ph="..." />
-                <marker date="1575847114037" expanded="true" signature="588:594" ph="..." />
-                <marker date="1575847114037" expanded="true" signature="3021:3367" ph="..." />
+                <marker date="1575847226526" expanded="true" signature="101:106" ph="..." />
+                <marker date="1575847226526" expanded="true" signature="588:594" ph="..." />
+                <marker date="1575847226526" expanded="true" signature="2569:2915" ph="..." />
               </folding>
             </state>
           </provider>
@@ -916,13 +912,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Block.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="76" column="37" selection-start-line="76" selection-start-column="37" selection-end-line="76" selection-end-column="37" />
+        <state relative-caret-position="241">
+          <caret line="77" column="13" lean-forward="true" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <marker date="1575847114037" expanded="true" signature="101:106" ph="..." />
-            <marker date="1575847114037" expanded="true" signature="588:594" ph="..." />
-            <marker date="1575847114037" expanded="true" signature="3021:3367" ph="..." />
+            <marker date="1575847226526" expanded="true" signature="101:106" ph="..." />
+            <marker date="1575847226526" expanded="true" signature="588:594" ph="..." />
+            <marker date="1575847226526" expanded="true" signature="2569:2915" ph="..." />
           </folding>
         </state>
       </provider>

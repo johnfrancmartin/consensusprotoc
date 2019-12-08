@@ -68,24 +68,15 @@ class Block:
         self.signatures[sender_id] = signature
 
     def certify(self):
-        if self.unique_cert is None:
-            sigs = [str(sig) for sender, sig in self.signatures.items()]
-            self.unique_cert = ":".join(sigs)
-        else:
-            sigs = [str(sig) for sender, sig in self.signatures.items()]
-            self.certification = ":".join(sigs)
-        print(type(self.unique_cert), flush=True)
-        print("MADE CERTIFICATE", self.unique_cert, flush=True)
-        print("FROM SIGS", self.signatures, flush=True)
         siggies = []
         for sender, sig in self.signatures.items():
-            print(type(sig))
             str_sig = str(sig)
-            print(str_sig)
-            print(type(str_sig))
             siggies.append(str_sig)
-        print(":".join(siggies))
-        print(type(":".join(siggies)))
+        cert = ":".join(siggies)
+        if self.unique_cert is None:
+            self.unique_cert = cert
+        else:
+            self.certification = cert
 
 
     def verify_cert(self, public_keys_dict, cert, qr):
