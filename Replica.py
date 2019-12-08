@@ -8,6 +8,7 @@ from Crypto.PublicKey import RSA
 import Crypto.Util.number as CUN
 import os
 
+
 class Replica:
     def __init__(self, n, id, bls_proto):
         # Replica Core

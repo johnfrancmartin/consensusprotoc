@@ -1,6 +1,5 @@
 import socket
 from BFT_pb2 import Wrapper
-from SocketHelper import recv_msg, send_msg
 import traceback
 from time import sleep
 from threading import Thread, Lock
@@ -8,6 +7,8 @@ import atexit
 from MessageType import Block, Blame, Proposal, Vote
 import uuid
 import select
+from google.protobuf.internal.encoder import _EncodeVarint
+from google.protobuf.internal.decoder import _DecodeVarint32
 
 
 BASE = 60000
@@ -88,7 +89,7 @@ class ReplicaConnection:
                 if event & select.EPOLLIN:
                     sock = self.sockets[fileno]
                     wrapper = Wrapper()
-                    msg = recv_msg(sock, wrapper)
+                    msg = self.recv_msg(sock, wrapper)
                     if msg is None:
                         continue
                     print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
@@ -115,7 +116,7 @@ class ReplicaConnection:
                 fileno = self.filenos[replica_id]
                 sock = self.sockets[fileno]
                 print(self.replica.id, "SENT MSG", message.id, flush=True)
-                send_msg(sock, message)
+                self.send_msg(sock, message)
             except Exception as e:
                 self.messages.append((replica_id, message))
                 print("FAILED TO SEND", flush=True)
@@ -137,7 +138,6 @@ class ReplicaConnection:
             if i != self.replica.id:
                 message.id = str(uuid.uuid4())
                 self.messages.append((i, message))
-
 
 
     def run(self):
@@ -188,7 +188,7 @@ class ReplicaConnection:
             try:
                 sock = self.sockets_by_id[replica_id]
                 print(self.replica.id, "SENT MSG", message.id, flush=True)
-                send_msg(sock, message)
+                self.send_msg(sock, message)
             except Exception as e:
                 self.messages.append((replica_id, message))
                 print("FAILED TO SEND", flush=True)
@@ -214,7 +214,7 @@ class ReplicaConnection:
                 # bft_proto.VoteMSG()
                 # msg = recvMsg(client_socket, bft_proto.BlameMSG())
                 wrapper = Wrapper()
-                msg = recv_msg(sock, wrapper)
+                msg = self.recv_msg(sock, wrapper)
                 if msg is None:
                     continue
                 print(self.replica.id, "RECEIVED MESSAGE", msg.id)
@@ -300,8 +300,64 @@ class ReplicaConnection:
             print("Accepted request at", self.replica.id, "FROM:", sender_id, client.getsockname(), address)
             self.sockets_by_id[sender_id] = client
 
+    def send_msg(self, s, prototype):
+        if prototype is not None:
+            msg = None
+            try:
+                msg = prototype.SerializeToString()
+            except:
+                print("ERROR SERIALIZING TO STRING")
+            if msg is None:
+                raise Exception
+            _EncodeVarint(s.sendall, len(msg), None)
+            try:
+                s.sendall(msg)
+            except:
+                print("SOCKET DISCONNECTED EXCEPTION")
+                raise SocketDisconnectedException("Socket Disconnected")
 
+    def recv_msg(self, sock, prototype):
+        var_int_buff = []
+        msg_len = 0
+        while not self.stop:
+            buf = sock.recv(1)
+            if not buf:
+                print("RETURNING DUE TO EMPTY BUF")
+                return
+            var_int_buff += buf
+            try:
+                msg_len, new_pos = _DecodeVarint32(var_int_buff, 0)
+                if new_pos != 0:
+                    break
+            except Exception as e:
+                print("ERROR RECEIVING MSG", e)
+                pass
+        try:
+            whole_msg = sock.recv(msg_len)
+            prototype.ParseFromString(whole_msg)
+            print("RECEIVED", prototype.id)
+            return prototype
+        except BlockingIOError:
+            return self.recv_blocked_msg(sock, prototype, msg_len)
 
+    def recv_blocked_msg(self, sock, prototype, msg_len):
+        attempts = 0
+        while not self.stop:
+            try:
+                whole_msg = sock.recv(msg_len)
+                prototype.ParseFromString(whole_msg)
+                print("RECEIVED", prototype.id)
+                return prototype
+            except:
+                attempts += 1
+                if attempts > 10:
+                    return None
+                pass
+
+class SocketDisconnectedException(Exception):
+    def __init__(self, message=None):
+        message = "Replica disconnected, trying to reconnect."
+        super().__init__(message)
 
 # Listen at: 2000+id: 2001, 2002, 2003, 2004
 # Send at: 10104
