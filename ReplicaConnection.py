@@ -28,7 +28,7 @@ class ReplicaConnection:
         atexit.register(self.exit_handler)
 
         # EPOLL
-        self.port = 60000+self.replica.id
+        self.local_port = 60000+self.replica.id
         self.epoll = select.epoll()
         self.lock = Lock()
 
@@ -36,7 +36,7 @@ class ReplicaConnection:
         self.filenos = {}  # ID2fileno
         self.sockets = {}
         self.serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.serversocket.bind((socket.gethostname(), self.port))
+        self.serversocket.bind((socket.gethostname(), self.local_port))
         self.serversocket.listen(self.n)
 
     def connect_to_lessers(self):
@@ -45,30 +45,36 @@ class ReplicaConnection:
             for i in range(0, self.replica.id):
                 if i in connections:
                     continue
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                s.connect((socket.gethostname(), BASE + i))
-                s.setblocking(0)
-                self.epoll.register(s.fileno(), select.EPOLLIN)
-                self.sockets[s.fileno()] = s
-                self.IDs[s.fileno()] = i
-                self.filenos[i] = s.fileno()
-                print(self.replica.id, "CONNECTED TO", i, flush=True)
-                connections[i] = True
+                try:
+                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    s.connect((socket.gethostname(), BASE + i))
+                    s.setblocking(0)
+                    self.epoll.register(s.fileno(), select.EPOLLIN)
+                    self.sockets[s.fileno()] = s
+                    self.IDs[s.fileno()] = i
+                    self.filenos[i] = s.fileno()
+                    print(self.replica.id, "CONNECTED TO", i, flush=True)
+                    connections[i] = True
+                except:
+                    print(self.replica.id, "FAILED TO CONNECT TO LESSER")
 
     def accept_from_greaters(self):
         connections = {}
         while len(connections) < self.n - self.replica.id:
             for i in range(self.replica.id + 1, self.n):
-                if i in connections:
-                    continue
-                s, addr = self.serversocket.accept()
-                s.setblocking(0)
-                self.epoll.register(s.fileno(), select.EPOLLIN)
-                self.sockets[s.fileno()] = s
-                self.IDs[s.fileno()] = i
-                self.filenos[i] = s.fileno()
-                connections[i] = True
-                print(self.replica.id, "ACCEPTED CONNECTION FROM", i, flush=True)
+                try:
+                    if i in connections:
+                        continue
+                    s, addr = self.serversocket.accept()
+                    s.setblocking(0)
+                    self.epoll.register(s.fileno(), select.EPOLLIN)
+                    self.sockets[s.fileno()] = s
+                    self.IDs[s.fileno()] = i
+                    self.filenos[i] = s.fileno()
+                    connections[i] = True
+                    print(self.replica.id, "ACCEPTED CONNECTION FROM", i, flush=True)
+                except:
+                    print(self.replica.id, "FAILED TO CONNECT TO LESSER")
 
     def epoll_listen(self):
         while not self.stop:
