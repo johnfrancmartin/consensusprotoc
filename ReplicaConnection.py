@@ -65,7 +65,7 @@ class ReplicaConnection:
         connections = {}
         print("ACCEPTING FROM GREATERS", flush=True)
         while len(connections) < self.n - self.replica.id and not self.stop:
-            for i in range(self.replica.id + 1, self.n):
+            for i in range(self.replica.id + 1, self.n+1):
                 try:
                     if i in connections:
                         continue
@@ -75,11 +75,11 @@ class ReplicaConnection:
                     self.sockets[s.fileno()] = s
                     self.IDs[s.fileno()] = i
                     self.filenos[i] = s.fileno()
-                    connections[i] = True
                     print(len(connections), "TOTAL CONNECTIONS FOR", self.replica.id, flush=True)
                     print(self.replica.id, "ACCEPTED CONNECTION FROM", i, flush=True)
+                    connections[i] = True
                 except:
-                    print(self.replica.id, "FAILED TO CONNECT TO LESSER")
+                    print(self.replica.id, "FAILED TO ACCEPT GREATER")
 
     def epoll_listen(self):
         while not self.stop:
