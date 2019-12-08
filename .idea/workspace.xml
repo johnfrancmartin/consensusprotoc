@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Block.py" beforeDir="false" afterPath="$PROJECT_DIR$/Block.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BFT.proto" beforeDir="false" afterPath="$PROJECT_DIR$/BFT.proto" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +63,7 @@
         <counts>
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
-          <entry key="proto" value="1328" />
+          <entry key="proto" value="1334" />
           <entry key="py" value="51639" />
           <entry key="sh" value="229" />
         </counts>
@@ -73,7 +73,7 @@
           <entry key="Bash" value="229" />
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
-          <entry key="PROTO" value="1328" />
+          <entry key="PROTO" value="1334" />
           <entry key="Python" value="51639" />
         </counts>
       </usages-collector>
@@ -94,7 +94,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Block.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="71">
@@ -142,11 +142,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BFT.proto">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="69" column="29" selection-start-line="69" selection-start-column="20" selection-end-line="69" selection-end-column="29" />
+            <state relative-caret-position="200">
+              <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -275,7 +275,6 @@
         <option value="$PROJECT_DIR$/python-bls/__init__.py" />
         <option value="$PROJECT_DIR$/python-bls.py" />
         <option value="$PROJECT_DIR$/GenerateKey.py" />
-        <option value="$PROJECT_DIR$/BFT.proto" />
         <option value="$PROJECT_DIR$/BLSHelper.py" />
         <option value="$PROJECT_DIR$/SocketHelper.py" />
         <option value="$PROJECT_DIR$/Graveyard.py" />
@@ -290,6 +289,7 @@
         <option value="$PROJECT_DIR$/Graveyard/Protocol.py" />
         <option value="$PROJECT_DIR$/ReplicaConnection.py" />
         <option value="$PROJECT_DIR$/Block.py" />
+        <option value="$PROJECT_DIR$/BFT.proto" />
       </list>
     </option>
   </component>
@@ -832,13 +832,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BFT.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="69" column="29" selection-start-line="69" selection-start-column="20" selection-end-line="69" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MessageType.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -920,6 +913,13 @@
             <marker date="1575847629439" expanded="true" signature="598:604" ph="..." />
             <marker date="1575847629439" expanded="true" signature="2689:3035" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BFT.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
         </state>
       </provider>
     </entry>

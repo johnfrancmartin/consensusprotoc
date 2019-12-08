@@ -14,7 +14,7 @@ message Block {
   repeated int32 commands = 1;
   optional int32 view = 2 [default = 0];
   optional int32 height = 3 [default = 0];
-  optional bytes unique_cert = 4;
+  optional string unique_cert = 4;
   optional string previous = 5;
 }
 
