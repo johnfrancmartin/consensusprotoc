@@ -7,7 +7,7 @@ import base64
 
 def main():
     args = sys.argv[1:]
-    n = int(args[1])
+    n = int(args[0])
     privates = {}
     publics = {}
     for i in range(1, n+1):
