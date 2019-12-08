@@ -269,11 +269,8 @@ class Replica:
         self.protocol.broadcast(message)
 
     def sign_blk(self, block):
-        print("A")
         hash_str = block.get_hash()
-        print("B")
         signature = self.bls_helper.get_signature(self.sk, str.encode(hash_str, 'utf-8'))
-        print("C")
         return signature
 
     def verify_signature(self, block, signature, signer):

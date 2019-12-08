@@ -109,6 +109,10 @@ class BLSHelper:
         return aggregate_vk(self.params, vks)
 
     def get_signature(self, sk, message):
+        print(sk)
+        print(type(sk))
+        print(message)
+        print(type(message))
         return sign(self.params, sk, message)
 
     def keygen(self, params, t, n):
