@@ -10,7 +10,7 @@ import os
 
 
 class Replica:
-    def __init__(self, n, id, bls_proto):
+    def __init__(self, n, id):
         # Replica Core
         self.n = n
         self.f = math.floor(n / 3)  # max-f for now
@@ -217,10 +217,10 @@ class Replica:
             self.blocks[block_hash] = block
         block = self.blocks[block_hash]
         if len(block.signatures) >= self.qr and block.unique_cert is None:
-            block.certify(self.bls_helper)
+            block.certify()
             self.propose_lock(block)
         elif len(block.signatures) >= self.qr:
-            block.certify(self.bls_helper)
+            block.certify()
             self.lock(block)
 
     def lock(self, block):
