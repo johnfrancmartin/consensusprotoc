@@ -225,6 +225,7 @@ class ReplicaConnection:
                 raise e
             except Exception as e:
                 print("ERROR: Listen for Replicas Thread.", e)
+                traceback.print_tb(e.__traceback__)
                 pass
             replica_id = self.get_next_replica_id(replica_id)
 
@@ -322,7 +323,6 @@ class ReplicaConnection:
         while not self.stop:
             buf = sock.recv(1)
             if not buf:
-                print("RETURNING DUE TO EMPTY BUF")
                 return
             var_int_buff += buf
             try:
