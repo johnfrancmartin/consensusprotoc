@@ -25,7 +25,7 @@ class ReplicaConnection:
         self.local_sock = self.listen_socket_init(socket.gethostname(), 2000+replica.id)
         self.messages = []
         self.received = []
-        atexit.register(self.exit_handler)
+        atexit.register(self.exit)
 
         # EPOLL
         self.local_port = 60000+self.replica.id
@@ -120,11 +120,14 @@ class ReplicaConnection:
                 self.messages.append((replica_id, message))
                 print("FAILED TO SEND", flush=True)
 
-    def exit_handler(self):
+    def exit(self):
         print("EXITING", self.replica.id)
         self.local_sock.close()
         for replica_id, sock in self.sockets_by_id.items():
             sock.close()
+        for sock in self.sockets:
+            sock.close()
+        self.stop = True
 
     def broadcast(self, message):
         while len(self.sockets) < self.n/2:

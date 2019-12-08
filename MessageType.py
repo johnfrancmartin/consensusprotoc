@@ -69,7 +69,7 @@ class Vote(Message):
     @staticmethod
     def get_from_proto(proto, group):
         # signature = Bn.from_hex(proto.signature.decode('utf-8'))
-        signature = G1Elem.from_bytes(proto.signature, )
+        signature = G1Elem.from_bytes(proto.signature, group)
         return Vote(Block.get_from_proto(proto.block), proto.view, signature, proto.sender)
 
 class Blame(Message):

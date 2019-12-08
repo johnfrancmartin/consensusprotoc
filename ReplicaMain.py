@@ -18,7 +18,7 @@ def main():
     try:
         replica.run()
     except KeyboardInterrupt:
-        replica.protocol.stop = True
+        replica.protocol.exit()
 
 
 if __name__ == "__main__":
