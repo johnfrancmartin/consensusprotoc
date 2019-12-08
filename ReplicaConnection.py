@@ -75,6 +75,7 @@ class ReplicaConnection:
                     self.sockets[s.fileno()] = s
                     self.IDs[s.fileno()] = i
                     self.filenos[i] = s.fileno()
+                    print(len(connections), "TOTAL CONNECTIONS FOR", self.replica.id, flush=True)
                     connections[i] = True
                     print(self.replica.id, "ACCEPTED CONNECTION FROM", i, flush=True)
                 except:
@@ -104,8 +105,11 @@ class ReplicaConnection:
     def epoll_send(self):
         while not self.stop:
             if len(self.messages) == 0:
+                print("NO MESSAGES TO SEND", flush=True)
+                sleep(1)
                 continue
             (replica_id, message) = self.messages.pop(0)
+            print("MESSAGE TO", replica_id, flush=True)
             try:
                 fileno = self.filenos[replica_id]
                 sock = self.sockets[fileno]
@@ -135,7 +139,7 @@ class ReplicaConnection:
     def run(self):
         self.connect_to_lessers()
         self.accept_from_greaters()
-
+        print("INITIALIZED NETWORK FOR", self.replica.id, flush=True)
         listen_t = Thread(target=self.epoll_listen, args=())
         listen_t.start()
 
