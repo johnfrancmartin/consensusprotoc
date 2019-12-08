@@ -292,6 +292,10 @@ class Replica:
         hash_str = block.get_hash()
         K = CUN.getRandomNumber(128, os.urandom)
         print("SIGN BLK", flush=True)
+        print(self.private_key)
+        print(type(self.private_key))
+        print(type(hash_str))
+        print(type(K))
         signature = self.private_key.sign(hash_str, K)
         print("SIGN BLK 2", flush=True)
         return signature[0]
