@@ -50,10 +50,9 @@ class Replica:
     # REPLICA FUNCTIONS
 
     def run(self):
-        connection_t = Thread(target=self.protocol.run, args=())
-        connection_t.start()
-        sleep(3)
-        print(self.id)
+        self.protocol.run()
+
+    def network_initialized(self):
         if self.id == self.view % self.protocol.n:
             print("LEADER", flush=True)
             try:
@@ -61,7 +60,6 @@ class Replica:
                 self.propose(False, {})
             except Exception as e:
                 print("Exception:", e, flush=True)
-        connection_t.join()
 
     def stop(self):
         self.protocol.stop = True

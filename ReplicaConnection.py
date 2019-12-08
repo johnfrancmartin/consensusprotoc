@@ -75,8 +75,8 @@ class ReplicaConnection:
                     self.sockets[s.fileno()] = s
                     self.IDs[s.fileno()] = i
                     self.filenos[i] = s.fileno()
-                    print(len(connections), "TOTAL CONNECTIONS FOR", self.replica.id, flush=True)
                     connections[i] = True
+                    print(len(connections), "TOTAL CONNECTIONS FOR", self.replica.id, flush=True)
                     print(self.replica.id, "ACCEPTED CONNECTION FROM", i, flush=True)
                 except:
                     print(self.replica.id, "FAILED TO CONNECT TO LESSER")
@@ -93,8 +93,9 @@ class ReplicaConnection:
                         continue
                     print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
                     python_msg = self.get_python_message(msg)
-                    self.received.append(python_msg)
-                    message = self.sockets[fileno].recv(1024)
+                    self.replica.receive_msg(python_msg)
+                    # self.received.append(python_msg)
+                    # message = self.sockets[fileno].recv(1024)
                 elif event & select.EPOLLOUT:
                     print("EOLLOUT!")
                 elif event & select.EPOLLHUP:
@@ -140,18 +141,19 @@ class ReplicaConnection:
         self.connect_to_lessers()
         self.accept_from_greaters()
         print("INITIALIZED NETWORK FOR", self.replica.id, flush=True)
+        self.replica.network_initialized()
         listen_t = Thread(target=self.epoll_listen, args=())
         listen_t.start()
 
-        execute_t = Thread(target=self.execute, args=())
-        execute_t.start()
+        # execute_t = Thread(target=self.execute, args=())
+        # execute_t.start()
 
         send_t = Thread(target=self.epoll_send, args=())
         send_t.start()
 
         listen_t.join()
         send_t.join()
-        execute_t.join()
+        # execute_t.join()
 
         # connect_t = Thread(target=self.connect_to_replicas, args=())
         # connect_t.start()
@@ -166,8 +168,8 @@ class ReplicaConnection:
         # send_t = Thread(target=self.send, args=())
         # send_t.start()
         #
-        execute_t = Thread(target=self.execute, args=())
-        execute_t.start()
+        # execute_t = Thread(target=self.execute, args=())
+        # execute_t.start()
         #
         # connect_t.join()
         # accept_t.join()
