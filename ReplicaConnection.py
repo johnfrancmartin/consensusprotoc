@@ -302,7 +302,6 @@ class ReplicaConnection:
             self.sockets_by_id[sender_id] = client
 
     def send_msg(self, s, prototype):
-        print(prototype)
         if prototype is not None:
             msg = None
             try:

@@ -45,7 +45,7 @@ class Block:
             command = commands[0]
         block = Block(command, proto.height, proto.view, proto.previous)
         unique_cert = proto.unique_cert
-        if unique_cert is not None and unique_cert != '':
+        if unique_cert is not None and unique_cert != "":
             block.unique_cert = proto.unique_cert
         return block
 
@@ -74,6 +74,7 @@ class Block:
         else:
             sigs = [str(sig) for sender, sig in self.signatures.items()]
             self.certification = ":".join(sigs)
+        print("MADE CERTIFICATE", self.unique_cert, flush=True)
 
     def verify_cert(self, public_keys_dict, cert, qr):
         cert_sigs = [int(s) for s in cert.split(":")]

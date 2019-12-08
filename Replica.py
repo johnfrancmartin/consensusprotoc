@@ -112,7 +112,6 @@ class Replica:
         return block
 
     def propose(self, steady_state, status):
-        print("PROPOSE 1", flush=True)
         if status is None:
             status = {}
         if not steady_state:
@@ -129,16 +128,12 @@ class Replica:
             block = self.create_block(None)
         signature = self.sign_blk(block)
         # TODO: ADD SIGNATURE
-        print("PROPOSE 2", flush=True)
         proposal = Proposal(block, self.view, previous, status)
         block.sign(self, signature)
         self.proposals.append(proposal)
-        print("PROPOSE 3", flush=True)
         self.proposal_hashes.append(proposal.get_hash())
         self.broadcast(proposal.get_proto())
-        print("PROPOSE 4", flush=True)
         self.vote(block)
-        print("PROPOSE 5", flush=True)
 
     def propose_lock(self, block):
         if self.leader:
@@ -291,14 +286,8 @@ class Replica:
     def sign_blk(self, block):
         hash_str = block.get_hash()
         K = CUN.getRandomNumber(128, os.urandom)
-        print("SIGN BLK", flush=True)
-        print(self.private_key)
-        print(type(self.private_key))
-        print(type(hash_str))
-        print(type(K))
         hash_enc = hash_str.encode()
         signature = self.private_key.sign(hash_enc, K)
-        print("SIGN BLK 2", flush=True)
         return signature[0]
 
     def verify_signature(self, block, signature, signer):
