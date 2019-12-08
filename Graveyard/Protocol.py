@@ -7,7 +7,6 @@ from HotstuffReplica import HotstuffReplica
 from MessageType import MessageType
 from time import sleep
 from CONFIG import PROTOCOL_PORT
-from SocketHelper import SocketDisconnectedException
 from Graveyard.BLSHelper import BLSHelper
 
 # Central Authority
