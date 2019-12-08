@@ -2,7 +2,6 @@ from Certificate import Certificate
 import hashlib
 from time import time
 import BFT_pb2
-from petlib.bn import Bn
 
 class Block:
     def __init__(self, command, height, view, previous_hash):
@@ -31,7 +30,7 @@ class Block:
             prev = ""
         proto.previous = prev
         if self.unique_cert is not None:
-            proto.unique_cert = self.unique_cert.hex().encode('utf-8')
+            proto.unique_cert = self.unique_cert
         return proto
 
     @staticmethod
@@ -46,8 +45,8 @@ class Block:
             command = commands[0]
         block = Block(command, proto.height, proto.view, proto.previous)
         unique_cert = proto.unique_cert
-        if unique_cert is not None and unique_cert != b'':
-            block.unique_cert = Bn.from_hex(proto.unique_cert.decode('utf-8'))
+        if unique_cert is not None and unique_cert != '':
+            block.unique_cert = proto.unique_cert
         return block
 
     def clone_for_view(self, view):
@@ -68,10 +67,27 @@ class Block:
     def sign(self, sender, signature):
         self.signatures[sender.id] = signature
 
-    def certify(self, bls_helper):
+    def certify(self):
         if self.unique_cert is None:
             sigs = [sig for sender, sig in self.signatures.items()]
-            self.unique_cert = bls_helper.aggregate_sigs(sigs)
+            self.unique_cert = ":".join(sigs)
         else:
             sigs = [sig for sender, sig in self.signatures.items()]
-            self.certification = bls_helper.aggregate_sigs(sigs)
+            self.certification = ":".join(sigs)
+
+    def verify_cert(self, public_keys_dict, cert, qr):
+        cert_sigs = [int(s) for s in cert.split(":")]
+        count = 0
+        for sig in cert_sigs:
+            for id, key in public_keys_dict.items():
+                if self.check_signature(key, sig):
+                    count += 1
+                    break
+            if count >= qr:
+                return True
+        return False
+
+    def check_signature(self, public_key, signature):
+        hash_str = self.get_hash()
+        verification = public_key.verify(hash_str, (signature,))
+        return verification

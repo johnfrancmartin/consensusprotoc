@@ -8,7 +8,10 @@ from ReplicaConnection import ReplicaConnection
 import math
 from threading import Thread
 from BFT_pb2 import Wrapper
-
+import json
+from Crypto.PublicKey import RSA
+import Crypto.Util.number as CUN
+import os
 
 class Replica:
     def __init__(self, n, id, bls_proto):
@@ -25,9 +28,27 @@ class Replica:
         # Runtime Variables
         self.view = 1
         self.leader = False
-        self.bls_helper = BLSHelper(0, 0, bls_proto)
-        self.sk = self.bls_helper.sk[id-1]
-        self.vk = self.bls_helper.vk[id-1]
+        with open("private.json", "r") as prv_file:
+            privs = json.load(prv_file)
+        with open("public.json", "r") as pub_file:
+            pubs = json.load(pub_file)
+
+        self.public_key = None
+        self.private_key = None
+        self.private_keys = {}
+        self.public_keys = {}
+        for id, key in privs.items():
+            int_id = int(id)
+            rsa_key = RSA.importKey(key.encode())
+            self.private_keys[int_id] = rsa_key
+            if int_id == self.id:
+                self.private_key = rsa_key
+        for id, key in pubs.items():
+            int_id = int(id)
+            rsa_key = RSA.importKey(key.encode())
+            self.public_keys[int_id] = rsa_key
+            if int_id == self.id:
+                self.public_key = rsa_key
         # Lock
         self.locked = None
         self.lock_time = None
@@ -268,12 +289,13 @@ class Replica:
 
     def sign_blk(self, block):
         hash_str = block.get_hash()
-        signature = self.bls_helper.get_signature(self.sk, str.encode(hash_str, 'utf-8'))
-        return signature
+        K = CUN.getRandomNumber(128, os.urandom)
+        signature = self.private_key.sign(hash_str, K)
+        return signature[0]
 
     def verify_signature(self, block, signature, signer):
-        signer_vk = self.bls_helper.vk[signer - 1]
+        signer_pub_key = self.public_keys[signer]
         hash_str = block.get_hash()
-        verification = self.bls_helper.verify_signature(signature, signer_vk, str.encode(hash_str, 'utf-8'))
+        verification = signer_pub_key.verify(hash_str, (signature,))
         return verification
 

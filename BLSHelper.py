@@ -129,24 +129,24 @@ class BLSHelper:
         sk = self.sk
         # set keys
         vk = [xi * g2*o.random() for xi in sk]
-        vk = [G2Elem.from_bytes(str(v).encode(), G) for v in vk]
+        vk = [G2Elem.from_bytes(v.binary(), G) for v in vk]
         return (sk, vk)
 
 
 # Bn(0)
 
 # print(str(uuid.uuid4()))
-# bls = BLSHelper(2, 5)
-# t = time()
-# sleep(1)
-# print(time()-t > 1)
-# sk1 = bls.sk[0]
-# sk2 = bls.sk[1]
-# message = b"asoidhion"
-# sig1 = bls.get_signature(sk1, message)
-# sig2 = bls.get_signature(sk2, message)
-# sigma = bls.aggregate_sigs([sig1, sig2])
-# verify = bls.verify_signature(bls.vk, sigma, message)
+bls = BLSHelper(3, 5)
+sk1 = bls.sk[0]
+sk2 = bls.sk[1]
+sk3 = bls.sk[2]
+message = b"asoidhion"
+sig1 = bls.get_signature(sk1, message)
+sig2 = bls.get_signature(sk2, message)
+sig3 = bls.get_signature(sk3, message)
+sigma = bls.aggregate_sigs([sig1])
+verify = bls.verify_signatures(bls.vk, [sig1], message)
+print(verify)
 # print(verify)
 # print(type(sigma))
 # print(sigma)

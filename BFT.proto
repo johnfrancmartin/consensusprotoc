@@ -67,7 +67,7 @@ message Proposal {
 message Vote {
     optional Block block = 1;
     optional int32 view = 2;
-    optional bytes signature = 3;
+    optional string signature = 3;
     optional int32 sender = 4;
 }
 
