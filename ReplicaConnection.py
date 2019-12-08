@@ -52,7 +52,7 @@ class ReplicaConnection:
                 self.sockets[s.fileno()] = s
                 self.IDs[s.fileno()] = i
                 self.filenos[i] = s.fileno()
-                print(self.replica.id, "connected to", i)
+                print(self.replica.id, "CONNECTED TO", i, flush=True)
                 connections[i] = True
 
     def accept_from_greaters(self):
@@ -68,7 +68,7 @@ class ReplicaConnection:
                 self.IDs[s.fileno()] = i
                 self.filenos[i] = s.fileno()
                 connections[i] = True
-                print(self.replica.id, "Accept", i)
+                print(self.replica.id, "ACCEPTED CONNECTION FROM", i, flush=True)
 
     def epoll_listen(self):
         while not self.stop:
@@ -80,7 +80,7 @@ class ReplicaConnection:
                     msg = recvMsg(sock, wrapper)
                     if msg is None:
                         continue
-                    print(self.replica.id, "RECEIVED MESSAGE", msg.id)
+                    print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
                     python_msg = self.get_python_message(msg)
                     self.received.append(python_msg)
                     message = self.sockets[fileno].recv(1024)
