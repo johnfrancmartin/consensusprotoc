@@ -2,7 +2,7 @@
 
 killall python
 killall python3
-source ./venv/bin/activate;
+#source ./venv/bin/activate;
 pip list;
 python3 ./CreateBLS.py 2 4;
 python3 ./ReplicaMain.py 4 1 &
