@@ -43,10 +43,27 @@ def recvMsg(sock, prototype):
             print("ERROR RECEIVING MSG", e)
             pass
     print(msg_len)
-    whole_msg = sock.recv(msg_len)
-    prototype.ParseFromString(whole_msg)
-    print("RECEIVED", prototype.id)
-    return prototype
+    try:
+        whole_msg = sock.recv(msg_len)
+        prototype.ParseFromString(whole_msg)
+        print("RECEIVED", prototype.id)
+        return prototype
+    except BlockingIOError:
+        return recvMsg(sock, prototype, msg_len)
+
+def recvMsg(sock, prototype, msg_len):
+    attempts = 0
+    while True:
+        try:
+            whole_msg = sock.recv(msg_len)
+            prototype.ParseFromString(whole_msg)
+            print("RECEIVED", prototype.id)
+            return prototype
+        except:
+            attempts += 1
+            if attempts > 10:
+                return None
+            pass
 
 def recvMsg2(s, protoType):
     var_int_buff = []
