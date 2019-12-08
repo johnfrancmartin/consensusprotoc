@@ -64,7 +64,7 @@ class Vote(Message):
         return wrapper_proto
 
     @staticmethod
-    def get_from_proto(proto, group):
+    def get_from_proto(proto):
         signature = int(proto.signature)
         return Vote(Block.get_from_proto(proto.block), proto.view, signature, proto.sender)
 
