@@ -36,13 +36,13 @@ class ReplicaConnection:
         self.filenos = {}  # ID2fileno
         self.sockets = {}
         self.serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.serversocket.bind((HOST, self.port))
+        self.serversocket.bind((socket.gethostname(), self.port))
         self.serversocket.listen(self.n)
 
     def connect_to_lessers(self):
         for i in range(0, self.replica.id):
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((HOST, BASE + i))
+            s.connect((socket.gethostname(), BASE + i))
             s.setblocking(0)
             self.epoll.register(s.fileno(), select.EPOLLIN)
             self.sockets[s.fileno()] = s
