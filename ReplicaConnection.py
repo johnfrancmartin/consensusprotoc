@@ -1,7 +1,7 @@
 import socket
 from BFT_pb2 import Wrapper
 import traceback
-from time import sleep
+from time import sleep, time
 from threading import Thread, Lock
 import atexit
 from MessageType import Block, Blame, Proposal, Vote
@@ -10,7 +10,6 @@ import select
 from google.protobuf.internal.encoder import _EncodeVarint
 from google.protobuf.internal.decoder import _DecodeVarint32
 
-
 BASE = 60000
 HOST = "127.0.0.1"
 
@@ -18,6 +17,7 @@ HOST = "127.0.0.1"
 class ReplicaConnection:
     def __init__(self, n, replica):
         self.n = n
+        self.start = time()
         self.replica = replica
         self.stop = False
         self.sockets_by_id = {}
@@ -108,7 +108,7 @@ class ReplicaConnection:
         while not self.stop:
             if len(self.messages) == 0:
                 print("NO MESSAGES TO SEND", flush=True)
-                sleep(1)
+                sleep(0.05)
                 continue
             (replica_id, message) = self.messages.pop(0)
             try:
@@ -118,10 +118,17 @@ class ReplicaConnection:
                 self.send_msg(sock, message)
             except Exception as e:
                 self.messages.append((replica_id, message))
-                print("FAILED TO SEND", flush=True)
+                # print("FAILED TO SEND", flush=True)
+                pass
 
     def exit(self):
         print("EXITING", self.replica.id)
+        total_certs = len(self.replica.certified)
+        print("CERTIFIED TOTAL", total_certs, "BLOCKS")
+        duration = time() - self.start
+        print("IN", duration, "seconds")
+        avg_cert = duration/total_certs
+        print("AVG CERT TIME", avg_cert)
         self.local_sock.close()
         for replica_id, sock in self.sockets_by_id.items():
             sock.close()
@@ -131,7 +138,7 @@ class ReplicaConnection:
 
     def broadcast(self, message):
         while len(self.sockets) < self.n/2:
-            sleep(0.5)
+            sleep(0.1)
         print("BROADCAST", flush=True)
         for i in range(1, self.n+1):
             if i != self.replica.id:
@@ -205,7 +212,7 @@ class ReplicaConnection:
         replica_id = self.get_next_replica_id(0)
         while not self.stop:
             if len(self.sockets_by_id) == 0:
-                sleep(1)
+                sleep(0.5)
             sock = self.sockets_by_id[replica_id]
             try:
                 # bft_proto.BlameMSG()

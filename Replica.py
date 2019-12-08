@@ -221,6 +221,7 @@ class Replica:
         self.locked = block
         self.status[self.id] = block
         print(self.id, "CERTIFIED BLOCK", block.get_hash(), flush=True)
+        self.certified.append(block)
         if self.leader:
             print("LEADER PROPOSE", flush=True)
             self.propose(True, self.status)
