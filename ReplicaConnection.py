@@ -151,6 +151,7 @@ class ReplicaConnection:
         self.accept_from_greaters()
         print("INITIALIZED NETWORK FOR", self.replica.id, flush=True)
         self.replica.network_initialized()
+        self.start = time()
         listen_t = Thread(target=self.epoll_listen, args=())
         listen_t.start()
 
