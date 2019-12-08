@@ -117,7 +117,9 @@ class Replica:
         block.sign(self, signature)
         self.proposals.append(proposal)
         self.proposal_hashes.append(proposal.get_hash())
+        print("HERE")
         self.broadcast(proposal.get_proto())
+        print("NOT HERE")
         self.vote(block)
 
     def propose_lock(self, block):

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/BLSHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/BLSHelper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Replica.py" beforeDir="false" afterPath="$PROJECT_DIR$/Replica.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +63,7 @@
           <entry key="dummy" value="27" />
           <entry key="md" value="262" />
           <entry key="proto" value="1322" />
-          <entry key="py" value="46299" />
+          <entry key="py" value="46331" />
           <entry key="sh" value="185" />
         </counts>
       </usages-collector>
@@ -73,18 +73,18 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="27" />
           <entry key="PROTO" value="1322" />
-          <entry key="Python" value="46299" />
+          <entry key="Python" value="46331" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Replica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="207" column="18" lean-forward="true" selection-start-line="207" selection-start-column="18" selection-end-line="207" selection-end-column="18" />
+            <state relative-caret-position="524">
+              <caret line="121" column="25" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -138,11 +138,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BLSHelper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+            <state relative-caret-position="270">
+              <caret line="18" column="1" lean-forward="true" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
                 <marker date="1575800345459" expanded="true" signature="574:580" ph="..." />
@@ -229,9 +229,9 @@
       <find>UNIQUE</find>
       <find>, flush=True</find>
       <find>BN_clear_free</find>
-      <find>import Bn</find>
       <find>cffi</find>
       <find>Bn(</find>
+      <find>import Bn</find>
       <find>print</find>
     </findStrings>
     <dirStrings>
@@ -275,7 +275,6 @@
         <option value="$PROJECT_DIR$/BFT.proto" />
         <option value="$PROJECT_DIR$/replicanetwork.py" />
         <option value="$PROJECT_DIR$/ReplicaConnection.py" />
-        <option value="$PROJECT_DIR$/Replica.py" />
         <option value="$PROJECT_DIR$/ReplicaMain.py" />
         <option value="$PROJECT_DIR$/SocketHelper.py" />
         <option value="$PROJECT_DIR$/bls/__init__.py" />
@@ -284,6 +283,7 @@
         <option value="$PROJECT_DIR$/Block.py" />
         <option value="$PROJECT_DIR$/MessageType.py" />
         <option value="$PROJECT_DIR$/BLSHelper.py" />
+        <option value="$PROJECT_DIR$/Replica.py" />
       </list>
     </option>
   </component>
@@ -824,16 +824,6 @@
     <entry file="file://$PROJECT_DIR$/bls/utils.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Replica.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="207" column="18" lean-forward="true" selection-start-line="207" selection-start-column="18" selection-end-line="207" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bls/blah.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -899,12 +889,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BLSHelper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+        <state relative-caret-position="270">
+          <caret line="18" column="1" lean-forward="true" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
             <marker date="1575800345459" expanded="true" signature="574:580" ph="..." />
             <marker date="1575800345459" expanded="true" signature="1812:1818" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Replica.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="121" column="25" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
