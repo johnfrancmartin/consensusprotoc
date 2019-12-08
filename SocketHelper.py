@@ -6,12 +6,14 @@ from time import time
 import BFT_pb2
 import select
 
+
 class SocketDisconnectedException(Exception):
     def __init__(self, message=None):
         message = "Replica disconnected, trying to reconnect."
         super().__init__(message)
 
-def sendMsg(s, protoType):
+
+def send_msg(s, protoType):
     if protoType is not None:
         msg = None
         try:
@@ -27,7 +29,8 @@ def sendMsg(s, protoType):
             print("SOCKET DISCONNECTED EXCEPTION")
             raise SocketDisconnectedException("Socket Disconnected")
 
-def recvMsg(sock, prototype):
+
+def recv_msg(sock, prototype):
     var_int_buff = []
     while True:
         buf = sock.recv(1)
@@ -49,9 +52,10 @@ def recvMsg(sock, prototype):
         print("RECEIVED", prototype.id)
         return prototype
     except BlockingIOError:
-        return recvMsg(sock, prototype, msg_len)
+        return recv_blocked_msg(sock, prototype, msg_len)
 
-def recvMsg(sock, prototype, msg_len):
+
+def recv_blocked_msg(sock, prototype, msg_len):
     attempts = 0
     while True:
         try:
@@ -64,36 +68,3 @@ def recvMsg(sock, prototype, msg_len):
             if attempts > 10:
                 return None
             pass
-
-def recvMsg2(s, protoType):
-    var_int_buff = []
-    start = time()
-    s.setblocking(0)
-    ready = select.select([s], [], [], 0.1)
-    if ready[0]:
-        while True:
-            if time() - start > 0.1:
-                print("RETURNING DUE TO TIMEOUT")
-                return
-            buf = s.recv(1)
-            if not buf:
-                print("RETURNING DUE TO EMPTY BUF")
-                return
-            var_int_buff += buf
-            try:
-                msg_len, new_pos = _DecodeVarint32(var_int_buff, 0)
-                if new_pos != 0:
-                    break
-            except Exception as e:
-                print("ERROR RECEIVING MSG", e)
-                pass
-        print(msg_len)
-        whole_msg = s.recv(msg_len)
-        protoType.ParseFromString(whole_msg)
-        print("RECEIVED", protoType.id)
-        return protoType
-    else:
-        # print("RETURNING DUE TO TIMEOUT")
-        return
-
-

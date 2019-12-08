@@ -1,6 +1,6 @@
 import socket
 from BFT_pb2 import Wrapper
-from SocketHelper import recvMsg, sendMsg
+from SocketHelper import recv_msg, send_msg
 import traceback
 from time import sleep
 from threading import Thread, Lock
@@ -88,7 +88,7 @@ class ReplicaConnection:
                 if event & select.EPOLLIN:
                     sock = self.sockets[fileno]
                     wrapper = Wrapper()
-                    msg = recvMsg(sock, wrapper)
+                    msg = recv_msg(sock, wrapper)
                     if msg is None:
                         continue
                     print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
@@ -115,7 +115,7 @@ class ReplicaConnection:
                 fileno = self.filenos[replica_id]
                 sock = self.sockets[fileno]
                 print(self.replica.id, "SENT MSG", message.id, flush=True)
-                sendMsg(sock, message)
+                send_msg(sock, message)
             except Exception as e:
                 self.messages.append((replica_id, message))
                 print("FAILED TO SEND", flush=True)
@@ -188,7 +188,7 @@ class ReplicaConnection:
             try:
                 sock = self.sockets_by_id[replica_id]
                 print(self.replica.id, "SENT MSG", message.id, flush=True)
-                sendMsg(sock, message)
+                send_msg(sock, message)
             except Exception as e:
                 self.messages.append((replica_id, message))
                 print("FAILED TO SEND", flush=True)
@@ -214,7 +214,7 @@ class ReplicaConnection:
                 # bft_proto.VoteMSG()
                 # msg = recvMsg(client_socket, bft_proto.BlameMSG())
                 wrapper = Wrapper()
-                msg = recvMsg(sock, wrapper)
+                msg = recv_msg(sock, wrapper)
                 if msg is None:
                     continue
                 print(self.replica.id, "RECEIVED MESSAGE", msg.id)
