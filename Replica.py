@@ -21,7 +21,8 @@ class Replica:
         # Commands
         self.commands_queue = []
         for i in range(0, 20000):
-            self.commands_queue.append(1)
+            command = [b'11110000' for i in range(0, 1000)]
+            self.commands_queue.append(command)
         # Runtime Variables
         self.view = 1
         self.leader = False

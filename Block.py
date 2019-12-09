@@ -6,7 +6,9 @@ import BFT_pb2
 class Block:
     def __init__(self, command, height, view, previous_hash):
         self.command = command
-        if command is not None:
+        if type(command) is list:
+            self.commands = command
+        elif command is not None:
             self.commands = [command]
         else:
             self.commands = []
