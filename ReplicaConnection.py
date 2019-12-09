@@ -9,6 +9,7 @@ import uuid
 import select
 from google.protobuf.internal.encoder import _EncodeVarint
 from google.protobuf.internal.decoder import _DecodeVarint32
+from google.protobuf.timestamp_pb2 import Timestamp
 
 BASE = 60000
 HOST = "127.0.0.1"
@@ -44,6 +45,7 @@ class ReplicaConnection:
         self.recv_times = []
         self.send_times = []
         self.process_times = []
+        self.transfer_times = []
 
     def connect_to_lessers(self):
         connections = {}
@@ -98,6 +100,8 @@ class ReplicaConnection:
                     msg = self.recv_msg(sock, wrapper)
                     if msg is None:
                         continue
+                    transfer_time = time() - msg.timestamp
+                    self.transfer_times.append(transfer_time)
                     recv_time = time() - start
                     self.recv_times.append(recv_time)
                     # print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
@@ -110,7 +114,7 @@ class ReplicaConnection:
                     # message = self.sockets[fileno].recv(1024)
                 elif event & select.EPOLLOUT:
                     if self.print:
-                        print("EOLLOUT!")
+                        print("EPOLLOUT!")
                 elif event & select.EPOLLHUP:
                     if self.print:
                         print("EPOLLHUP!")
@@ -150,6 +154,7 @@ class ReplicaConnection:
         print("AVERAGE RECEIVE TIME:", sum(self.recv_times)/len(self.recv_times))
         print("AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
         print("AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
+        print("AVERAGE TRANSFER TIME:", sum(self.transfer_times) / len(self.transfer_times))
         self.local_sock.close()
         for replica_id, sock in self.sockets_by_id.items():
             sock.close()
@@ -331,6 +336,7 @@ class ReplicaConnection:
             self.sockets_by_id[sender_id] = client
 
     def send_msg(self, s, prototype):
+        prototype.timestamp = time()
         if prototype is not None:
             msg = None
             try:

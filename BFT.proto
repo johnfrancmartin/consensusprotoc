@@ -4,6 +4,7 @@ package bft;
 
 message Wrapper {
     required string id = 1;
+    optional float timestamp = 2;
     optional BLSHelper bls = 3;
     optional Proposal proposal = 8;
     optional Vote vote = 9;
