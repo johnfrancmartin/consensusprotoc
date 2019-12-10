@@ -107,10 +107,12 @@ class Replica:
                     self.pending_proposals.remove(prop)
 
     def create_block(self, previous):
+        print("STARTED CREATE BLOCK", flush=True)
         while len(self.commands_queue) == 0 and not self.stop:
             if self.print:
                 print("SLEEP", flush=True)
             sleep(0.01)
+        print("CREATING BLOCK", flush=True)
         command = self.commands_queue.pop(0)
         previous_hash = None
         height = 0
@@ -137,6 +139,7 @@ class Replica:
         else:
             block = self.create_block(None)
             previous_cert = None
+        print("MADE BLOCK", flush=True)
         signature = self.sign_blk(block)
         # TODO: ADD SIGNATURE
         proposal = Proposal(block, self.view, previous_cert, status)
@@ -149,6 +152,7 @@ class Replica:
         self.proposed = block
         self.blocks[block.get_hash()] = block
         self.vote(block)
+        print("MADE IT SEND", flush=True)
 
     def propose_cert(self, block):
         if self.leader:
