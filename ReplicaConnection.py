@@ -166,6 +166,7 @@ class ReplicaConnection:
         for f, sock in self.sockets.items():
             sock.close()
         self.stop = True
+        self.replica.stop()
         print("EXITING", self.replica.id)
         total_cmts = len(self.replica.committed)
         print(self.replica.id, "COMMITTED TOTAL", total_cmts, "BLOCKS")
@@ -174,9 +175,9 @@ class ReplicaConnection:
         if total_cmts > 0:
             avg_cmt = duration/total_cmts
             print(self.replica.id, "AVG CMT TIME", avg_cmt)
-        per_sec = 1/avg_cmt
-        print(self.replica.id, "CMT PER SEC", per_sec)
-        print(self.replica.id, "OPS PER SEC", self.replica.batch_size * per_sec)
+            per_sec = 1/avg_cmt
+            print(self.replica.id, "CMT PER SEC", per_sec)
+            print(self.replica.id, "OPS PER SEC", self.replica.batch_size * per_sec)
         if len(self.replica.command_commit_times) > 0:
             print(self.replica.id, "COMMAND LATENCY", sum(self.replica.command_commit_times)/len(self.replica.command_commit_times))
         if len(self.recv_times) > 0:
@@ -215,6 +216,11 @@ class ReplicaConnection:
         log_dict["duration"] = duration
         with open("logs/logs" + str(self.replica.id) + ".json", "w") as jsfile:
             json.dump(log_dict, jsfile)
+
+    def direct_message(self, message, recipient_id):
+        while len(self.sockets) < self.n/2:
+            continue
+        self.messages.append((recipient_id, message))
 
     def broadcast(self, message):
         while len(self.sockets) < self.n/2:

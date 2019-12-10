@@ -10,6 +10,7 @@ message Wrapper {
     optional Vote vote = 9;
     optional Blame blame = 10;
     optional Command command = 11;
+    optional Enter enter = 12;
 }
 
 message Block {
@@ -72,6 +73,12 @@ message Vote {
 }
 
 message Blame {
+    optional int32 view = 2;
+    optional int32 sender = 4;
+    repeated Status states = 5;
+}
+
+message Enter {
     optional int32 view = 2;
     optional int32 sender = 4;
     repeated Status states = 5;

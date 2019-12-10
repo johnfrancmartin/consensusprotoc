@@ -82,6 +82,23 @@ class Blame(Message):
         self.status = status
         super().__init__(MessageType.BLAME)
 
+    def get_proto(self):
+        wrapper_proto = BFT_pb2.Wrapper()
+        wrapper_proto.blame.view = self.view
+        wrapper_proto.blame.sender = self.sender
+        for replica, blk in self.status.items():
+            status_proto = BFT_pb2.Status()
+            status_proto.replica = replica
+            status_proto.locked.CopyFrom(blk.get_proto())
+            wrapper_proto.blame.states.append(status_proto)
+        return wrapper_proto
+
+    @staticmethod
+    def get_from_proto(proto):
+        signature = int(proto.signature)
+
+        return Vote(Block.get_from_proto(proto.block), proto.view, signature, proto.sender)
+
 class Command(Message):
     def __init__(self, commands):
         self.commands = commands

@@ -32,12 +32,31 @@ class Block:
         hash_bytes = str.encode(hash_str)
         return hashlib.sha256(hash_bytes).hexdigest()
 
-    def sign(self, sender, signature):
-        self.signatures[sender.id] = signature
+    def sign(self, sender_id, signature):
+        self.signatures[sender_id] = signature
 
-    def certify(self, bls_helper):
-        sigs = [sig for sender, sig in self.signatures.items()]
+    def certify(self):
+        siggies = []
+        for sender, sig in self.signatures.items():
+            str_sig = str(sig)
+            siggies.append(str_sig)
+        cert: str = ":".join(siggies)
         if self.certification is None:
-            self.certification = bls_helper.aggregate_sigs(sigs)
-        elif self.commit_certification is None:
-            self.certification = bls_helper.aggregate_sigs(sigs)
+            self.certification = cert
+
+    def verify_cert(self, public_keys_dict, cert, qr):
+        cert_sigs = [int(s) for s in cert.split(":")]
+        count = 0
+        for sig in cert_sigs:
+            for id, key in public_keys_dict.items():
+                if self.check_signature(key, sig):
+                    count += 1
+                    break
+            if count >= qr:
+                return True
+        return False
+
+    def check_signature(self, public_key, signature):
+        hash_str = self.get_hash()
+        verification = public_key.verify(hash_str, (signature,))
+        return verification

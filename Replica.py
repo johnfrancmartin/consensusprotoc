@@ -34,7 +34,6 @@ class Replica:
             privs = json.load(prv_file)
         with open("public.json", "r") as pub_file:
             pubs = json.load(pub_file)
-
         self.public_key = None
         self.private_key = None
         self.private_keys = {}
