@@ -23,8 +23,8 @@ class Proposal(Message):
 
     def get_hash(self):
         cert = ""
-        if self.block.unique_cert is not None:
-            cert = self.block.unique_cert
+        if self.block.lock_cert is not None:
+            cert = self.block.lock_cert
         hash_str = self.block.get_hash() + ":" + str(self.view) + ":" + str(self.previous_cert) + ":" + str(self.status) + ":" + str(cert)
         hash_bytes = str.encode(hash_str)
         return hashlib.sha256(hash_bytes).hexdigest()
