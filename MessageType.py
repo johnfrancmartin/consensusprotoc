@@ -8,6 +8,7 @@ class MessageType(Enum):
     VOTE = 1
     BLAME = 2
     ENTER = 3
+    COMMAND = 4
 
 class Message:
     def __init__(self, type):
@@ -80,6 +81,18 @@ class Blame(Message):
         self.sender = sender
         self.status = status
         super().__init__(MessageType.BLAME)
+
+class Command(Message):
+    def __init__(self, commands):
+        self.commands = commands
+        super().__init__(MessageType.COMMAND)
+
+    @staticmethod
+    def get_from_proto(proto):
+        commands = []
+        for i in proto.commands:
+            commands.append(i)
+        return Command(commands)
 
 class Enter(Message):
     def __init__(self, sender, level, block):

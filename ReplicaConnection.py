@@ -4,7 +4,7 @@ import traceback
 from time import sleep, time
 from threading import Thread, Lock
 import atexit
-from MessageType import Block, Blame, Proposal, Vote
+from MessageType import Block, Blame, Proposal, Vote, Command
 import uuid
 import select
 from google.protobuf.internal.encoder import _EncodeVarint
@@ -317,7 +317,8 @@ class ReplicaConnection:
             blame_proto = message.blame
             raise NotImplementedError
         else:
-            return message.command
+            command = Command.get_from_proto(message.command)
+            return command
         # elif message.HasField('enter'):
         #     enter = message.enter
         #     raise NotImplementedError
