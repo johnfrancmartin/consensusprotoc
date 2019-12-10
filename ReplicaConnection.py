@@ -90,10 +90,10 @@ class ReplicaConnection:
                     print(self.replica.id, "FAILED TO ACCEPT GREATER")
 
     def accept_from_client(self):
-        print("ACCEPTING FROM GREATERS", flush=True)
+        print("ACCEPTING FROM CLIENT", flush=True)
         i = 0
         connected = False
-        while not connected:
+        while not connected and not self.stop:
             try:
                 s, addr = self.serversocket.accept()
                 s.setblocking(0)

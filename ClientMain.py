@@ -60,6 +60,7 @@ def main():
     print("Running Client...")
     try:
         client = Client(n, rate, batch_size)
+        client.run()
 
     except KeyboardInterrupt:
         return
