@@ -226,7 +226,7 @@ class HotstuffReplica:
     def blame(self):
         self.view_change(None)
 
-    def receive_msg(self, message):
+    def receive_msg(self, message, msg_id):
         if message.type == MessageType.PROPOSE:
             self.receive_proposal(message)
         elif message.type == MessageType.VOTE:
