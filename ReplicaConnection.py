@@ -432,6 +432,9 @@ class ReplicaConnection:
             return prototype
         except BlockingIOError:
             return self.recv_blocked_msg(sock, prototype, msg_len)
+        except Exception:
+            return None
+
 
     def recv_blocked_msg(self, sock, prototype, msg_len):
         attempts = 0
