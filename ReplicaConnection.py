@@ -142,6 +142,12 @@ class ReplicaConnection:
                 pass
 
     def exit(self):
+        self.local_sock.close()
+        for replica_id, sock in self.sockets_by_id.items():
+            sock.close()
+        for f, sock in self.sockets.items():
+            sock.close()
+        self.stop = True
         print("EXITING", self.replica.id)
         total_certs = len(self.replica.certified)
         print("CERTIFIED TOTAL", total_certs, "BLOCKS")
@@ -155,12 +161,7 @@ class ReplicaConnection:
         print("AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
         print("AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
         print("AVERAGE TRANSFER TIME:", sum(self.transfer_times) / len(self.transfer_times))
-        self.local_sock.close()
-        for replica_id, sock in self.sockets_by_id.items():
-            sock.close()
-        for f, sock in self.sockets.items():
-            sock.close()
-        self.stop = True
+
 
     def broadcast(self, message):
         while len(self.sockets) < self.n/2:
