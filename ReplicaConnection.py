@@ -236,12 +236,76 @@ class ReplicaConnection:
         # send_t.join()
         # execute_t.join()
 
+    def send(self):
+        while not self.stop:
+            if len(self.messages) == 0:
+                continue
+            (replica_id, message) = self.messages.pop(0)
+            try:
+                sock = self.sockets_by_id[replica_id]
+                if self.print:
+                    print(self.replica.id, "SENT MSG", message.id, flush=True)
+                self.send_msg(sock, message)
+            except Exception as e:
+                self.messages.append((replica_id, message))
+                if self.print:
+                    print("FAILED TO SEND", flush=True)
+
     def execute(self):
         while not self.stop:
             if len(self.received) == 0:
                 continue
             msg = self.received.pop(0)
             self.replica.receive_msg(msg)
+
+    def listen(self):
+        while len(self.sockets_by_id) == 0:
+            sleep(1)
+        replica_id = self.get_next_replica_id(0)
+        while not self.stop:
+            if len(self.sockets_by_id) == 0:
+                sleep(0.5)
+            sock = self.sockets_by_id[replica_id]
+            try:
+                # bft_proto.BlameMSG()
+                # bft_proto.ProposalMSG()
+                # bft_proto.VoteMSG()
+                # msg = recvMsg(client_socket, bft_proto.BlameMSG())
+                wrapper = Wrapper()
+                msg = self.recv_msg(sock, wrapper)
+                if msg is None:
+                    continue
+                print(self.replica.id, "RECEIVED MESSAGE", msg.id)
+                python_msg = self.get_python_message(msg)
+                self.received.append(python_msg)
+            except IndexError as e:
+                print("INDEX ERROR")
+                raise e
+            except Exception as e:
+                print("ERROR: Listen for Replicas Thread.", e)
+                traceback.print_tb(e.__traceback__)
+                pass
+            replica_id = self.get_next_replica_id(replica_id)
+
+    def listen_socket_init(self, host, port):
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            sock.bind((host, port))
+            sock.listen(10)
+            print("Listen Socket Initialized at:", host, port)
+            return sock
+        except Exception as e:
+            print("Error initializing listen sock", e)
+
+
+    def get_next_replica_id(self, current):
+        new = current + 1
+        while new == self.replica.id or new > self.n or new not in self.sockets_by_id:
+            new += 1
+            if new > self.n-1:
+                new = 1
+        return new
 
     def get_python_message(self, message):
         if message.HasField('proposal'):
@@ -257,6 +321,16 @@ class ReplicaConnection:
         # elif message.HasField('enter'):
         #     enter = message.enter
         #     raise NotImplementedError
+
+
+    def connect_to_replicas(self):
+        print("CONNECTING TO REPLICAS")
+        for i in range(1, self.replica.id):
+            if i == self.replica.id:
+                print("SELF")
+                continue
+            sock = self.connect_socket_init(socket.gethostname(), 2000+i, i)
+            self.sockets_by_id[i] = sock
 
     def connect_socket_init(self, host, port, replica_id):
         while not self.stop:
