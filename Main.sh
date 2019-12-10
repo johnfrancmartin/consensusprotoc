@@ -3,7 +3,7 @@
 killall python3;
 source ./venv/bin/activate;
 
-n=32
+n=4
 python3 ./GenerateKeys.py ${n}
 for i in {0..${n}}
 do
