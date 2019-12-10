@@ -91,7 +91,7 @@ class HotstuffReplica:
             except Exception as e:
                 print("Exception:", e, flush=True)
 
-    def stop(self):
+    def exit(self):
         self.protocol.stop = True
         self.stop = True
 

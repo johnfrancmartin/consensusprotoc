@@ -85,7 +85,7 @@ class Replica:
                 if self.print:
                     print("Exception:", e, flush=True)
 
-    def stop(self):
+    def exit(self):
         self.protocol.stop = True
         self.stop = True
 
