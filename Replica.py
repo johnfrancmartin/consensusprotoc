@@ -256,12 +256,13 @@ class Replica:
         elif len(block.signatures) >= self.qc:
             block.certify()
             if block.previous_hash in self.blocks and self.blocks[block.previous_hash].commit_cert is not None:
-                print("COMMITTING BLOCK")
                 previous = self.blocks[block.previous_hash]
                 self.commit(previous)
 
     def commit(self, block):
-        self.update_commit_tracking(block)
+        new_update = self.update_commit_tracking(block)
+        if not new_update:
+            return
         current = block
         for i in range(0, block.height):
             previous_hash = current.previous_hash
@@ -281,6 +282,7 @@ class Replica:
             if command in self.command_start_times:
                 commit_time = time() - self.command_start_times[command]
                 self.command_commit_times.append(commit_time)
+            print("COMMITTED BLOCK")
             return True
         else:
             return False

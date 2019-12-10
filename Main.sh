@@ -4,14 +4,18 @@ killall python
 killall python3
 source ./venv/bin/activate;
 #pip list;
-python3 ./GenerateKeys.py 4;
-python3 ./ReplicaMain.py 4 1 &
+python3 ./GenerateKeys.py 5;
+python3 ./ReplicaMain.py 5 1 &
 sleep 1
-python3 ./ReplicaMain.py 4 2 &
+python3 ./ReplicaMain.py 5 2 &
 sleep 1
-python3 ./ReplicaMain.py 4 3 &
+python3 ./ReplicaMain.py 5 3 &
 sleep 1
-python3 ./ReplicaMain.py 4 4;
+python3 ./ReplicaMain.py 5 4 &
+sleep 1
+python3 ./ReplicaMain.py 5 5 &
+sleep 1
+python3 ./ClientMain.py 5 3 64;
 
 #n = 4
 #for i in {1..4}; do
