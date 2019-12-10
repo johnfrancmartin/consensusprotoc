@@ -186,6 +186,8 @@ class Replica:
         if self not in block.signatures:
             block.sign(self.id, signature)
             self.broadcast(Vote(block, self.view, signature, self).get_proto())
+        if block.get_hash() not in self.blocks:
+            self.blocks[block.get_hash()] = block
 
     def block_extends(self, block):
         if self.locked is None:
@@ -252,8 +254,10 @@ class Replica:
             self.lock(block)
             self.next()
         elif len(block.signatures) >= self.qc:
+            print("COMMITTING BLOCK")
             block.certify()
             if block.previous_hash in self.blocks and self.blocks[block.previous_hash].commit_cert is not None:
+                print("MADE IT")
                 previous = self.blocks[block.previous_hash]
                 self.commit(previous)
 
