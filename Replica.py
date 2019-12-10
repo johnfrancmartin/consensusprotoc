@@ -283,6 +283,7 @@ class Replica:
                 commit_time = time() - self.command_start_times[command]
                 self.command_commit_times.append(commit_time)
             print("COMMITTED BLOCK")
+            self.protocol.log()
             return True
         else:
             return False

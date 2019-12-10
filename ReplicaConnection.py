@@ -10,6 +10,7 @@ import select
 from google.protobuf.internal.encoder import _EncodeVarint
 from google.protobuf.internal.decoder import _DecodeVarint32
 from google.protobuf.timestamp_pb2 import Timestamp
+import json
 
 BASE = 60000
 HOST = "127.0.0.1"
@@ -187,6 +188,32 @@ class ReplicaConnection:
         if len(self.transfer_times) > 0:
             print(self.replica.id, "AVERAGE TRANSFER TIME:", sum(self.transfer_times) / len(self.transfer_times))
 
+    def log(self):
+        log_dict = {}
+        total_cmts = len(self.replica.committed)
+        duration = time() - self.start
+        if total_cmts > 0:
+            avg_cmt = duration / total_cmts
+            log_dict["avg_cmt"] = avg_cmt
+        per_sec = 1 / avg_cmt
+        log_dict["per_sec"] = per_sec
+        ops_per_sec = self.replica.batch_size * per_sec
+        log_dict["ops_per_sec"] = ops_per_sec
+        if len(self.replica.command_commit_times) > 0:
+            command_latency = sum(self.replica.command_commit_times) / len(self.replica.command_commit_times)
+            log_dict["command_latency"] = command_latency
+        # if len(self.recv_times) > 0:
+        #     print(self.replica.id, "AVERAGE RECEIVE TIME:", sum(self.recv_times) / len(self.recv_times))
+        # if len(self.process_times) > 0:
+        #     print(self.replica.id, "AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
+        # if len(self.send_times) > 0:
+        #     print(self.replica.id, "AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
+        # if len(self.transfer_times) > 0:
+        #     print(self.replica.id, "AVERAGE TRANSFER TIME:", sum(self.transfer_times) / len(self.transfer_times))
+        log_dict["total_cmts"] = total_cmts
+        log_dict["duration"] = duration
+        with open("logs/logs" + str(self.replica.id) + ".json", "w") as jsfile:
+            json.dump(log_dict, jsfile)
 
     def broadcast(self, message):
         while len(self.sockets) < self.n/2:
