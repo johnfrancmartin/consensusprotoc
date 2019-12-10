@@ -160,12 +160,14 @@ class ReplicaConnection:
         print("OPS PER SEC", self.replica.batch_size * per_sec)
         if len(self.replica.command_commit_times) > 0:
             print("COMMAND LATENCY", sum(self.replica.command_commit_times)/len(self.replica.command_commit_times))
-        else:
-            print(self.replica.command_commit_times)
-        print("AVERAGE RECEIVE TIME:", sum(self.recv_times)/len(self.recv_times))
-        print("AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
-        print("AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
-        print("AVERAGE TRANSFER TIME:", sum(self.transfer_times) / len(self.transfer_times))
+        if len(self.recv_times) > 0:
+            print("AVERAGE RECEIVE TIME:", sum(self.recv_times)/len(self.recv_times))
+        if len(self.process_times) > 0:
+            print("AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
+        if len(self.send_times) > 0:
+            print("AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
+        if len(self.transfer_times) > 0:
+            print("AVERAGE TRANSFER TIME:", sum(self.transfer_times) / len(self.transfer_times))
 
 
     def broadcast(self, message):
