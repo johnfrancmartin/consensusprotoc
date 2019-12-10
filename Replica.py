@@ -130,7 +130,7 @@ class Replica:
                 if block.view >= previous.view and block.height >= previous.height: # TODO: ADD VERIFY THRESHOLD SIGNATURE
                     previous = block
         else:
-            previous = self.locked
+            previous = self.proposed
         if previous is not None and previous.commands is not None:
             previous = previous.clone_for_view(self.view)
             block = self.create_block(previous)
@@ -251,10 +251,7 @@ class Replica:
         if len(block.signatures) >= self.qr and block.lock_cert is None:
             print("G", flush=True)
             block.certify()
-            if block.previous_hash in self.blocks and self.blocks[block.previous_hash].view == block.view:
-                print("I", flush=True)
-                previous = self.blocks[block.previous_hash]
-                self.lock(previous)
+            self.lock(block)
             self.next()
         elif len(block.signatures) >= self.qc:
             print("H", flush=True)
