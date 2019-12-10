@@ -132,11 +132,12 @@ class Replica:
                     previous = block
         else:
             previous = self.proposed
-        if previous is not None:
+        if previous is not None and previous.commands is not None:
+            block = self.create_block(previous)
             previous_cert = previous.lock_cert
         else:
+            block = self.create_block(None)
             previous_cert = None
-        block = self.create_block(None)
         signature = self.sign_blk(block)
         # TODO: ADD SIGNATURE
         proposal = Proposal(block, self.view, previous_cert, status)
@@ -162,6 +163,7 @@ class Replica:
             return
         else:
             self.proposals.append(proposal)
+            self.proposal_hashes.append(proposal)
         if proposal.view > self.view or (self.locked is not None and proposal.block.height > self.locked.height + 1):
             self.pending_proposals.append(proposal)
         elif proposal.view == self.view:
@@ -222,7 +224,9 @@ class Replica:
         signature = vote.signature
         block_hash = block.get_hash()
         verify = self.verify_signature(block, signature, sender_id)
-        if not verify:
+        if block.view > self.view:
+            return
+        elif not verify:
             # If signature not valid, blame sender
             if self.print:
                 print("BLAME FOR INVALID SIGNATURE", flush=True)
