@@ -107,7 +107,7 @@ class ReplicaConnection:
                     # print(self.replica.id, "RECEIVED MESSAGE", msg.id, flush=True)
                     python_msg = self.get_python_message(msg)
                     start = time()
-                    self.replica.receive_msg(python_msg)
+                    self.replica.receive_msg(python_msg, msg.id)
                     process_time = time() - start
                     self.process_times.append(process_time)
                     # self.received.append(python_msg)
@@ -166,11 +166,11 @@ class ReplicaConnection:
     def broadcast(self, message):
         while len(self.sockets) < self.n/2:
             continue
+        message.id = str(uuid.uuid4())
         if self.print:
-            print("BROADCAST", flush=True)
+            print("BROADCAST", message.id, flush=True)
         for i in range(1, self.n+1):
             if i != self.replica.id:
-                message.id = str(uuid.uuid4())
                 self.messages.append((i, message))
 
 

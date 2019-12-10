@@ -301,23 +301,23 @@ class Replica:
         raise NotImplementedError
         self.broadcast(blame)
 
-    def receive_msg(self, message):
+    def receive_msg(self, message, msg_id):
         if message.type == MessageType.PROPOSE:
             if message.get_hash() in self.proposal_hashes:
                 if self.print:
-                    print(self.id, "RECEIVED REPROPOSAL", flush=True)
+                    print(self.id, "RECEIVED REPROPOSAL", msg_id, flush=True)
             else:
                 self.proposal_hashes.append(message.get_hash())
                 if self.print:
-                    print(self.id, "RECEIVED PROPOSAL", flush=True)
+                    print(self.id, "RECEIVED PROPOSAL", msg_id, flush=True)
                 self.receive_proposal(message)
         elif message.type == MessageType.VOTE:
             if self.print:
-                print(self.id, "RECEIVED VOTE", flush=True)
+                print(self.id, "RECEIVED VOTE", msg_id, flush=True)
             self.receive_vote(message)
         elif message.type == MessageType.BLAME:
             if self.print:
-                print(self.id, "RECEIVED BLAME", flush=True)
+                print(self.id, "RECEIVED BLAME", msg_id, flush=True)
             self.receive_blame(message)
 
     def receive_blame(self, message):
