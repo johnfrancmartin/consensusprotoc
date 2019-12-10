@@ -281,10 +281,8 @@ class Replica:
 
     def update_commit_tracking(self, block):
         self.committed.append(block)
-        print(self.command_start_times)
         command = block.commands[0]
         if command in self.command_start_times:
-            print("FOUND")
             commit_time = time() - self.command_start_times[command]
             self.command_commit_times.append(commit_time)
 
