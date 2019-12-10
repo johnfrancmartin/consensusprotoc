@@ -14,7 +14,6 @@ import math
 class HotstuffReplica:
     def __init__(self, n, id):
         # Replica Core
-        self.protocol = self.protocol = ReplicaConnection(n, self)
         self.n = n
         # Debug
         self.print = False
@@ -75,6 +74,8 @@ class HotstuffReplica:
         self.hqc = None
         #
         self.propose_lock = Lock()
+        # Connection
+        self.protocol = self.protocol = ReplicaConnection(n, self)
 
     # REPLICA FUNCTIONS
         # REPLICA FUNCTIONS
