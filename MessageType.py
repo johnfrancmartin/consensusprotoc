@@ -34,7 +34,7 @@ class Proposal(Message):
         wrapper_proto = BFT_pb2.Wrapper()
         wrapper_proto.proposal.block.CopyFrom(self.block.get_proto())
         if self.previous_cert is not None:
-            wrapper_proto.previous = self.previous_cert
+            wrapper_proto.proposal.previous = self.previous_cert
         wrapper_proto.proposal.view = self.view
         return wrapper_proto
 
@@ -46,6 +46,9 @@ class Proposal(Message):
             block = Block.get_from_proto(blk)
             status[i] = block
             i += 1
+        previous = None
+        if proto.previous is not None:
+            previous = proto.previous
         return Proposal(Block.get_from_proto(proto.block), proto.view, proto.previous, status)
 
 class Vote(Message):

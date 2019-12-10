@@ -61,7 +61,7 @@ message Status {
 message Proposal {
   optional Block block = 1;
   optional int32 view = 2;
-  optional bytes previous = 4;
+  optional string previous = 4;
   repeated Block status = 5;
 }
 
