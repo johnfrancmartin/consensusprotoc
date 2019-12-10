@@ -108,6 +108,7 @@ class Replica:
                     self.pending_proposals.remove(prop)
 
     def create_block(self, previous):
+        self.commands_lock.acquire()
         if len(self.commands_queue) == 0:
             uid = str(uuid.uuid4())
             command = [uid for i in range(0, self.batch_size)]
