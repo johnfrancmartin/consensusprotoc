@@ -27,10 +27,6 @@ class Replica:
         self.command_commit_times = []
         self.batch_size = 64
         self.rate = 4
-        for i in range(0, 20000):
-            uid = str(uuid.uuid4())
-            command = [uid for i in range(0, self.batch_size)]
-            self.commands_queue.append(command)
         # Runtime Variables
         self.view = 1
         self.leader = False
