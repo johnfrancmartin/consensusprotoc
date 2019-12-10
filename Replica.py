@@ -125,13 +125,13 @@ class Replica:
         print("PROPOSING", flush=True)
         if status is None:
             status = {}
-        if not steady_state:
+        if steady_state:
+            previous = self.proposed
+        else:
             previous = Block(None, 0, 0, None)
             for sender, block in status.items():
-                if block.view >= previous.view and block.height >= previous.height: # TODO: ADD VERIFY THRESHOLD SIGNATURE
+                if block.view >= previous.view and block.height >= previous.height:  # TODO: ADD VERIFY THRESHOLD SIGNATURE
                     previous = block
-        else:
-            previous = self.proposed
         if previous is not None and previous.commands is not None:
             block = self.create_block(previous)
             previous_cert = previous.lock_cert
@@ -161,11 +161,8 @@ class Replica:
             self.broadcast(proposal.get_proto())
 
     def receive_proposal(self, proposal):
-        if proposal in self.proposals:
-            return
-        else:
-            self.proposals.append(proposal)
-            self.proposal_hashes.append(proposal)
+        self.proposals.append(proposal)
+        self.proposal_hashes.append(proposal)
         if proposal.view > self.view or (self.locked is not None and proposal.block.height > self.locked.height + 1):
             self.pending_proposals.append(proposal)
         elif proposal.view == self.view:
@@ -206,7 +203,10 @@ class Replica:
                 end = self.locked
             else:
                 print("E", flush=True)
-                current = self.locked
+                if self.locked is not None:
+                    current = self.locked
+                else:
+                    current = self.proposed
                 end = block
 
             for i in range(0, current.height):
@@ -256,10 +256,9 @@ class Replica:
             self.lock(block)
             self.next()
         elif len(block.signatures) >= self.qc:
-            print("COMMITTING BLOCK")
             block.certify()
             if block.previous_hash in self.blocks and self.blocks[block.previous_hash].commit_cert is not None:
-                print("MADE IT")
+                print("COMMITTING BLOCK")
                 previous = self.blocks[block.previous_hash]
                 self.commit(previous)
 
@@ -311,7 +310,7 @@ class Replica:
             else:
                 self.proposal_hashes.append(message.get_hash())
                 if self.print:
-                    print(self.id, "RECEIVED PROPOSAL", msg_id, message, flush=True)
+                    print(self.id, "RECEIVED PROPOSAL", msg_id, flush=True)
                 self.receive_proposal(message)
         elif message.type == MessageType.VOTE:
             if self.print:

@@ -287,6 +287,7 @@ class ReplicaConnection:
 
     def get_python_message(self, message):
         if message.HasField('proposal'):
+            print("RECEIVED PROP", message.proposal)
             proposal = Proposal.get_from_proto(message.proposal)
             return proposal
         elif message.HasField('vote'):
