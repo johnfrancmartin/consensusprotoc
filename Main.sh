@@ -12,7 +12,7 @@ python3 ./ReplicaMain.py 5 3 &
 sleep 1
 python3 ./ReplicaMain.py 5 4 &
 sleep 1
-python3 ./ReplicaMain.py 5 5;
+python3 ./ReplicaMain.py 5 5 &
 sleep 1
 python3 ./ClientMain.py 5 1 2048;
 
