@@ -199,6 +199,7 @@ class ReplicaConnection:
         log_dict["per_sec"] = per_sec
         ops_per_sec = self.replica.batch_size * per_sec
         log_dict["ops_per_sec"] = ops_per_sec
+        print("OPS PER SEC", ops_per_sec, flush=True)
         if len(self.replica.command_commit_times) > 0:
             command_latency = sum(self.replica.command_commit_times) / len(self.replica.command_commit_times)
             log_dict["command_latency"] = command_latency

@@ -8,8 +8,7 @@ import hashlib
 
 def main():
     args = sys.argv[1:]
-    # n = int(args[0])
-    n = 4
+    n = int(args[0])
     privates = {}
     publics = {}
     signatures = {}
