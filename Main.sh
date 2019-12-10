@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-killall python
 killall python3
 source ./venv/bin/activate;
 #pip list;
