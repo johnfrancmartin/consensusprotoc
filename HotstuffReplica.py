@@ -21,7 +21,7 @@ class HotstuffReplica:
         # Voting
         self.qr = n - math.floor(n / 3)
         self.id = id
-        self.level = 0
+        self.level = 1
         self.leader = False
         # Commands
         self.commands_lock = Lock()
