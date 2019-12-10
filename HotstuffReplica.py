@@ -17,6 +17,7 @@ class HotstuffReplica:
         self.n = n
         # Debug
         self.print = False
+        self.stop = False
         # Voting
         self.qr = n - math.floor(n / 3)
         self.id = id
@@ -67,8 +68,6 @@ class HotstuffReplica:
         self.proposed = None
         # Pending
         self.pending_proposals = []
-        # Stop
-        self.stop = False
         # QC
         self.qc_ref = None
         self.hqc = None
@@ -92,7 +91,6 @@ class HotstuffReplica:
                 print("Exception:", e, flush=True)
 
     def exit(self):
-        self.protocol.stop = True
         self.stop = True
 
     def view_change(self, block):
