@@ -16,6 +16,8 @@ class HotstuffReplica:
         # Replica Core
         self.protocol = self.protocol = ReplicaConnection(n, self)
         self.n = n
+        # Debug
+        self.print = False
         # Voting
         self.qr = n - math.floor(n / 3)
         self.id = id
