@@ -109,7 +109,8 @@ class Replica:
     def create_block(self, previous):
         self.commands_lock.acquire()
         if len(self.commands_queue) == 0:
-            print("FILLER BLOCK", flush=True)
+            if self.print:
+                print("FILLER BLOCK", flush=True)
             uid = str(uuid.uuid4())
             command = [uid for i in range(0, self.batch_size)]
             # FILLER BLOCK
