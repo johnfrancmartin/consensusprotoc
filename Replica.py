@@ -108,15 +108,11 @@ class Replica:
                     self.pending_proposals.remove(prop)
 
     def create_block(self, previous):
-        self.commands_lock.acquire()
         while len(self.commands_queue) == 0 and not self.stop:
             print(len(self.commands_queue))
-            self.commands_lock.release()
             if self.print:
                 print("SLEEP", flush=True)
             sleep(0.1)
-            self.commands_lock.acquire()
-        self.commands_lock.acquire()
         command = self.commands_queue.pop(0)
         self.commands_lock.release()
         previous_hash = None
