@@ -145,9 +145,9 @@ class Replica:
         self.proposals.append(proposal)
         wrapper_proto = proposal.get_proto()
         proposal_from_proto = Proposal.get_from_proto(wrapper_proto.proposal)
-        print("SENDING", wrapper_proto.proposal)
         self.proposal_hashes.append(proposal_from_proto.get_hash())
         self.broadcast(wrapper_proto)
+        self.proposed = block
         self.vote(block)
 
     def propose_cert(self, block):
