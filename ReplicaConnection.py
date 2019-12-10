@@ -317,7 +317,6 @@ class ReplicaConnection:
             blame_proto = message.blame
             raise NotImplementedError
         else:
-            print("RECEIVED COMMAND", message.command)
             command = Command.get_from_proto(message.command)
             return command
         # elif message.HasField('enter'):

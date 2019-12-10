@@ -110,8 +110,9 @@ class Replica:
     def create_block(self, previous):
         self.commands_lock.acquire()
         while len(self.commands_queue) == 0 and not self.stop:
+            print(len(self.commands_queue))
             self.commands_lock.release()
-            if True or self.print:
+            if self.print:
                 print("SLEEP", flush=True)
             sleep(0.1)
             self.commands_lock.acquire()
