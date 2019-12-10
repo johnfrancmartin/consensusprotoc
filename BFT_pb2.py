@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='bft',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\tBFT.proto\x12\x03\x62\x66t\"\x9a\x01\n\x07Wrapper\x12\n\n\x02id\x18\x01 \x02(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\x12\x1b\n\x03\x62ls\x18\x03 \x01(\x0b\x32\x0e.bft.BLSHelper\x12\x1f\n\x08proposal\x18\x08 \x01(\x0b\x32\r.bft.Proposal\x12\x17\n\x04vote\x18\t \x01(\x0b\x32\t.bft.Vote\x12\x19\n\x05\x62lame\x18\n \x01(\x0b\x32\n.bft.Blame\"d\n\x05\x42lock\x12\x10\n\x08\x63ommands\x18\x01 \x03(\x05\x12\x0f\n\x04view\x18\x02 \x01(\x05:\x01\x30\x12\x11\n\x06height\x18\x03 \x01(\x05:\x01\x30\x12\x13\n\x0bunique_cert\x18\x04 \x01(\t\x12\x10\n\x08previous\x18\x05 \x01(\t\"2\n\x07\x43ommand\x12\x0c\n\x04\x66rom\x18\x01 \x01(\t\x12\n\n\x02to\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\"\xad\x01\n\tBLSHelper\x12\t\n\x01t\x18\x01 \x01(\x05\x12\t\n\x01n\x18\x02 \x01(\x05\x12\x10\n\x08sk_bytes\x18\x03 \x01(\x0c\x12\x10\n\x08g1_bytes\x18\x04 \x01(\x0c\x12\x10\n\x08g2_bytes\x18\x05 \x01(\x0c\x12\x15\n\roptimize_mult\x18\x06 \x01(\x08\x12\x11\n\tgroup_nid\x18\x07 \x01(\x05\x12\x14\n\x0csk_bytes_set\x18\x08 \x03(\x0c\x12\x14\n\x0cvk_bytes_set\x18\t \x03(\x0c\"H\n\tSignature\x12\x15\n\roptimize_mult\x18\x01 \x01(\x08\x12\x11\n\tgroup_nid\x18\x02 \x01(\x05\x12\x11\n\tsig_bytes\x18\x03 \x01(\x0c\"!\n\x0b\x43\x65rtificate\x12\x12\n\ncert_bytes\x18\x01 \x01(\x0c\"B\n\x03Key\x12\x15\n\roptimize_mult\x18\x01 \x01(\x08\x12\x11\n\tgroup_nid\x18\x02 \x01(\x05\x12\x11\n\tsig_bytes\x18\x03 \x01(\x0c\"5\n\x06Status\x12\x1a\n\x06locked\x18\x01 \x01(\x0b\x32\n.bft.Block\x12\x0f\n\x07replica\x18\x02 \x01(\x05\"a\n\x08Proposal\x12\x19\n\x05\x62lock\x18\x01 \x01(\x0b\x32\n.bft.Block\x12\x0c\n\x04view\x18\x02 \x01(\x05\x12\x10\n\x08previous\x18\x04 \x01(\x0c\x12\x1a\n\x06status\x18\x05 \x03(\x0b\x32\n.bft.Block\"R\n\x04Vote\x12\x19\n\x05\x62lock\x18\x01 \x01(\x0b\x32\n.bft.Block\x12\x0c\n\x04view\x18\x02 \x01(\x05\x12\x11\n\tsignature\x18\x03 \x01(\t\x12\x0e\n\x06sender\x18\x04 \x01(\x05\"B\n\x05\x42lame\x12\x0c\n\x04view\x18\x02 \x01(\x05\x12\x0e\n\x06sender\x18\x04 \x01(\x05\x12\x1b\n\x06states\x18\x05 \x03(\x0b\x32\x0b.bft.Status')
+  serialized_pb=_b('\n\tBFT.proto\x12\x03\x62\x66t\"\x9a\x01\n\x07Wrapper\x12\n\n\x02id\x18\x01 \x02(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x02\x12\x1b\n\x03\x62ls\x18\x03 \x01(\x0b\x32\x0e.bft.BLSHelper\x12\x1f\n\x08proposal\x18\x08 \x01(\x0b\x32\r.bft.Proposal\x12\x17\n\x04vote\x18\t \x01(\x0b\x32\t.bft.Vote\x12\x19\n\x05\x62lame\x18\n \x01(\x0b\x32\n.bft.Blame\"b\n\x05\x42lock\x12\x10\n\x08\x63ommands\x18\x01 \x03(\t\x12\x0f\n\x04view\x18\x02 \x01(\x05:\x01\x30\x12\x11\n\x06height\x18\x03 \x01(\x05:\x01\x30\x12\x11\n\tlock_cert\x18\x04 \x01(\t\x12\x10\n\x08previous\x18\x05 \x01(\t\"2\n\x07\x43ommand\x12\x0c\n\x04\x66rom\x18\x01 \x01(\t\x12\n\n\x02to\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\"\xad\x01\n\tBLSHelper\x12\t\n\x01t\x18\x01 \x01(\x05\x12\t\n\x01n\x18\x02 \x01(\x05\x12\x10\n\x08sk_bytes\x18\x03 \x01(\x0c\x12\x10\n\x08g1_bytes\x18\x04 \x01(\x0c\x12\x10\n\x08g2_bytes\x18\x05 \x01(\x0c\x12\x15\n\roptimize_mult\x18\x06 \x01(\x08\x12\x11\n\tgroup_nid\x18\x07 \x01(\x05\x12\x14\n\x0csk_bytes_set\x18\x08 \x03(\x0c\x12\x14\n\x0cvk_bytes_set\x18\t \x03(\x0c\"H\n\tSignature\x12\x15\n\roptimize_mult\x18\x01 \x01(\x08\x12\x11\n\tgroup_nid\x18\x02 \x01(\x05\x12\x11\n\tsig_bytes\x18\x03 \x01(\x0c\"!\n\x0b\x43\x65rtificate\x12\x12\n\ncert_bytes\x18\x01 \x01(\x0c\"B\n\x03Key\x12\x15\n\roptimize_mult\x18\x01 \x01(\x08\x12\x11\n\tgroup_nid\x18\x02 \x01(\x05\x12\x11\n\tsig_bytes\x18\x03 \x01(\x0c\"5\n\x06Status\x12\x1a\n\x06locked\x18\x01 \x01(\x0b\x32\n.bft.Block\x12\x0f\n\x07replica\x18\x02 \x01(\x05\"a\n\x08Proposal\x12\x19\n\x05\x62lock\x18\x01 \x01(\x0b\x32\n.bft.Block\x12\x0c\n\x04view\x18\x02 \x01(\x05\x12\x10\n\x08previous\x18\x04 \x01(\x0c\x12\x1a\n\x06status\x18\x05 \x03(\x0b\x32\n.bft.Block\"R\n\x04Vote\x12\x19\n\x05\x62lock\x18\x01 \x01(\x0b\x32\n.bft.Block\x12\x0c\n\x04view\x18\x02 \x01(\x05\x12\x11\n\tsignature\x18\x03 \x01(\t\x12\x0e\n\x06sender\x18\x04 \x01(\x05\"B\n\x05\x42lame\x12\x0c\n\x04view\x18\x02 \x01(\x05\x12\x0e\n\x06sender\x18\x04 \x01(\x05\x12\x1b\n\x06states\x18\x05 \x03(\x0b\x32\x0b.bft.Status')
 )
 
 
@@ -101,7 +101,7 @@ _BLOCK = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='commands', full_name='bft.Block.commands', index=0,
-      number=1, type=5, cpp_type=1, label=3,
+      number=1, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -121,7 +121,7 @@ _BLOCK = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='unique_cert', full_name='bft.Block.unique_cert', index=3,
+      name='lock_cert', full_name='bft.Block.lock_cert', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -147,7 +147,7 @@ _BLOCK = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=175,
-  serialized_end=275,
+  serialized_end=273,
 )
 
 
@@ -191,8 +191,8 @@ _COMMAND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=277,
-  serialized_end=327,
+  serialized_start=275,
+  serialized_end=325,
 )
 
 
@@ -278,8 +278,8 @@ _BLSHELPER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=330,
-  serialized_end=503,
+  serialized_start=328,
+  serialized_end=501,
 )
 
 
@@ -323,8 +323,8 @@ _SIGNATURE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=505,
-  serialized_end=577,
+  serialized_start=503,
+  serialized_end=575,
 )
 
 
@@ -354,8 +354,8 @@ _CERTIFICATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=579,
-  serialized_end=612,
+  serialized_start=577,
+  serialized_end=610,
 )
 
 
@@ -399,8 +399,8 @@ _KEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=614,
-  serialized_end=680,
+  serialized_start=612,
+  serialized_end=678,
 )
 
 
@@ -437,8 +437,8 @@ _STATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=682,
-  serialized_end=735,
+  serialized_start=680,
+  serialized_end=733,
 )
 
 
@@ -489,8 +489,8 @@ _PROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=737,
-  serialized_end=834,
+  serialized_start=735,
+  serialized_end=832,
 )
 
 
@@ -541,8 +541,8 @@ _VOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=836,
-  serialized_end=918,
+  serialized_start=834,
+  serialized_end=916,
 )
 
 
@@ -586,8 +586,8 @@ _BLAME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=920,
-  serialized_end=986,
+  serialized_start=918,
+  serialized_end=984,
 )
 
 _WRAPPER.fields_by_name['bls'].message_type = _BLSHELPER

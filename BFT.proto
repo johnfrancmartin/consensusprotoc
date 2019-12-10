@@ -12,7 +12,7 @@ message Wrapper {
 }
 
 message Block {
-  repeated int32 commands = 1;
+  repeated string commands = 1;
   optional int32 view = 2 [default = 0];
   optional int32 height = 3 [default = 0];
   optional string lock_cert = 4;

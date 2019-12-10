@@ -7,6 +7,7 @@ import json
 from Crypto.PublicKey import RSA
 import Crypto.Util.number as CUN
 import os
+import uuid
 
 
 class Replica:
@@ -21,8 +22,10 @@ class Replica:
         self.protocol = ReplicaConnection(n, self)
         # Commands
         self.commands_queue = []
+        batch_size = 64
         for i in range(0, 20000):
-            command = [b'11110000' for i in range(0, 1000)]
+            uid = uuid.uuid4()
+            command = [uid for i in range(0, batch_size)]
             self.commands_queue.append(command)
         # Runtime Variables
         self.view = 1
