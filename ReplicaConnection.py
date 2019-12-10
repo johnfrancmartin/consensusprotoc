@@ -166,7 +166,7 @@ class ReplicaConnection:
         for f, sock in self.sockets.items():
             sock.close()
         self.stop = True
-        self.replica.stop()
+        self.replica.exit()
         print("EXITING", self.replica.id)
         total_cmts = len(self.replica.committed)
         print(self.replica.id, "COMMITTED TOTAL", total_cmts, "BLOCKS")
