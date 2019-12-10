@@ -119,6 +119,7 @@ class HotstuffReplica:
         return block
 
     def propose(self, previous):
+        print("PROPOSING", flush=True)
         self.propose_lock.acquire()
         if previous is not None:
             self.qc_ref = previous
@@ -227,6 +228,7 @@ class HotstuffReplica:
         self.view_change(None)
 
     def receive_msg(self, message, msg_id):
+        print("RECEIVED MESSAGE", flush=True)
         if message.type == MessageType.PROPOSE:
             self.receive_proposal(message)
         elif message.type == MessageType.VOTE:
@@ -240,6 +242,7 @@ class HotstuffReplica:
         raise NotImplementedError
 
     def broadcast(self, message):
+        print("BROADCASTING", flush=True)
         self.protocol.broadcast(message)
 
     def sign_blk(self, block):
