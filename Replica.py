@@ -123,7 +123,7 @@ class Replica:
         while len(self.commands_queue) == 0 and not self.stop:
             if self.print:
                 print("SLEEP", flush=True)
-            sleep(0.1)
+            sleep(0.01)
         command = self.commands_queue.pop(0)
         previous_hash = None
         height = 0
