@@ -179,16 +179,16 @@ class ReplicaConnection:
         self.connect_to_lessers()
         self.accept_from_greaters()
         print("INITIALIZED NETWORK FOR", self.replica.id, flush=True)
-        self.replica.network_initialized()
         self.start = time()
         listen_t = Thread(target=self.epoll_listen, args=())
         listen_t.start()
-
+        client_t = Thread(target=self.replica.create_commands, args=())
+        client_t.start()
         # execute_t = Thread(target=self.execute, args=())
         # execute_t.start()
-
+        self.replica.network_initialized()
         self.epoll_send()
-
+        client_t.join()
         listen_t.join()
         # execute_t.join()
 

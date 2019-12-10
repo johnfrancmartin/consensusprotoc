@@ -8,6 +8,7 @@ from Crypto.PublicKey import RSA
 import Crypto.Util.number as CUN
 import os
 import uuid
+from threading import Thread
 
 
 class Replica:
@@ -22,7 +23,10 @@ class Replica:
         self.protocol = ReplicaConnection(n, self)
         # Commands
         self.commands_queue = []
+        self.command_start_times = {}
+        self.command_commit_times = []
         self.batch_size = 64
+        self.rate = 4
         for i in range(0, 20000):
             uid = str(uuid.uuid4())
             command = [uid for i in range(0, self.batch_size)]
@@ -72,6 +76,14 @@ class Replica:
         self.stop = False
 
     # REPLICA FUNCTIONS
+
+    def create_commands(self):
+        while not self.stop:
+            uid = str(uuid.uuid4())
+            command = [uid for i in range(0, self.batch_size)]
+            self.commands_queue.append(command)
+            self.command_start_times[uid] = time()
+            sleep(1/self.rate)
 
     def run(self):
         self.protocol.run()
@@ -264,7 +276,7 @@ class Replica:
                 self.commit(previous)
 
     def commit(self, block):
-        self.committed.append(block)
+        self.update_commit_tracking(block)
         current = block
         for i in range(0, block.height):
             previous_hash = current.previous_hash
@@ -273,8 +285,12 @@ class Replica:
             current = self.blocks[previous_hash]
             if current.commit_cert is None:
                 current.certify()
-            else:
-                return
+            self.update_commit_tracking(current)
+
+    def update_commit_tracking(self, block):
+        self.committed.append(block)
+        commit_time = time() - self.command_start_times[block.commands[0]]
+        self.command_commit_times.append(commit_time)
 
     def next(self):
         if self.leader:
