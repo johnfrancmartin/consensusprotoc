@@ -270,14 +270,20 @@ class Replica:
             current = self.blocks[previous_hash]
             if current.commit_cert is None:
                 current.certify()
-            self.update_commit_tracking(current)
+            new_update = self.update_commit_tracking(current)
+            if not new_update:
+                break
 
     def update_commit_tracking(self, block):
-        self.committed.append(block)
-        command = block.commands[0]
-        if command in self.command_start_times:
-            commit_time = time() - self.command_start_times[command]
-            self.command_commit_times.append(commit_time)
+        if block not in self.committed:
+            self.committed.append(block)
+            command = block.commands[0]
+            if command in self.command_start_times:
+                commit_time = time() - self.command_start_times[command]
+                self.command_commit_times.append(commit_time)
+            return True
+        else:
+            return False
 
     def next(self):
         if self.leader:
