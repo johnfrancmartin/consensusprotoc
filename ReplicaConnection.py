@@ -153,10 +153,11 @@ class ReplicaConnection:
         print("COMMITTED TOTAL", total_cmts, "BLOCKS")
         duration = time() - self.start
         print("IN", duration, "seconds")
-        avg_cert = duration/total_cmts
-        print("AVG CERT TIME", avg_cert)
-        per_sec = 1/avg_cert
-        print("CERTS PER SEC", per_sec)
+        avg_cmt = duration/total_cmts
+        print("AVG CMT TIME", avg_cmt)
+        per_sec = 1/avg_cmt
+        print("CMT PER SEC", per_sec)
+        print("OPS PER SEC", self.replica.batch_size * per_sec)
         print("AVERAGE RECEIVE TIME:", sum(self.recv_times)/len(self.recv_times))
         print("AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
         print("AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))

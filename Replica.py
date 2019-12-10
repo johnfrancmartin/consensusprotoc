@@ -22,10 +22,10 @@ class Replica:
         self.protocol = ReplicaConnection(n, self)
         # Commands
         self.commands_queue = []
-        batch_size = 64
+        self.batch_size = 64
         for i in range(0, 20000):
             uid = str(uuid.uuid4())
-            command = [uid for i in range(0, batch_size)]
+            command = [uid for i in range(0, self.batch_size)]
             self.commands_queue.append(command)
         # Runtime Variables
         self.view = 1
