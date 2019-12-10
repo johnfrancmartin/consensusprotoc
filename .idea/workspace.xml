@@ -65,7 +65,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1455" />
-          <entry key="py" value="57830" />
+          <entry key="py" value="57860" />
           <entry key="sh" value="229" />
         </counts>
       </usages-collector>
@@ -75,7 +75,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1455" />
-          <entry key="Python" value="57830" />
+          <entry key="Python" value="57860" />
         </counts>
       </usages-collector>
     </session>
@@ -85,13 +85,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Replica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="117" selection-start-line="117" selection-end-line="117" />
+            <state relative-caret-position="121">
+              <caret line="279" column="57" selection-start-line="279" selection-start-column="57" selection-end-line="279" selection-end-column="57" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
-                <marker date="1576008384483" expanded="true" signature="2185:2190" ph="..." />
-                <marker date="1576008384483" expanded="true" signature="2603:2608" ph="..." />
-                <marker date="1576008384483" expanded="true" signature="8118:8124" ph="..." />
+                <marker date="1576008540826" expanded="true" signature="2185:2190" ph="..." />
+                <marker date="1576008540826" expanded="true" signature="2603:2608" ph="..." />
+                <marker date="1576008540826" expanded="true" signature="8082:8088" ph="..." />
               </folding>
             </state>
           </provider>
@@ -203,7 +203,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Proposal.get_from_proto</find>
       <find>get_from_proto</find>
       <find>commit</find>
       <find>COMMITTING B</find>
@@ -212,7 +211,6 @@
       <find>propose(</find>
       <find>p</find>
       <find>Received Pro</find>
-      <find>print(</find>
       <find>while True</find>
       <find>sum</find>
       <find>command_start_times</find>
@@ -233,6 +231,8 @@
       <find>commands_queue</find>
       <find>commands</find>
       <find>print(&quot;A&quot;</find>
+      <find>print(</find>
+      <find>print(self.</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -923,13 +923,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Replica.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="117" selection-start-line="117" selection-end-line="117" />
+        <state relative-caret-position="121">
+          <caret line="279" column="57" selection-start-line="279" selection-start-column="57" selection-end-line="279" selection-end-column="57" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
-            <marker date="1576008384483" expanded="true" signature="2185:2190" ph="..." />
-            <marker date="1576008384483" expanded="true" signature="2603:2608" ph="..." />
-            <marker date="1576008384483" expanded="true" signature="8118:8124" ph="..." />
+            <marker date="1576008540826" expanded="true" signature="2185:2190" ph="..." />
+            <marker date="1576008540826" expanded="true" signature="2603:2608" ph="..." />
+            <marker date="1576008540826" expanded="true" signature="8082:8088" ph="..." />
           </folding>
         </state>
       </provider>

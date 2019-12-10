@@ -110,6 +110,7 @@ class Replica:
     def create_block(self, previous):
         self.commands_lock.acquire()
         if len(self.commands_queue) == 0:
+            print("FILLER BLOCK", flush=True)
             uid = str(uuid.uuid4())
             command = [uid for i in range(0, self.batch_size)]
             # FILLER BLOCK
@@ -141,7 +142,6 @@ class Replica:
         else:
             block = self.create_block(None)
             previous_cert = None
-        print("MADE BLOCK", flush=True)
         signature = self.sign_blk(block)
         # TODO: ADD SIGNATURE
         proposal = Proposal(block, self.view, previous_cert, status)
@@ -154,7 +154,6 @@ class Replica:
         self.proposed = block
         self.blocks[block.get_hash()] = block
         self.vote(block)
-        print("MADE IT SEND", flush=True)
 
     def propose_cert(self, block):
         if self.leader:
@@ -279,9 +278,6 @@ class Replica:
         if command in self.command_start_times:
             commit_time = time() - self.command_start_times[command]
             self.command_commit_times.append(commit_time)
-        else:
-            print(command)
-            print(self.command_start_times)
 
     def next(self):
         if self.leader:
