@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-killall python3
+killall python3;
 source ./venv/bin/activate;
 #pip list;
 python3 ./GenerateKeys.py 5;
