@@ -81,7 +81,9 @@ class Replica:
                 print("LEADER", flush=True)
             try:
                 self.leader = True
+                print("1")
                 self.propose(False, {})
+                print("2")
             except Exception as e:
                 if self.print:
                     print("Exception:", e, flush=True)
@@ -107,10 +109,12 @@ class Replica:
                     self.pending_proposals.remove(prop)
 
     def create_block(self, previous):
+        print("3")
         while len(self.commands_queue) == 0 and not self.stop:
             if self.print:
                 print("SLEEP", flush=True)
             sleep(0.01)
+        print("4")
         command = self.commands_queue.pop(0)
         previous_hash = None
         height = 0
@@ -323,9 +327,9 @@ class Replica:
                 print(self.id, "RECEIVED BLAME", msg_id, flush=True)
             self.receive_blame(message)
         else:
-            print("RECEIVED COMMAND")
             self.commands_queue.append(message.commands)
             self.command_start_times[msg_id] = time()
+            print("RECEIVED COMMAND", len(self.commands_queue))
 
     def receive_blame(self, message):
         view = message.view
