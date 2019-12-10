@@ -40,12 +40,7 @@ class Block:
         commands = []
         for command in proto.commands:
             commands.append(command)
-        if len(commands) == 0:
-            command = 0
-            print("NO COMMANDS")
-        else:
-            command = commands[0]
-        block = Block(command, proto.height, proto.view, proto.previous)
+        block = Block(commands, proto.height, proto.view, proto.previous)
         lock_cert = proto.lock_cert
         if lock_cert is not None and lock_cert != "":
             block.lock_cert = str(proto.lock_cert)

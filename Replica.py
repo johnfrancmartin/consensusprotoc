@@ -24,7 +24,7 @@ class Replica:
         self.commands_queue = []
         batch_size = 64
         for i in range(0, 20000):
-            uid = uuid.uuid4()
+            uid = str(uuid.uuid4())
             command = [uid for i in range(0, batch_size)]
             self.commands_queue.append(command)
         # Runtime Variables
