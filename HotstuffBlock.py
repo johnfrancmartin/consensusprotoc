@@ -1,6 +1,7 @@
 from Certificate import Certificate
 import hashlib
 from time import time
+import BFT_pb2
 
 class Block:
     def __init__(self, commands, level, qc_ref, hqc):
@@ -12,17 +13,37 @@ class Block:
             self.qc_ref = qc_ref
         if hqc is not None:
             self.hqc = hqc
-        #
         self.signatures = {}
         self.certification = None
         self.commit_certification = None
 
+    def get_proto(self):
+        proto = BFT_pb2.Block()
+        for i in self.commands:
+            proto.commands.append(i)
+        proto.view = self.level
+        prev = self.qc_ref
+        if prev == None:
+            prev = ""
+        proto.qc_ref = prev
+        proto.hqc = self.hqc
+        if self.certification is not None:
+            proto.lock_cert = self.certification
+        return proto
+
+    @staticmethod
+    def get_from_proto(proto):
+        commands = []
+        for command in proto.commands:
+            commands.append(command)
+        block = Block(commands, proto.view, proto.qc_ref, proto.hqc)
+        lock_cert = proto.lock_cert
+        if lock_cert is not None and lock_cert != "":
+            block.certification = str(proto.lock_cert)
+        return block
+
     def get_hash(self):
-        previous = self.qc_ref
-        if previous is None:
-            previous_hash = ""
-        else:
-            previous_hash = previous.get_hash()
+        previous_hash = self.qc_ref
         commands_str = " ".join([str(i) for i in self.commands])
         hash_str = commands_str + ":" + str(self.level) + ":" + previous_hash
         hash_bytes = str.encode(hash_str)

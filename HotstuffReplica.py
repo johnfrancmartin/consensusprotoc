@@ -57,6 +57,7 @@ class HotstuffReplica:
         self.proposed = None
         # Blocks
         self.blocks = {}
+        self.blockchain = {}
         self.certified = []
         self.committed = []
         # Votes
@@ -141,10 +142,12 @@ class HotstuffReplica:
         if bnew.certification is None:
             if bnew.qc_ref is not None:
                 self.update_hqc(bnew)
-            if bnew.level in self.blocks and self.blocks[bnew.level] != bnew:
+            if bnew.level in self.blockchain and self.blockchain[bnew.level].get_hash() != bnew.get_hash():
                 self.blame()
                 return
-            self.blocks[bnew.level] = bnew
+            self.blockchain[bnew.level] = bnew
+            if bnew.get_hash() not in self.blocks:
+                self.blocks[bnew.get_hash()] = bnew
             self.lock(bnew)
             self.vote(bnew)
         elif self.locked == bnew:
