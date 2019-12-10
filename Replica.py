@@ -108,15 +108,12 @@ class Replica:
                     self.pending_proposals.remove(prop)
 
     def create_block(self, previous):
-        print("STARTED CREATE BLOCK", flush=True)
-
         while len(self.commands_queue) == 0 and not self.stop:
             self.commands_lock.acquire()
             if True or self.print:
                 print("SLEEP", flush=True)
             self.commands_lock.release()
-            sleep(0.01)
-        print("CREATING BLOCK", flush=True)
+            sleep(0.1)
         self.commands_lock.acquire()
         command = self.commands_queue.pop(0)
         self.commands_lock.release()
@@ -337,8 +334,6 @@ class Replica:
             self.commands_queue.append(message.commands)
             self.command_start_times[msg_id] = time()
             self.commands_lock.release()
-            print(message.commands, flush=True)
-            print("RECEIVED COMMAND", len(self.commands_queue), flush=True)
 
     def receive_blame(self, message):
         view = message.view
