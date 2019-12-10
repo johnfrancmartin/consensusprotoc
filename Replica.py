@@ -285,6 +285,9 @@ class Replica:
         if command in self.command_start_times:
             commit_time = time() - self.command_start_times[command]
             self.command_commit_times.append(commit_time)
+        else:
+            print(command)
+            print(self.command_start_times)
 
     def next(self):
         if self.leader:
