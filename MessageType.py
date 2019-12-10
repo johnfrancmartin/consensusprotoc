@@ -40,9 +40,10 @@ class Proposal(Message):
 
     @staticmethod
     def get_from_proto(proto):
+        print("A", flush=True)
         status = {}
         i = 0
-        if status is not None:
+        if proto.status is not None:
             for blk in proto.status:
                 block = Block.get_from_proto(blk)
                 status[i] = block
