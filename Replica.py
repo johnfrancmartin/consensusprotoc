@@ -81,7 +81,7 @@ class Replica:
                 print("LEADER", flush=True)
             try:
                 self.leader = True
-                self.propose(False, {})
+                self.propose(True, {})
             except Exception as e:
                 if self.print:
                     print("Exception:", e, flush=True)
@@ -97,7 +97,7 @@ class Replica:
         self.view += 1
         if self.id == self.view % self.protocol.n:
             self.leader = True
-            self.propose(True, status)
+            self.propose(False, status)
         else:
             self.leader = False
             for prop in self.pending_proposals:
