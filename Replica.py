@@ -8,7 +8,7 @@ from Crypto.PublicKey import RSA
 import Crypto.Util.number as CUN
 import os
 import uuid
-from threading import Thread
+from threading import Thread, Lock
 
 
 class Replica:
@@ -22,6 +22,7 @@ class Replica:
         self.id = id
         self.protocol = ReplicaConnection(n, self)
         # Commands
+        self.commands_lock = Lock()
         self.commands_queue = []
         self.command_start_times = {}
         self.command_commit_times = []
@@ -108,12 +109,17 @@ class Replica:
 
     def create_block(self, previous):
         print("STARTED CREATE BLOCK", flush=True)
+
         while len(self.commands_queue) == 0 and not self.stop:
-            if self.print:
+            self.commands_lock.acquire()
+            if True or self.print:
                 print("SLEEP", flush=True)
+            self.commands_lock.release()
             sleep(0.01)
         print("CREATING BLOCK", flush=True)
+        self.commands_lock.acquire()
         command = self.commands_queue.pop(0)
+        self.commands_lock.release()
         previous_hash = None
         height = 0
         if previous is not None and previous.commands is not None:
@@ -327,8 +333,10 @@ class Replica:
                 print(self.id, "RECEIVED BLAME", msg_id, flush=True)
             self.receive_blame(message)
         else:
+            self.commands_lock.acquire()
             self.commands_queue.append(message.commands)
             self.command_start_times[msg_id] = time()
+            self.commands_lock.release()
             print(message.commands, flush=True)
             print("RECEIVED COMMAND", len(self.commands_queue), flush=True)
 
