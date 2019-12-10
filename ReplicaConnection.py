@@ -424,7 +424,8 @@ class ReplicaConnection:
                 # print("ERROR RECEIVING MSG", e)
                 pass
         try:
-            print("MESSAGE LENGTH", msg_len, flush=True)
+            if self.print:
+                print("MESSAGE LENGTH", msg_len, flush=True)
             whole_msg = sock.recv(msg_len)
             prototype.ParseFromString(whole_msg)
             sock.setblocking(0)
