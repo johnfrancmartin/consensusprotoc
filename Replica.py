@@ -160,6 +160,7 @@ class Replica:
         self.proposal_hashes.append(proposal_from_proto.get_hash())
         self.broadcast(wrapper_proto)
         self.proposed = block
+        self.blocks[block.get_hash()] = block
         self.vote(block)
 
     def propose_cert(self, block):
