@@ -13,7 +13,7 @@ import uuid
 class Replica:
     def __init__(self, n, id):
         # Replica Core
-        self.print = True
+        self.print = False
         self.n = n
         self.f = math.floor(n / 3)  # max-f for now
         self.qc = 2 * self.f + 1
