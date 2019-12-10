@@ -40,7 +40,6 @@ class Proposal(Message):
 
     @staticmethod
     def get_from_proto(proto):
-        print("A", flush=True)
         status = {}
         i = 0
         if proto.status is not None:
@@ -51,7 +50,7 @@ class Proposal(Message):
         previous = None
         if proto.previous is not None:
             previous = proto.previous
-        return Proposal(Block.get_from_proto(proto.block), proto.view, proto.previous, status)
+        return Proposal(Block.get_from_proto(proto.block), proto.view, previous, status)
 
 class Vote(Message):
     def __init__(self, block, view, signature, sender):

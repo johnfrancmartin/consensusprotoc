@@ -158,7 +158,10 @@ class ReplicaConnection:
         per_sec = 1/avg_cmt
         print("CMT PER SEC", per_sec)
         print("OPS PER SEC", self.replica.batch_size * per_sec)
-        print("COMMAND LATENCY", sum(self.replica.command_commit_times)/len(self.replica.command_commit_times))
+        if len(self.replica.command_commit_times) > 0:
+            print("COMMAND LATENCY", sum(self.replica.command_commit_times)/len(self.replica.command_commit_times))
+        else:
+            print(self.replica.command_commit_times)
         print("AVERAGE RECEIVE TIME:", sum(self.recv_times)/len(self.recv_times))
         print("AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
         print("AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
