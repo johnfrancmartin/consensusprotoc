@@ -20,7 +20,6 @@ message Block {
   optional string lock_cert = 4;
   optional string previous = 5;
   optional int32 hqc = 6;
-  optional string qc_ref = 7;
 }
 
 message Command {

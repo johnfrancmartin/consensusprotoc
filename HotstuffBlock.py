@@ -25,7 +25,7 @@ class Block:
         prev = self.qc_ref
         if prev == None:
             prev = ""
-        proto.qc_ref = prev
+        proto.previous = prev
         proto.hqc = self.hqc
         if self.certification is not None:
             proto.lock_cert = self.certification
@@ -36,7 +36,7 @@ class Block:
         commands = []
         for command in proto.commands:
             commands.append(command)
-        block = Block(commands, proto.view, proto.qc_ref, proto.hqc)
+        block = Block(commands, proto.view, proto.previous, proto.hqc)
         lock_cert = proto.lock_cert
         if lock_cert is not None and lock_cert != "":
             block.certification = str(proto.lock_cert)
@@ -44,6 +44,8 @@ class Block:
 
     def get_hash(self):
         previous_hash = self.qc_ref
+        if previous_hash is None:
+            previous_hash = ""
         commands_str = " ".join([str(i) for i in self.commands])
         hash_str = commands_str + ":" + str(self.level) + ":" + previous_hash
         hash_bytes = str.encode(hash_str)
