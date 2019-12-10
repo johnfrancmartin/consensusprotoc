@@ -79,6 +79,7 @@ class Replica:
             command = [uid for i in range(0, self.batch_size)]
             self.commands_queue.append(command)
             self.command_start_times[uid] = time()
+            print(uid)
             sleep(1/self.rate)
 
     def run(self):
