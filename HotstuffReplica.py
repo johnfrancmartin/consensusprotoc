@@ -83,7 +83,7 @@ class HotstuffReplica:
         self.protocol.run()
 
     def network_initialized(self):
-        if self.id == self.view % self.protocol.n:
+        if self.id == self.level % self.protocol.n:
             print("LEADER", flush=True)
             try:
                 self.leader = True
