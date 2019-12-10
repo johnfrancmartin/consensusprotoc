@@ -8,7 +8,7 @@ python3 ./GenerateKeys.py 32
 for i in {1..32}
 do
     echo $i
-    python3 replicanetwork.py 32 $i &
+    task python3 replicanetwork.py 32 $i &
     sleep 1
 done
 
