@@ -107,12 +107,10 @@ class Replica:
                     self.pending_proposals.remove(prop)
 
     def create_block(self, previous):
-        print("3", flush=True)
         while len(self.commands_queue) == 0 and not self.stop:
             if self.print:
                 print("SLEEP", flush=True)
             sleep(0.01)
-        print("4", flush=True)
         command = self.commands_queue.pop(0)
         previous_hash = None
         height = 0
@@ -126,24 +124,19 @@ class Replica:
         print("PROPOSING", flush=True)
         if status is None:
             status = {}
-        print("A", flush=True)
         if steady_state:
-            print("B", flush=True)
             previous = self.proposed
         else:
-            print("C", flush=True)
             previous = Block(None, 0, 0, None)
             for sender, block in status.items():
                 if block.view >= previous.view and block.height >= previous.height:  # TODO: ADD VERIFY THRESHOLD SIGNATURE
                     previous = block
-        print("2", flush=True)
         if previous is not None and previous.commands is not None:
             block = self.create_block(previous)
             previous_cert = previous.lock_cert
         else:
             block = self.create_block(None)
             previous_cert = None
-        print("5", flush=True)
         signature = self.sign_blk(block)
         # TODO: ADD SIGNATURE
         proposal = Proposal(block, self.view, previous_cert, status)
@@ -332,7 +325,8 @@ class Replica:
         else:
             self.commands_queue.append(message.commands)
             self.command_start_times[msg_id] = time()
-            print("RECEIVED COMMAND", len(self.commands_queue))
+            print(message.commands, flush=True)
+            print("RECEIVED COMMAND", len(self.commands_queue), flush=True)
 
     def receive_blame(self, message):
         view = message.view
