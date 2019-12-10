@@ -157,38 +157,30 @@ class Replica:
             self.broadcast(proposal.get_proto())
 
     def receive_proposal(self, proposal):
-        print("Z", flush=True)
         if proposal in self.proposals:
             return
         else:
             self.proposals.append(proposal)
         if proposal.view > self.view or (self.locked is not None and proposal.block.height > self.locked.height + 1):
-            print("Y", flush=True)
             self.pending_proposals.append(proposal)
         elif proposal.view == self.view:
             block = proposal.block
             if (self.proposed is None and self.proposal_extends_status(proposal)) \
                     or (self.proposed is not None and block.previous_hash is not None and block.previous_hash == self.proposed.get_hash()):
-                print("X", flush=True)
                 self.proposed = block
                 self.broadcast(proposal.get_proto())
                 self.vote(block)
             elif block.lock_cert is not None and self.proposed.get_hash() == block.get_hash():
-                print("W", flush=True)
                 self.broadcast(proposal.get_proto())
                 self.vote(block)
             elif self.proposed.get_hash() == block.get_hash() and block.lock_cert is not None:
-                print("V", flush=True)
                 self.proposed.lock_cert = block.lock_cert
                 self.broadcast(proposal.get_proto())
                 self.vote(block)
-            print("U", flush=True)
 
     def vote(self, block):
-        print("1", flush=True)
         signature = self.sign_blk(block)
         if self not in block.signatures:
-            print("2", flush=True)
             block.sign(self.id, signature)
             self.broadcast(Vote(block, self.view, signature, self).get_proto())
 
@@ -221,40 +213,32 @@ class Replica:
         signature = vote.signature
         block_hash = block.get_hash()
         verify = self.verify_signature(block, signature, sender_id)
-        print("A", flush=True)
         if not verify:
-            print("B", flush=True)
             # If signature not valid, blame sender
             if self.print:
                 print("BLAME FOR INVALID SIGNATURE", flush=True)
             self.blame()
             return
         elif not self.block_extends(block):
-            print("C", flush=True)
             if self.print:
                 print("BLAME FOR EQUIVOCATING BLOCK", flush=True)
                 print("PROPOSED", self.proposed.get_hash(), flush=True)
                 print("NEW", block_hash, flush=True)
             self.blame()
         elif block_hash in self.blocks:
-            print("D", flush=True)
             self.blocks[block_hash].sign(sender_id, signature)
         else:
-            print("E", flush=True)
             if sender_id not in block.signatures:
                 block.sign(sender_id, signature)
             self.blocks[block_hash] = block
         self.check_block_status(self.blocks[block_hash])
 
     def check_block_status(self, block):
-        print("F", flush=True)
         if len(block.signatures) >= self.qr and block.lock_cert is None:
-            print("G", flush=True)
             block.certify()
             self.lock(block)
             self.next()
         elif len(block.signatures) >= self.qc:
-            print("H", flush=True)
             block.certify()
             if block.previous_hash in self.blocks and self.blocks[block.previous_hash].commit_cert is not None:
                 previous = self.blocks[block.previous_hash]

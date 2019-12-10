@@ -149,11 +149,11 @@ class ReplicaConnection:
             sock.close()
         self.stop = True
         print("EXITING", self.replica.id)
-        total_certs = len(self.replica.certified)
-        print("CERTIFIED TOTAL", total_certs, "BLOCKS")
+        total_cmts = len(self.replica.committed)
+        print("COMMITTED TOTAL", total_cmts, "BLOCKS")
         duration = time() - self.start
         print("IN", duration, "seconds")
-        avg_cert = duration/total_certs
+        avg_cert = duration/total_cmts
         print("AVG CERT TIME", avg_cert)
         per_sec = 1/avg_cert
         print("CERTS PER SEC", per_sec)
