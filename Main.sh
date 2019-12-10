@@ -5,7 +5,8 @@ source ./venv/bin/activate;
 
 n=32
 python3 ./GenerateKeys.py $n
-for i in {0..$n}; do
+for i in {0..$n}
+do
     echo $i
     python3 replicanetwork.py $n $i &
     sleep 1
