@@ -14,7 +14,7 @@ python3 ./ReplicaMain.py 5 4 &
 sleep 1
 python3 ./ReplicaMain.py 5 5 &
 sleep 1
-python3 ./ClientMain.py 5 4 512;
+python3 ./ClientMain.py 5 4 1024;
 
 #n = 4
 #for i in {1..4}; do
