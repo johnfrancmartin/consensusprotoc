@@ -11,7 +11,7 @@ do
     python3 ./ReplicaMain.py ${n} ${i} &
     sleep 1
 done
-python3 ./ClientMain.py ${n} 1 1024;
+python3 ./ClientMain.py ${n} 1 2048;
 
 #n = 4
 #for i in {1..4}; do
