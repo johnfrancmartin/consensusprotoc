@@ -167,25 +167,25 @@ class ReplicaConnection:
         self.stop = True
         print("EXITING", self.replica.id)
         total_cmts = len(self.replica.committed)
-        print("COMMITTED TOTAL", total_cmts, "BLOCKS")
+        print(self.replica.id, "COMMITTED TOTAL", total_cmts, "BLOCKS")
         duration = time() - self.start
-        print("IN", duration, "seconds")
+        print(self.replica.id, "IN", duration, "seconds")
         if total_cmts > 0:
             avg_cmt = duration/total_cmts
-            print("AVG CMT TIME", avg_cmt)
+            print(self.replica.id, "AVG CMT TIME", avg_cmt)
         per_sec = 1/avg_cmt
-        print("CMT PER SEC", per_sec)
-        print("OPS PER SEC", self.replica.batch_size * per_sec)
+        print(self.replica.id, "CMT PER SEC", per_sec)
+        print(self.replica.id, "OPS PER SEC", self.replica.batch_size * per_sec)
         if len(self.replica.command_commit_times) > 0:
-            print("COMMAND LATENCY", sum(self.replica.command_commit_times)/len(self.replica.command_commit_times))
+            print(self.replica.id, "COMMAND LATENCY", sum(self.replica.command_commit_times)/len(self.replica.command_commit_times))
         if len(self.recv_times) > 0:
-            print("AVERAGE RECEIVE TIME:", sum(self.recv_times)/len(self.recv_times))
+            print(self.replica.id, "AVERAGE RECEIVE TIME:", sum(self.recv_times)/len(self.recv_times))
         if len(self.process_times) > 0:
-            print("AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
+            print(self.replica.id, "AVERAGE PROCESSING TIME:", sum(self.process_times) / len(self.process_times))
         if len(self.send_times) > 0:
-            print("AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
+            print(self.replica.id, "AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
         if len(self.transfer_times) > 0:
-            print("AVERAGE TRANSFER TIME:", sum(self.transfer_times) / len(self.transfer_times))
+            print(self.replica.id, "AVERAGE TRANSFER TIME:", sum(self.transfer_times) / len(self.transfer_times))
 
 
     def broadcast(self, message):
