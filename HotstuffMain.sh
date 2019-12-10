@@ -7,9 +7,13 @@ n=32
 python3 ./GenerateKeys.py 32
 
 python3 ./HotstuffReplicaMain.py 4 1 &
+sleep 1
 python3 ./HotstuffReplicaMain.py 4 2 &
+sleep 1
 python3 ./HotstuffReplicaMain.py 4 3 &
+sleep 1
 python3 ./HotstuffReplicaMain.py 4 4 &
+sleep 1
 python3 ./ClientMain.py ${n} 1 512;
 
 
