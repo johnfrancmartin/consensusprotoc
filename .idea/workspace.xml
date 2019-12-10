@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/BFT.proto" beforeDir="false" afterPath="$PROJECT_DIR$/BFT.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MessageType.py" beforeDir="false" afterPath="$PROJECT_DIR$/MessageType.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Replica.py" beforeDir="false" afterPath="$PROJECT_DIR$/Replica.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +65,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1408" />
-          <entry key="py" value="54713" />
+          <entry key="py" value="54750" />
           <entry key="sh" value="229" />
         </counts>
       </usages-collector>
@@ -76,24 +75,24 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1408" />
-          <entry key="Python" value="54713" />
+          <entry key="Python" value="54750" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Replica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="140" column="29" lean-forward="true" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="29" />
+            <state relative-caret-position="389">
+              <caret line="214" column="29" selection-start-line="214" selection-start-column="29" selection-end-line="214" selection-end-column="29" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
-                <marker date="1575997459766" expanded="true" signature="2604:2610" ph="..." />
-                <marker date="1575997459766" expanded="true" signature="7466:7472" ph="..." />
-                <marker date="1575997459766" expanded="true" signature="8558:9002" ph="..." />
-                <marker date="1575997459766" expanded="true" signature="9438:9892" ph="..." />
+                <marker date="1575997990230" expanded="true" signature="2604:2610" ph="..." />
+                <marker date="1575997990230" expanded="true" signature="7766:7772" ph="..." />
+                <marker date="1575997990230" expanded="true" signature="8858:9302" ph="..." />
+                <marker date="1575997990230" expanded="true" signature="9738:10192" ph="..." />
               </folding>
             </state>
           </provider>
@@ -190,11 +189,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MessageType.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="35" column="41" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
+            <state relative-caret-position="152">
+              <caret line="35" column="42" lean-forward="true" selection-start-line="35" selection-start-column="42" selection-end-line="35" selection-end-column="42" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
                 <marker date="1575997705158" expanded="true" signature="101:106" ph="..." />
@@ -216,7 +215,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>block.sign</find>
       <find>print</find>
       <find>SocketHelper</find>
       <find>self.unique</find>
@@ -244,8 +242,9 @@
       <find>proposal(</find>
       <find>bytes</find>
       <find>propose</find>
-      <find>lock_c</find>
       <find>commands</find>
+      <find>lock_c</find>
+      <find>blame()</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/venv</dir>
@@ -302,10 +301,10 @@
         <option value="$PROJECT_DIR$/Graveyard/Protocol.py" />
         <option value="$PROJECT_DIR$/Test.py" />
         <option value="$PROJECT_DIR$/ReplicaConnection.py" />
-        <option value="$PROJECT_DIR$/Replica.py" />
         <option value="$PROJECT_DIR$/BFT.proto" />
         <option value="$PROJECT_DIR$/Block.py" />
         <option value="$PROJECT_DIR$/MessageType.py" />
+        <option value="$PROJECT_DIR$/Replica.py" />
       </list>
     </option>
   </component>
@@ -892,20 +891,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Replica.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="140" column="29" lean-forward="true" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-            <marker date="1575997459766" expanded="true" signature="2604:2610" ph="..." />
-            <marker date="1575997459766" expanded="true" signature="7466:7472" ph="..." />
-            <marker date="1575997459766" expanded="true" signature="8558:9002" ph="..." />
-            <marker date="1575997459766" expanded="true" signature="9438:9892" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BFT.proto">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
@@ -943,13 +928,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MessageType.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="35" column="41" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
+        <state relative-caret-position="152">
+          <caret line="35" column="42" lean-forward="true" selection-start-line="35" selection-start-column="42" selection-end-line="35" selection-end-column="42" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
             <marker date="1575997705158" expanded="true" signature="101:106" ph="..." />
             <marker date="1575997705158" expanded="true" signature="174:179" ph="..." />
             <marker date="1575997705158" expanded="true" signature="255:260" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Replica.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="214" column="29" selection-start-line="214" selection-start-column="29" selection-end-line="214" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <marker date="1575997990230" expanded="true" signature="2604:2610" ph="..." />
+            <marker date="1575997990230" expanded="true" signature="7766:7772" ph="..." />
+            <marker date="1575997990230" expanded="true" signature="8858:9302" ph="..." />
+            <marker date="1575997990230" expanded="true" signature="9738:10192" ph="..." />
           </folding>
         </state>
       </provider>

@@ -185,27 +185,35 @@ class Replica:
             block.sign(self.id, signature)
             self.broadcast(Vote(block, self.view, signature, self).get_proto())
 
-
     def block_extends(self, block):
         if self.locked is None:
+            print("A", flush=True)
             return True
         elif block.height == self.locked.height:
+            print("B", flush=True)
             return block.get_hash() == self.locked.get_hash()
         else:
+            print("C", flush=True)
             if block.height > self.locked.height:
+                print("D", flush=True)
                 current = block
                 end = self.locked
             else:
+                print("E", flush=True)
                 current = self.locked
                 end = block
+
             for i in range(0, current.height):
                 previous_hash = current.previous_hash
                 if previous_hash == end.get_hash():
+                    print("F", flush=True)
                     return True
                 if previous_hash in self.blocks:
                     current = self.blocks[previous_hash]
                 else:
+                    print("G", flush=True)
                     return False
+        print("H", flush=True)
         return False
 
     def receive_vote(self, vote):
