@@ -42,10 +42,11 @@ class Proposal(Message):
     def get_from_proto(proto):
         status = {}
         i = 0
-        for blk in proto.status:
-            block = Block.get_from_proto(blk)
-            status[i] = block
-            i += 1
+        if status is not None:
+            for blk in proto.status:
+                block = Block.get_from_proto(blk)
+                status[i] = block
+                i += 1
         previous = None
         if proto.previous is not None:
             previous = proto.previous
