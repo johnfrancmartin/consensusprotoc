@@ -9,6 +9,7 @@ message Wrapper {
     optional Proposal proposal = 8;
     optional Vote vote = 9;
     optional Blame blame = 10;
+    optional Command command = 11;
 }
 
 message Block {
@@ -20,9 +21,7 @@ message Block {
 }
 
 message Command {
-  optional string from = 1;
-  optional string to = 2;
-  optional string value = 3;
+  repeated string commands = 1;
 }
 
 message BLSHelper {

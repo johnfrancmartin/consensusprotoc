@@ -72,16 +72,6 @@ class Replica:
         self.stop = False
 
     # REPLICA FUNCTIONS
-
-    def create_commands(self):
-        while not self.stop:
-            uid = str(uuid.uuid4())
-            command = [uid for i in range(0, self.batch_size)]
-            self.commands_queue.append(command)
-            self.command_start_times[uid] = time()
-            print(uid)
-            sleep(1/self.rate)
-
     def run(self):
         self.protocol.run()
 
@@ -332,6 +322,13 @@ class Replica:
             if self.print:
                 print(self.id, "RECEIVED BLAME", msg_id, flush=True)
             self.receive_blame(message)
+        else:
+            # Message from client
+            commands = []
+            for command in message.commands:
+                commands.append(command)
+            self.commands_queue.append(commands)
+            self.command_start_times[msg_id] = time()
 
     def receive_blame(self, message):
         view = message.view
