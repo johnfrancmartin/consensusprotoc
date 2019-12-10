@@ -25,13 +25,16 @@ class Proposal(Message):
         cert = ""
         if self.block.lock_cert is not None:
             cert = self.block.lock_cert
-        hash_str = self.block.get_hash() + ":" + str(self.view) + ":" + str(self.previous_cert) + ":" + str(self.status) + ":" + str(cert)
+        hash_str = self.block.get_hash() + ":" + str(self.view) + ":" + str(self.previous_cert) \
+                   + ":" + str(self.status) + ":" + str(cert)
         hash_bytes = str.encode(hash_str)
         return hashlib.sha256(hash_bytes).hexdigest()
 
     def get_proto(self):
         wrapper_proto = BFT_pb2.Wrapper()
         wrapper_proto.proposal.block.CopyFrom(self.block.get_proto())
+        if self.previous_cert is not None:
+            wrapper_proto.previous = self.previous_cert
         wrapper_proto.proposal.view = self.view
         return wrapper_proto
 
@@ -43,7 +46,6 @@ class Proposal(Message):
             block = Block.get_from_proto(blk)
             status[i] = block
             i += 1
-        proposal = Proposal(Block.get_from_proto(proto.block), proto.view, proto.previous, status)
         return Proposal(Block.get_from_proto(proto.block), proto.view, proto.previous, status)
 
 class Vote(Message):

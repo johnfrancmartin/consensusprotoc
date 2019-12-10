@@ -132,14 +132,14 @@ class Replica:
                     previous = block
         else:
             previous = self.proposed
-        if previous is not None and previous.commands is not None:
-            previous = previous.clone_for_view(self.view)
-            block = self.create_block(previous)
+        if previous is not None:
+            previous_cert = previous.lock_cert
         else:
-            block = self.create_block(None)
+            previous_cert = None
+        block = self.create_block(None)
         signature = self.sign_blk(block)
         # TODO: ADD SIGNATURE
-        proposal = Proposal(block, self.view, previous, status)
+        proposal = Proposal(block, self.view, previous_cert, status)
         block.sign(self.id, signature)
         self.proposals.append(proposal)
         self.proposal_hashes.append(proposal.get_hash())
