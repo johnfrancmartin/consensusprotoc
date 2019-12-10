@@ -8,7 +8,7 @@ def main():
     n = int(args[0])
     id = int(args[1])
     replica = Replica(n, id)
-    print("Running Replica,", id)
+    print("Running Replica,", id, flush=True)
     try:
         replica.run()
     except KeyboardInterrupt:
