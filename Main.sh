@@ -5,7 +5,8 @@ source ./venv/bin/activate;
 
 n=32
 python3 ./GenerateKeys.py 32
-for i in {0..$n}; do
+for i in {0..$n}
+do
     echo $i
     python3 ./ReplicaMain.py $n $i &
     sleep 1
