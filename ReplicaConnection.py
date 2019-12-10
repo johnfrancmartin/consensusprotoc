@@ -312,7 +312,7 @@ class ReplicaConnection:
             self.sockets_by_id[i] = sock
 
     def connect_socket_init(self, host, port, replica_id):
-        while True:
+        while not self.stop:
             send_port = 10000 + 100 * self.replica.id + replica_id
             try:
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -329,7 +329,7 @@ class ReplicaConnection:
 
     def accept_replica_sockets(self):
         print("ACCEPTING REPLICAS")
-        while True:
+        while not self.stop:
             client, address = self.local_sock.accept()
             (host, port) = address
             sender_id = int(((port-self.replica.id)/100)-100)
