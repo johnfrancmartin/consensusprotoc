@@ -157,31 +157,38 @@ class Replica:
             self.broadcast(proposal.get_proto())
 
     def receive_proposal(self, proposal):
+        print("Z", flush=True)
         if proposal in self.proposals:
             return
         else:
             self.proposals.append(proposal)
         if proposal.view > self.view or (self.locked is not None and proposal.block.height > self.locked.height + 1):
+            print("Y", flush=True)
             self.pending_proposals.append(proposal)
         elif proposal.view == self.view:
             block = proposal.block
             if (self.proposed is None and self.proposal_extends_status(proposal)) \
                     or (self.proposed is not None and block.previous_hash is not None and block.previous_hash == self.proposed.get_hash()):
+                print("X", flush=True)
                 self.proposed = block
                 self.broadcast(proposal.get_proto())
                 self.vote(block)
             elif block.lock_cert is not None and self.proposed.get_hash() == block.get_hash():
+                print("W", flush=True)
                 self.broadcast(proposal.get_proto())
                 self.vote(block)
             elif self.proposed.get_hash() == block.get_hash() and block.lock_cert is not None:
+                print("V", flush=True)
                 self.proposed.lock_cert = block.lock_cert
                 self.broadcast(proposal.get_proto())
                 self.vote(block)
+            print("U", flush=True)
 
     def vote(self, block):
+        print("1", flush=True)
         signature = self.sign_blk(block)
-        # Conditionally Sign Block
         if self not in block.signatures:
+            print("2", flush=True)
             block.sign(self.id, signature)
             self.broadcast(Vote(block, self.view, signature, self).get_proto())
 
@@ -245,6 +252,7 @@ class Replica:
             print("G", flush=True)
             block.certify()
             if block.previous_hash in self.blocks and self.blocks[block.previous_hash].view == block.view:
+                print("I", flush=True)
                 previous = self.blocks[block.previous_hash]
                 self.lock(previous)
             self.next()
