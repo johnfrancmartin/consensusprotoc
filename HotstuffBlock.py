@@ -3,12 +3,8 @@ import hashlib
 from time import time
 
 class Block:
-    def __init__(self, command, level, qc_ref, hqc):
-        self.command = command
-        if command is not None:
-            self.commands = command.commands
-        else:
-            self.commands = []
+    def __init__(self, commands, level, qc_ref, hqc):
+        self.commands = commands
         self.level = level
         self.qc_ref = None
         self.hqc = None
