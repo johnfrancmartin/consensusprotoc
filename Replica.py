@@ -323,6 +323,7 @@ class Replica:
                 print(self.id, "RECEIVED BLAME", msg_id, flush=True)
             self.receive_blame(message)
         else:
+            print("RECEIVED COMMAND")
             self.commands_queue.append(message.commands)
             self.command_start_times[msg_id] = time()
 

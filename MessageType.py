@@ -89,9 +89,11 @@ class Command(Message):
 
     @staticmethod
     def get_from_proto(proto):
+        print("A")
         commands = []
         for i in proto.commands:
             commands.append(i)
+        print("B")
         return Command(commands)
 
 class Enter(Message):
