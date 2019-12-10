@@ -143,8 +143,10 @@ class Replica:
         proposal = Proposal(block, self.view, previous_cert, status)
         block.sign(self.id, signature)
         self.proposals.append(proposal)
-        self.proposal_hashes.append(proposal.get_hash())
-        self.broadcast(proposal.get_proto())
+        proposal_proto = proposal.get_proto()
+        proposal_from_proto = Proposal.get_from_proto(proposal_proto)
+        self.proposal_hashes.append(proposal_from_proto.get_hash())
+        self.broadcast(proposal_proto)
         self.vote(block)
 
     def propose_cert(self, block):
