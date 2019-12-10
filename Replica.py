@@ -311,7 +311,7 @@ class Replica:
             else:
                 self.proposal_hashes.append(message.get_hash())
                 if self.print:
-                    print(self.id, "RECEIVED PROPOSAL", msg_id, flush=True)
+                    print(self.id, "RECEIVED PROPOSAL", msg_id, message, flush=True)
                 self.receive_proposal(message)
         elif message.type == MessageType.VOTE:
             if self.print:
