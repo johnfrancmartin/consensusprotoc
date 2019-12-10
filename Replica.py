@@ -15,6 +15,7 @@ class Replica:
         self.print = False
         self.n = n
         self.f = math.floor(n / 3)  # max-f for now
+        self.qc = 2 * self.f + 1
         self.qr = 2 * self.f + 1
         self.id = id
         self.protocol = ReplicaConnection(n, self)
@@ -54,6 +55,7 @@ class Replica:
         # Blocks
         self.blocks = {}
         self.certified = []
+        self.committed = []
         # Votes
         self.changes = {}
         # View Change
@@ -140,7 +142,7 @@ class Replica:
         self.broadcast(proposal.get_proto())
         self.vote(block)
 
-    def propose_lock(self, block):
+    def propose_cert(self, block):
         if self.leader:
             if self.print:
                 print(self.id, "PROPOSED UNIQUE", flush=True)
@@ -149,7 +151,6 @@ class Replica:
             proposal = Proposal(block, self.view, block.previous_hash, {})
             self.proposals.append(proposal)
             self.proposal_hashes.append(proposal.get_hash())
-            prop_proto = proposal.get_proto()
             self.broadcast(proposal.get_proto())
 
     def receive_proposal(self, proposal):
@@ -166,11 +167,11 @@ class Replica:
                 self.proposed = block
                 self.broadcast(proposal.get_proto())
                 self.vote(block)
-            elif block.unique_cert is not None and self.proposed.get_hash() == block.get_hash():
+            elif block.lock_cert is not None and self.proposed.get_hash() == block.get_hash():
                 self.broadcast(proposal.get_proto())
                 self.vote(block)
-            elif self.proposed.get_hash() == block.get_hash() and block.unique_cert is not None:
-                self.proposed.unique_cert = block.unique_cert
+            elif self.proposed.get_hash() == block.get_hash() and block.lock_cert is not None:
+                self.proposed.lock_cert = block.lock_cert
                 self.broadcast(proposal.get_proto())
                 self.vote(block)
 
@@ -180,12 +181,29 @@ class Replica:
         if self not in block.signatures:
             block.sign(self.id, signature)
             self.broadcast(Vote(block, self.view, signature, self).get_proto())
-        if len(block.signatures) >= self.qr and block.unique_cert is None:
-            block.certify()
-            self.propose_lock(block)
-        elif len(block.signatures) >= self.qr:
-            block.certify()
-            self.lock(block)
+
+
+    def block_extends(self, block):
+        if self.locked is None:
+            return True
+        elif block.height == self.locked.height:
+            return block.get_hash() == self.locked.get_hash()
+        else:
+            if block.height > self.locked.height:
+                current = block
+                end = self.locked
+            else:
+                current = self.locked
+                end = block
+            for i in range(0, current.height):
+                previous_hash = current.previous_hash
+                if previous_hash == end.get_hash():
+                    return True
+                if previous_hash in self.blocks:
+                    current = self.blocks[previous_hash]
+                else:
+                    return False
+        return False
 
     def receive_vote(self, vote):
         block = vote.block
@@ -199,38 +217,47 @@ class Replica:
                 print("BLAME FOR INVALID SIGNATURE", flush=True)
             self.blame()
             return
+        elif not self.block_extends(block):
+            if self.print:
+                print("BLAME FOR EQUIVOCATING BLOCK", flush=True)
+                print("PROPOSED", self.proposed.get_hash(), flush=True)
+                print("NEW", block_hash, flush=True)
+            self.blame()
         elif block_hash in self.blocks:
             self.blocks[block_hash].sign(sender_id, signature)
         else:
             if sender_id not in block.signatures:
                 block.sign(sender_id, signature)
             self.blocks[block_hash] = block
-        if vote.view == self.view and self.proposed is not None and block.height == self.proposed.height and block_hash != self.proposed.get_hash():
-            # If same view, height and different ID
-            if self.print:
-                print("BLAME FOR EQUIVOCATING BLOCK", flush=True)
-                print("PROPOSED", self.proposed.get_hash(), flush=True)
-                print("NEW", block_hash, flush=True)
-            self.blame()
-            return
-        elif vote.view == self.view and block_hash not in self.blocks:
-            self.blocks[block_hash] = block
-        block = self.blocks[block_hash]
-        if len(block.signatures) >= self.qr and block.unique_cert is None:
-            block.certify()
-            self.propose_lock(block)
-        elif len(block.signatures) >= self.qr:
-            block.certify()
-            self.lock(block)
+        self.check_block_status(self.blocks[block_hash])
 
-    def lock(self, block):
-        if self.locked is not None and self.locked.get_hash() == block.get_hash():
-            return
-        self.locked = block
-        self.status[self.id] = block
-        if self.print:
-            print(self.id, "CERTIFIED BLOCK", block.get_hash(), flush=True)
-        self.certified.append(block)
+    def check_block_status(self, block):
+        if len(block.signatures) >= self.qr and block.lock_cert is None:
+            block.certify()
+            if block.previous_hash in self.blocks and self.blocks[block.previous_hash].view == block.view:
+                previous = self.blocks[block.previous_hash]
+                self.lock(previous)
+            self.next()
+        elif len(block.signatures) >= self.qc:
+            block.certify()
+            if block.previous_hash in self.blocks and self.blocks[block.previous_hash].commit_cert is not None:
+                previous = self.blocks[block.previous_hash]
+                self.commit(previous)
+
+    def commit(self, block):
+        self.committed.append(block)
+        current = block
+        for i in range(0, block.height):
+            previous_hash = current.previous_hash
+            if previous_hash not in self.blocks:
+                break
+            current = self.blocks[previous_hash]
+            if current.commit_cert is None:
+                current.certify()
+            else:
+                return
+
+    def next(self):
         if self.leader:
             if self.print:
                 print("LEADER PROPOSE", flush=True)
@@ -241,6 +268,16 @@ class Replica:
                     self.receive_proposal(prop)
                 elif prop.view < self.view:
                     self.pending_proposals.remove(prop)
+
+    def lock(self, block):
+        if self.locked is not None and self.locked.get_hash() == block.get_hash():
+            return
+        self.locked = block
+        self.status[self.id] = block
+        if self.print:
+            print(self.id, "CERTIFIED BLOCK", block.get_hash(), flush=True)
+        self.certified.append(block)
+
 
     def blame(self):
         blame = Blame(self.view, self, self.locked)
