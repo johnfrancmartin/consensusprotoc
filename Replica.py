@@ -122,6 +122,7 @@ class Replica:
         return block
 
     def propose(self, steady_state, status):
+        print("PROPOSING", flush=True)
         if status is None:
             status = {}
         if not steady_state:
