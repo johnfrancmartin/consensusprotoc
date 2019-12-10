@@ -81,9 +81,7 @@ class Replica:
                 print("LEADER", flush=True)
             try:
                 self.leader = True
-                print("1")
                 self.propose(False, {})
-                print("2")
             except Exception as e:
                 if self.print:
                     print("Exception:", e, flush=True)
@@ -99,7 +97,7 @@ class Replica:
         self.view += 1
         if self.id == self.view % self.protocol.n:
             self.leader = True
-            self.propose(False, status)
+            self.propose(True, status)
         else:
             self.leader = False
             for prop in self.pending_proposals:
@@ -135,12 +133,14 @@ class Replica:
             for sender, block in status.items():
                 if block.view >= previous.view and block.height >= previous.height:  # TODO: ADD VERIFY THRESHOLD SIGNATURE
                     previous = block
+        print("2")
         if previous is not None and previous.commands is not None:
             block = self.create_block(previous)
             previous_cert = previous.lock_cert
         else:
             block = self.create_block(None)
             previous_cert = None
+        print("5")
         signature = self.sign_blk(block)
         # TODO: ADD SIGNATURE
         proposal = Proposal(block, self.view, previous_cert, status)
