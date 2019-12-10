@@ -26,7 +26,7 @@ class Replica:
         self.commands_queue = []
         self.command_start_times = {}
         self.command_commit_times = []
-        self.batch_size = 8192
+        self.batch_size = 64
         # Runtime Variables
         self.view = 1
         self.leader = False
