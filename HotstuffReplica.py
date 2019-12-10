@@ -75,7 +75,7 @@ class HotstuffReplica:
         #
         self.propose_lock = Lock()
         # Connection
-        self.protocol = self.protocol = ReplicaConnection(n, self)
+        self.protocol = ReplicaConnection(n, self)
 
     # REPLICA FUNCTIONS
         # REPLICA FUNCTIONS
