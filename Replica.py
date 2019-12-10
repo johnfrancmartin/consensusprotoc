@@ -108,9 +108,12 @@ class Replica:
                     self.pending_proposals.remove(prop)
 
     def create_block(self, previous):
-        while len(self.commands_queue) == 0 and not self.stop:
-            continue
-        command = self.commands_queue.pop(0)
+        if len(self.commands_queue) == 0:
+            uid = str(uuid.uuid4())
+            command = [uid for i in range(0, self.batch_size)]
+            # FILLER BLOCK
+        else:
+            command = self.commands_queue.pop(0)
         self.commands_lock.release()
         previous_hash = None
         height = 0
