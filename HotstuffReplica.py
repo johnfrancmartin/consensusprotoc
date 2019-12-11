@@ -124,20 +124,16 @@ class HotstuffReplica:
         print("PROPOSING", flush=True)
         self.propose_lock.acquire()
         print("A", flush=True)
+        previous_cert = None
         if previous is not None:
             self.qc_ref = previous
             self.hqc = previous.level
-        print("B", flush=True)
+            previous_cert = previous.lock_cert
         block = self.create_block()
-        print("C", flush=True)
         self.proposed = block
-        print("D", flush=True)
         sig = self.sign_blk(block)
-        print("E", flush=True)
         block.sign(self, sig)
-        print("D", flush=True)
-        proposal = Proposal(block, self.level, block.commit_certification, {})
-        print("E", flush=True)
+        proposal = Proposal(block, self.level, previous_cert, {})
         self.proposals.append(proposal)
         self.proposal_hashes.append(proposal.get_hash())
         self.broadcast(proposal.get_proto())
@@ -149,7 +145,7 @@ class HotstuffReplica:
             return
         self.proposal_hashes.append(proposal.get_hash())
         bnew = proposal.block
-        if bnew.certification is None:
+        if bnew.lock_cert is None:
             if bnew.qc_ref is not None:
                 self.update_hqc(bnew)
             if bnew.level in self.blockchain and self.blockchain[bnew.level].get_hash() != bnew.get_hash():
@@ -187,12 +183,12 @@ class HotstuffReplica:
         if self.level != block.level:
             # Done with that level
             return
-        if block.certification is None and len(block.signatures) >= self.qr:
+        if block.lock_cert is None and len(block.signatures) >= self.qr:
             block.certify()
             self.view_change(block)
-            if block.previous_hash in self.blocks and self.blocks[block.previous_hash].certification is not None:
+            if block.previous_hash in self.blocks and self.blocks[block.previous_hash].lock_cert is not None:
                 minusOne = self.blocks[block.previous_hash]
-                if minusOne.previous_hash in self.blocks and self.blocks[minusOne.previous_hash].certification is not None:
+                if minusOne.previous_hash in self.blocks and self.blocks[minusOne.previous_hash].lock_cert is not None:
                     minusTwo = self.blocks[minusOne.previous_hash]
                     self.commit(minusTwo)
 
