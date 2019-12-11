@@ -57,7 +57,6 @@ class HotstuffReplica:
         self.proposed = None
         # Blocks
         self.blocks = {}
-        self.blockchain = {}
         self.certified = []
         self.committed = []
         # Votes
@@ -154,7 +153,6 @@ class HotstuffReplica:
         if bnew.level in self.blockchain and self.blockchain[bnew.level].get_hash() != bnew.get_hash():
             self.blame()
             return
-        self.blockchain[bnew.level] = bnew
         if bnew.get_hash() not in self.blocks:
             self.blocks[bnew.get_hash()] = bnew
         self.lock(bnew)
@@ -163,7 +161,7 @@ class HotstuffReplica:
     def update_hqc(self, bnew):
         if (self.hqc is None and bnew.hqc is not None) or bnew.hqc > self.hqc:
             self.qc_ref = bnew.qc_ref
-            self.hqc = bnew.level
+            self.hqc = bnew.hqc
             self.level = bnew.level
             self.unlock()
 
@@ -172,8 +170,8 @@ class HotstuffReplica:
         signature = self.sign_blk(block)
         # Conditionally Sign Block
         leader_id = block.level % self.protocol.n
-        if self not in block.signatures:
-            block.sign(self, signature)
+        if self.id not in block.signatures:
+            block.sign(self.id, signature)
             if leader_id != self.id:
                 vote = Vote(block, self.level, signature, self)
                 leader_id = 1 # FORCE TO 1 DUE TO SUDDENLY IMPOSED TIME CONSTRAINT...
