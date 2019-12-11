@@ -157,7 +157,7 @@ class ReplicaConnection:
                 self.send_times.append(recv_time)
             except Exception as e:
                 self.messages.append((replica_id, message))
-                # print("FAILED TO SEND", flush=True)
+                print("FAILED TO SEND", flush=True)
                 pass
 
     def exit(self):
