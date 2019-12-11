@@ -16,7 +16,7 @@ class Replica:
         # Replica Core
         self.print = False
         self.n = n
-        self.f = math.floor(4*n/6)  # max-f for now
+        self.f = math.floor(n/3)  # max-f for now
         self.qr = 2 * self.f + 1
         self.qc = 0.1*n
         self.id = id
