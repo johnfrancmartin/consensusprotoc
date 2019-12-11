@@ -161,7 +161,6 @@ class HotstuffReplica:
 
     def update_hqc(self, bnew):
         if (self.hqc is None and bnew.hqc is not None) or bnew.hqc > self.hqc:
-            self.blockchain[bnew.level-1].qc_ref = bnew.qc_ref
             self.qc_ref = bnew.qc_ref
             self.hqc = bnew.level
             self.level = bnew.level
