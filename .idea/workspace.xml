@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/BFT.proto" beforeDir="false" afterPath="$PROJECT_DIR$/BFT.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotstuffBlock.py" beforeDir="false" afterPath="$PROJECT_DIR$/HotstuffBlock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MessageType.py" beforeDir="false" afterPath="$PROJECT_DIR$/MessageType.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReplicaConnection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ReplicaConnection.py" afterDir="false" />
-    </list>
+    <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +141,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HotstuffBlock.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="339">
@@ -175,7 +170,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BFT.proto">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
@@ -907,13 +902,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BFT.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ReplicaConnection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -949,6 +937,13 @@
             <element signature="e#0#35#0" expanded="true" />
             <marker date="1576023008377" expanded="true" signature="1347:1353" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BFT.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="24" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="24" />
         </state>
       </provider>
     </entry>
