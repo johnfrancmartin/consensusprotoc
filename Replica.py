@@ -16,7 +16,7 @@ class Replica:
         # Replica Core
         self.print = False
         self.n = n
-        self.f = math.floor(0.2*n)  # max-f for now
+        self.f = math.floor(0.3*n)  # max-f for now
         self.qc = 2 * self.f + 1
         self.qr = 2 * self.f + 1
         self.id = id
@@ -277,6 +277,8 @@ class Replica:
     def update_commit_tracking(self, block):
         if block not in self.committed:
             self.committed.append(block)
+            if len(block.commands) == 0:
+                return
             command = block.commands[0]
             if command in self.command_start_times:
                 commit_time = time() - self.command_start_times[command]
