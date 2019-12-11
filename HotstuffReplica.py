@@ -145,19 +145,16 @@ class HotstuffReplica:
             return
         self.proposal_hashes.append(proposal.get_hash())
         bnew = proposal.block
-        if bnew.lock_cert is None:
-            if bnew.qc_ref is not None:
-                self.update_hqc(bnew)
-            if bnew.level in self.blockchain and self.blockchain[bnew.level].get_hash() != bnew.get_hash():
-                self.blame()
-                return
-            self.blockchain[bnew.level] = bnew
-            if bnew.get_hash() not in self.blocks:
-                self.blocks[bnew.get_hash()] = bnew
-            self.lock(bnew)
-            self.vote(bnew)
-        elif self.locked == bnew:
-            self.vote(bnew)
+        if bnew.qc_ref is not None:
+            self.update_hqc(bnew)
+        if bnew.level in self.blockchain and self.blockchain[bnew.level].get_hash() != bnew.get_hash():
+            self.blame()
+            return
+        self.blockchain[bnew.level] = bnew
+        if bnew.get_hash() not in self.blocks:
+            self.blocks[bnew.get_hash()] = bnew
+        self.lock(bnew)
+        self.vote(bnew)
 
     def update_hqc(self, bnew):
         if (self.hqc is None and bnew.hqc is not None) or bnew.hqc > self.hqc:
@@ -238,7 +235,7 @@ class HotstuffReplica:
         self.view_change(None)
 
     def receive_msg(self, message, msg_id):
-        print("RECEIVED MESSAGE", flush=True)
+        print("RECEIVED MESSAGE", msg_id, flush=True)
         if message.type == MessageType.PROPOSE:
             self.receive_proposal(message)
         elif message.type == MessageType.VOTE:
