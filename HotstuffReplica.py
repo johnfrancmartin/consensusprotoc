@@ -123,7 +123,6 @@ class HotstuffReplica:
     def propose(self, previous):
         print("PROPOSING", flush=True)
         self.propose_lock.acquire()
-        print("A", flush=True)
         previous_cert = None
         if previous is not None:
             self.qc_ref = previous
@@ -188,15 +187,16 @@ class HotstuffReplica:
         else:
             self.blocks[block_hash] = block
             block.sign(sender_id, signature)
+            local_block = block
         if block.level % self.protocol.n != self.id:
             # NOT LEADER
             return
         if self.level != block.level:
             # Done with that level
             return
-        if block.qc_ref is None and len(block.signatures) >= self.qr:
-            block.certify()
-            self.propose(block)
+        if block.qc_ref is None and len(local_block.signatures) >= self.qr:
+            local_block.certify()
+            self.propose(local_block)
             # self.view_change(block)
             if block.previous_hash in self.blocks and self.blocks[block.previous_hash].qc_ref is not None:
                 minusOne = self.blocks[block.previous_hash]

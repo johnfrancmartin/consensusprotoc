@@ -83,7 +83,6 @@ class Vote(Message):
     @staticmethod
     def get_from_proto(proto):
         signature = int(proto.signature)
-        print(proto.block)
         if proto.block.hotstuff is not None and proto.block.hotstuff is True:
             print("HOTSTUFF", flush=True)
             block = HotstuffBlock.get_from_proto(proto.block)
