@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/HotstuffReplica.py" beforeDir="false" afterPath="$PROJECT_DIR$/HotstuffReplica.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/Main.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Replica.py" beforeDir="false" afterPath="$PROJECT_DIR$/Replica.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,7 +65,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1568" />
-          <entry key="py" value="60929" />
+          <entry key="py" value="60935" />
           <entry key="sh" value="635" />
         </counts>
       </usages-collector>
@@ -77,7 +75,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1568" />
-          <entry key="Python" value="60929" />
+          <entry key="Python" value="60935" />
         </counts>
       </usages-collector>
     </session>
@@ -87,13 +85,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Replica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+            <state relative-caret-position="285">
+              <caret line="19" column="32" lean-forward="true" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
-                <marker date="1576036511786" expanded="true" signature="2165:2170" ph="..." />
-                <marker date="1576036511786" expanded="true" signature="2583:2588" ph="..." />
-                <marker date="1576036511786" expanded="true" signature="8093:8099" ph="..." />
+                <marker date="1576036661204" expanded="true" signature="2164:2169" ph="..." />
+                <marker date="1576036661204" expanded="true" signature="2582:2587" ph="..." />
+                <marker date="1576036661204" expanded="true" signature="8092:8098" ph="..." />
               </folding>
             </state>
           </provider>
@@ -958,13 +956,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Replica.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+        <state relative-caret-position="285">
+          <caret line="19" column="32" lean-forward="true" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
-            <marker date="1576036511786" expanded="true" signature="2165:2170" ph="..." />
-            <marker date="1576036511786" expanded="true" signature="2583:2588" ph="..." />
-            <marker date="1576036511786" expanded="true" signature="8093:8099" ph="..." />
+            <marker date="1576036661204" expanded="true" signature="2164:2169" ph="..." />
+            <marker date="1576036661204" expanded="true" signature="2582:2587" ph="..." />
+            <marker date="1576036661204" expanded="true" signature="8092:8098" ph="..." />
           </folding>
         </state>
       </provider>
