@@ -32,7 +32,10 @@ class Block:
             proto.hqc = self.hqc
         if self.qc_ref is not None:
             proto.lock_cert = self.qc_ref
-        proto.previous = self.previous_hash
+        prev = self.previous_hash
+        if prev == None:
+            prev = ""
+        proto.previous = prev
         proto.hotstuff = True
         return proto
 
