@@ -16,7 +16,7 @@ class Replica:
         # Replica Core
         self.print = False
         self.n = n
-        self.f = math.floor(0.5*n)  # max-f for now
+        self.f = math.floor(4*n/6)  # max-f for now
         self.qc = 2 * self.f + 1
         self.qr = 2 * self.f + 1
         self.id = id
@@ -122,6 +122,7 @@ class Replica:
             previous_hash = previous.get_hash()
             height = previous.height + 1
         block = Block(command, height, self.view, previous_hash)
+        self.blocks[block.get_hash()] = block
         return block
 
     def propose(self, steady_state, status):
@@ -151,7 +152,6 @@ class Replica:
         self.proposal_hashes.append(proposal_from_proto.get_hash())
         self.broadcast(wrapper_proto)
         self.proposed = block
-        self.blocks[block.get_hash()] = block
         self.vote(block)
 
     def propose_cert(self, block):
@@ -191,6 +191,8 @@ class Replica:
             block.sign(self.id, signature)
             self.broadcast(Vote(block, self.view, signature, self).get_proto())
         if block.get_hash() not in self.blocks:
+            if self.id == 1:
+                print("LEADER NO BLOCK", flush=True)
             self.blocks[block.get_hash()] = block
 
     def block_extends(self, block):
