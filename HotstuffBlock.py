@@ -4,11 +4,12 @@ from time import time
 import BFT_pb2
 
 class Block:
-    def __init__(self, commands, level, qc_ref, hqc):
+    def __init__(self, commands, level, qc_ref, hqc, previous):
         self.commands = commands
         self.level = level
         self.qc_ref = None
         self.hqc = None
+        self.previous_hash = previous
         if qc_ref is not None and qc_ref != "":
             self.qc_ref = qc_ref
         if hqc is not None:
@@ -31,6 +32,7 @@ class Block:
             proto.hqc = self.hqc
         if self.qc_ref is not None:
             proto.lock_cert = self.qc_ref
+        proto.previous = self.previous_hash
         proto.hotstuff = True
         return proto
 
@@ -39,7 +41,7 @@ class Block:
         commands = []
         for command in proto.commands:
             commands.append(command)
-        block = Block(commands, proto.view, proto.previous, proto.hqc)
+        block = Block(commands, proto.view, proto.previous, proto.hqc, proto.previous)
         lock_cert = proto.lock_cert
         if lock_cert is not None and lock_cert != "":
             block.qc_ref = str(proto.lock_cert)

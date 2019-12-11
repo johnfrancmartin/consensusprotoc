@@ -108,7 +108,7 @@ class HotstuffReplica:
             if leader == self.id:
                 self.propose(block)
 
-    def create_block(self):
+    def create_block(self, previous):
         self.commands_lock.acquire()
         if len(self.commands_queue) == 0:
             uid = str(uuid.uuid4())
@@ -116,8 +116,11 @@ class HotstuffReplica:
             # FILLER BLOCK
         else:
             commands = self.commands_queue.pop(0)
+        previous_hash = None
+        if previous is not None:
+            previous_hash = previous.get_hash()
         self.commands_lock.release()
-        block = Block(commands, self.level, self.qc_ref, self.hqc)
+        block = Block(commands, self.level, self.qc_ref, self.hqc, previous_hash)
         return block
 
     def propose(self, previous):
@@ -128,7 +131,7 @@ class HotstuffReplica:
             self.qc_ref = previous.qc_ref
             self.hqc = previous.level
             previous_cert = previous.qc_ref
-        block = self.create_block()
+        block = self.create_block(previous)
         self.proposed = block
         sig = self.sign_blk(block)
         block.sign(self, sig)

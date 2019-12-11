@@ -66,7 +66,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1568" />
-          <entry key="py" value="60628" />
+          <entry key="py" value="60808" />
           <entry key="sh" value="632" />
         </counts>
       </usages-collector>
@@ -76,7 +76,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1568" />
-          <entry key="Python" value="60628" />
+          <entry key="Python" value="60808" />
         </counts>
       </usages-collector>
     </session>
@@ -86,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Replica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="223" column="8" selection-start-line="223" selection-start-column="8" selection-end-line="225" selection-end-column="37" />
+            <state relative-caret-position="2100">
+              <caret line="228" column="18" lean-forward="true" selection-start-line="228" selection-start-column="18" selection-end-line="228" selection-end-column="18" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
                 <marker date="1576019961784" expanded="true" signature="2164:2169" ph="..." />
@@ -132,27 +132,27 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HotstuffReplica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="126" column="32" lean-forward="true" selection-start-line="126" selection-start-column="32" selection-end-line="126" selection-end-column="32" />
+            <state relative-caret-position="578">
+              <caret line="133" column="42" selection-start-line="133" selection-start-column="42" selection-end-line="133" selection-end-column="42" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
-                <marker date="1576035391387" expanded="true" signature="3633:3638" ph="..." />
+                <marker date="1576035739245" expanded="true" signature="3768:3773" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HotstuffBlock.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="48" column="35" lean-forward="true" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+            <state relative-caret-position="478">
+              <caret line="42" column="36" lean-forward="true" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <marker date="1576035453244" expanded="true" signature="1364:1370" ph="..." />
+                <marker date="1576035662156" expanded="true" signature="1472:1478" ph="..." />
               </folding>
             </state>
           </provider>
@@ -177,7 +177,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BFT.proto">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-449">
+            <state relative-caret-position="101">
               <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
@@ -206,10 +206,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Vote(</find>
-      <find>msg.id</find>
-      <find>Block</find>
-      <find>certification</find>
       <find>self.replica.rece</find>
       <find>.view</find>
       <find>receive_msg</find>
@@ -230,12 +226,16 @@
       <find>get_python_mes</find>
       <find>self.replica.</find>
       <find>epoll_send</find>
-      <find>uuid</find>
       <find>print(</find>
       <find>qc_ref</find>
-      <find>receive_vote</find>
+      <find>.qc</find>
+      <find>qc_ref =</find>
+      <find>previous_hash</find>
       <find>print</find>
+      <find>uuid</find>
       <find>lock_cert</find>
+      <find>create_block</find>
+      <find>receive_vote</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -298,9 +298,9 @@
         <option value="$PROJECT_DIR$/HotstuffReplicaMain.py" />
         <option value="$PROJECT_DIR$/ReplicaConnection.py" />
         <option value="$PROJECT_DIR$/MessageType.py" />
-        <option value="$PROJECT_DIR$/HotstuffReplica.py" />
         <option value="$PROJECT_DIR$/Block.py" />
         <option value="$PROJECT_DIR$/HotstuffBlock.py" />
+        <option value="$PROJECT_DIR$/HotstuffReplica.py" />
       </list>
     </option>
   </component>
@@ -861,55 +861,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Replica.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="223" column="8" selection-start-line="223" selection-start-column="8" selection-end-line="225" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-            <marker date="1576019961784" expanded="true" signature="2164:2169" ph="..." />
-            <marker date="1576019961784" expanded="true" signature="2582:2587" ph="..." />
-            <marker date="1576019961784" expanded="true" signature="8092:8098" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BFT.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-449">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HotstuffMain.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ReplicaConnection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="238" column="33" lean-forward="true" selection-start-line="238" selection-start-column="33" selection-end-line="238" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1576035177048" expanded="true" signature="4091:6401" ph="..." />
-            <marker date="1576035177048" expanded="true" signature="5565:6401" ph="..." />
-            <marker date="1576035177048" expanded="true" signature="7997:7998" ph="..." />
-            <marker date="1576035177048" expanded="true" signature="9551:9696" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HotstuffReplica.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="126" column="32" lean-forward="true" selection-start-line="126" selection-start-column="32" selection-end-line="126" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <marker date="1576035391387" expanded="true" signature="3633:3638" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -941,13 +896,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ReplicaConnection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="238" column="33" lean-forward="true" selection-start-line="238" selection-start-column="33" selection-end-line="238" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1576035177048" expanded="true" signature="4091:6401" ph="..." />
+            <marker date="1576035177048" expanded="true" signature="5565:6401" ph="..." />
+            <marker date="1576035177048" expanded="true" signature="7997:7998" ph="..." />
+            <marker date="1576035177048" expanded="true" signature="9551:9696" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BFT.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/HotstuffBlock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="48" column="35" lean-forward="true" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+        <state relative-caret-position="478">
+          <caret line="42" column="36" lean-forward="true" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <marker date="1576035453244" expanded="true" signature="1364:1370" ph="..." />
+            <marker date="1576035662156" expanded="true" signature="1472:1478" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Replica.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2100">
+          <caret line="228" column="18" lean-forward="true" selection-start-line="228" selection-start-column="18" selection-end-line="228" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <marker date="1576019961784" expanded="true" signature="2164:2169" ph="..." />
+            <marker date="1576019961784" expanded="true" signature="2582:2587" ph="..." />
+            <marker date="1576019961784" expanded="true" signature="8092:8098" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HotstuffReplica.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="133" column="42" selection-start-line="133" selection-start-column="42" selection-end-line="133" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <marker date="1576035739245" expanded="true" signature="3768:3773" ph="..." />
           </folding>
         </state>
       </provider>
