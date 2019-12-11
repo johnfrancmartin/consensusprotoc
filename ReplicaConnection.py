@@ -32,7 +32,7 @@ class ReplicaConnection:
         atexit.register(self.exit)
 
         # EPOLL
-        self.local_port = 60000+self.replica.id
+        self.local_port = BASE+self.replica.id
         self.epoll = select.epoll()
         self.lock = Lock()
 
