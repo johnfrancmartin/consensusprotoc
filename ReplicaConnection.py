@@ -205,6 +205,7 @@ class ReplicaConnection:
         if len(self.replica.command_commit_times) > 0:
             command_latency = sum(self.replica.command_commit_times) / len(self.replica.command_commit_times)
             log_dict["command_latency"] = command_latency
+            print("COMMAND_LATENCY", command_latency, flush=True)
         # if len(self.recv_times) > 0:
         #     print(self.replica.id, "AVERAGE RECEIVE TIME:", sum(self.recv_times) / len(self.recv_times))
         # if len(self.process_times) > 0:
