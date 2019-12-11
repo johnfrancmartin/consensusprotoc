@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d318809a-6bc0-41d1-9300-2179ab0bb9e2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/HotstuffReplica.py" beforeDir="false" afterPath="$PROJECT_DIR$/HotstuffReplica.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotstuffReplicaMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/HotstuffReplicaMain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReplicaConnection.py" beforeDir="false" afterPath="$PROJECT_DIR$/ReplicaConnection.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +65,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1568" />
-          <entry key="py" value="60334" />
+          <entry key="py" value="60478" />
           <entry key="sh" value="632" />
         </counts>
       </usages-collector>
@@ -77,7 +75,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1568" />
-          <entry key="Python" value="60334" />
+          <entry key="Python" value="60478" />
         </counts>
       </usages-collector>
     </session>
@@ -136,11 +134,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HotstuffReplica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="188" column="43" lean-forward="true" selection-start-line="188" selection-start-column="43" selection-end-line="188" selection-end-column="43" />
+            <state relative-caret-position="585">
+              <caret line="164" column="35" selection-start-line="164" selection-start-column="35" selection-end-line="164" selection-end-column="35" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
-                <marker date="1576034048910" expanded="true" signature="3633:3638" ph="..." />
+                <marker date="1576034328308" expanded="true" signature="3633:3638" ph="..." />
               </folding>
             </state>
           </provider>
@@ -223,10 +221,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Blame(</find>
-      <find>run</find>
-      <find>view</find>
-      <find>broadcast</find>
       <find>self.level</find>
       <find>self.level</find>
       <find>qc</find>
@@ -253,6 +247,10 @@
       <find>lock_cert</find>
       <find>exit</find>
       <find>receive_vote</find>
+      <find>self.level =</find>
+      <find>self.propose(</find>
+      <find>self.propose</find>
+      <find>self.leader</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -960,11 +958,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HotstuffReplica.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="188" column="43" lean-forward="true" selection-start-line="188" selection-start-column="43" selection-end-line="188" selection-end-column="43" />
+        <state relative-caret-position="585">
+          <caret line="164" column="35" selection-start-line="164" selection-start-column="35" selection-end-line="164" selection-end-column="35" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
-            <marker date="1576034048910" expanded="true" signature="3633:3638" ph="..." />
+            <marker date="1576034328308" expanded="true" signature="3633:3638" ph="..." />
           </folding>
         </state>
       </provider>

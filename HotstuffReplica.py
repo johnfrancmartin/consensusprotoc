@@ -162,6 +162,7 @@ class HotstuffReplica:
             self.blockchain[bnew.level-1].qc_ref = bnew.qc_ref
             self.qc_ref = bnew.qc_ref
             self.hqc = bnew.level
+            self.level = bnew.level
             self.unlock()
 
     def vote(self, block):
@@ -176,22 +177,27 @@ class HotstuffReplica:
                 self.protocol.direct_message(vote.get_proto(), leader_id)
 
     def receive_vote(self, vote):
+        print("RECEIVE VOTE", flush=True)
         block = vote.block
         sender_id = vote.sender
         signature = vote.signature
         block_hash = block.get_hash()
+        if block.get_hash() in self.blocks:
+            local_block = self.blocks[block_hash]
+            local_block.sign(sender_id, signature)
+        else:
+            self.blocks[block_hash] = block
+            block.sign(sender_id, signature)
         if block.level % self.protocol.n != self.id:
             # NOT LEADER
             return
         if self.level != block.level:
             # Done with that level
             return
-        if block.get_hash() in self.blocks:
-            local_block = self.blocks[block_hash]
-            local_block.sign(sender_id, signature)
         if block.qc_ref is None and len(block.signatures) >= self.qr:
             block.certify()
-            self.view_change(block)
+            self.propose(block)
+            # self.view_change(block)
             if block.previous_hash in self.blocks and self.blocks[block.previous_hash].qc_ref is not None:
                 minusOne = self.blocks[block.previous_hash]
                 if minusOne.previous_hash in self.blocks and self.blocks[minusOne.previous_hash].qc_ref is not None:
