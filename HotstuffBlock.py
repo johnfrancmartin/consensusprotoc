@@ -63,8 +63,8 @@ class Block:
             str_sig = str(sig)
             siggies.append(str_sig)
         cert: str = ":".join(siggies)
-        if self.lock_cert is None:
-            self.lock_cert = cert
+        if self.qc_ref is None:
+            self.qc_ref = cert
 
     def verify_cert(self, public_keys_dict, cert, qr):
         cert_sigs = [int(s) for s in cert.split(":")]

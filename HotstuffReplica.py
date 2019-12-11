@@ -125,7 +125,7 @@ class HotstuffReplica:
         self.propose_lock.acquire()
         previous_cert = None
         if previous is not None:
-            self.qc_ref = previous
+            self.qc_ref = previous.qc_ref
             self.hqc = previous.level
             previous_cert = previous.qc_ref
         block = self.create_block()
