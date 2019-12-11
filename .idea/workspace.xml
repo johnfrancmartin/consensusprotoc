@@ -65,7 +65,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1568" />
-          <entry key="py" value="59749" />
+          <entry key="py" value="59759" />
           <entry key="sh" value="593" />
         </counts>
       </usages-collector>
@@ -75,7 +75,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1568" />
-          <entry key="Python" value="59749" />
+          <entry key="Python" value="59759" />
         </counts>
       </usages-collector>
     </session>
@@ -146,8 +146,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HotstuffBlock.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+            <state relative-caret-position="405">
+              <caret line="27" column="29" lean-forward="true" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
                 <marker date="1576023008377" expanded="true" signature="1347:1353" ph="..." />
@@ -159,14 +159,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MessageType.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="58" column="56" lean-forward="true" selection-start-line="58" selection-start-column="56" selection-end-line="58" selection-end-column="56" />
+            <state relative-caret-position="541">
+              <caret line="112" column="13" lean-forward="true" selection-start-line="112" selection-start-column="13" selection-end-line="112" selection-end-column="13" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1576024840725" expanded="true" signature="150:155" ph="..." />
-                <marker date="1576024840725" expanded="true" signature="239:244" ph="..." />
-                <marker date="1576024840725" expanded="true" signature="320:325" ph="..." />
-                <marker date="1576024840725" expanded="true" signature="3908:4192" ph="..." />
+                <marker date="1576024943556" expanded="true" signature="150:155" ph="..." />
+                <marker date="1576024943556" expanded="true" signature="239:244" ph="..." />
+                <marker date="1576024943556" expanded="true" signature="320:325" ph="..." />
+                <marker date="1576024943556" expanded="true" signature="3895:4179" ph="..." />
               </folding>
             </state>
           </provider>
@@ -230,10 +230,10 @@
       <find>self.blocks[</find>
       <find>Vote(</find>
       <find>qc_ref</find>
-      <find>certification</find>
       <find>msg.id</find>
       <find>Block</find>
       <find>lock_cert</find>
+      <find>certification</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -866,17 +866,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HotstuffReplica.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="133" column="34" lean-forward="true" selection-start-line="133" selection-start-column="34" selection-end-line="133" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <marker date="1576022695970" expanded="true" signature="3633:3638" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Block.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -926,8 +915,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HotstuffBlock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+        <state relative-caret-position="405">
+          <caret line="27" column="29" lean-forward="true" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <marker date="1576023008377" expanded="true" signature="1347:1353" ph="..." />
@@ -935,16 +924,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/HotstuffReplica.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1995">
+          <caret line="133" column="34" lean-forward="true" selection-start-line="133" selection-start-column="34" selection-end-line="133" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <marker date="1576022695970" expanded="true" signature="3633:3638" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MessageType.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="58" column="56" lean-forward="true" selection-start-line="58" selection-start-column="56" selection-end-line="58" selection-end-column="56" />
+        <state relative-caret-position="541">
+          <caret line="112" column="13" lean-forward="true" selection-start-line="112" selection-start-column="13" selection-end-line="112" selection-end-column="13" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1576024840725" expanded="true" signature="150:155" ph="..." />
-            <marker date="1576024840725" expanded="true" signature="239:244" ph="..." />
-            <marker date="1576024840725" expanded="true" signature="320:325" ph="..." />
-            <marker date="1576024840725" expanded="true" signature="3908:4192" ph="..." />
+            <marker date="1576024943556" expanded="true" signature="150:155" ph="..." />
+            <marker date="1576024943556" expanded="true" signature="239:244" ph="..." />
+            <marker date="1576024943556" expanded="true" signature="320:325" ph="..." />
+            <marker date="1576024943556" expanded="true" signature="3895:4179" ph="..." />
           </folding>
         </state>
       </provider>
