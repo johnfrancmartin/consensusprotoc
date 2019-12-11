@@ -231,6 +231,7 @@ class ReplicaConnection:
             print("BROADCAST", message.id, flush=True)
         for i in range(1, self.n+1):
             if i != self.replica.id:
+                print("SEND TO", i)
                 self.messages.append((i, message))
 
 
