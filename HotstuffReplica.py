@@ -131,6 +131,7 @@ class HotstuffReplica:
             self.qc_ref = previous.qc_ref
             self.hqc = previous.level
             previous_cert = previous.qc_ref
+            self.level = previous.level + 1
         block = self.create_block(previous)
         self.proposed = block
         sig = self.sign_blk(block)
