@@ -18,7 +18,7 @@ class Replica:
         self.n = n
         self.f = math.floor(n/3)  # max-f for now
         self.qr = 2 * self.f + 1
-        self.qc = 0.85*n
+        self.qc = self.qr
         self.id = id
         self.protocol = ReplicaConnection(n, self)
         # Commands
