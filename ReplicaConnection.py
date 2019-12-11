@@ -220,6 +220,7 @@ class ReplicaConnection:
 
     def direct_message(self, message, recipient_id):
         print("DIRECT MESSAGE", recipient_id)
+        message.id = str(uuid.uuid4())
         self.messages.append((recipient_id, message))
 
     def broadcast(self, message):
