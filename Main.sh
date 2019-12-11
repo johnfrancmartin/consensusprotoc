@@ -3,9 +3,9 @@
 killall python3;
 source ./venv/bin/activate;
 
-n=4
-python3 ./GenerateKeys.py 4
-for i in {1..4};
+n=8
+python3 ./GenerateKeys.py 8
+for i in {1..8};
 do
     echo ${i}
     python3 ./ReplicaMain.py ${n} ${i} &
