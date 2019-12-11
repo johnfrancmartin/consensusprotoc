@@ -14,7 +14,7 @@ class Block:
         if hqc is not None:
             self.hqc = hqc
         self.signatures = {}
-        self.certification = None
+        self.lock_cert = None
         self.commit_certification = None
 
     def get_proto(self):
@@ -27,8 +27,8 @@ class Block:
             prev = ""
         proto.previous = prev
         proto.hqc = self.hqc
-        if self.certification is not None:
-            proto.lock_cert = self.certification
+        if self.lock_cert is not None:
+            proto.lock_cert = self.lock_cert
         return proto
 
     @staticmethod
@@ -39,7 +39,7 @@ class Block:
         block = Block(commands, proto.view, proto.previous, proto.hqc)
         lock_cert = proto.lock_cert
         if lock_cert is not None and lock_cert != "":
-            block.certification = str(proto.lock_cert)
+            block.lock_cert = str(proto.lock_cert)
         return block
 
     def get_hash(self):
@@ -60,8 +60,8 @@ class Block:
             str_sig = str(sig)
             siggies.append(str_sig)
         cert: str = ":".join(siggies)
-        if self.certification is None:
-            self.certification = cert
+        if self.lock_cert is None:
+            self.lock_cert = cert
 
     def verify_cert(self, public_keys_dict, cert, qr):
         cert_sigs = [int(s) for s in cert.split(":")]
