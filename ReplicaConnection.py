@@ -12,7 +12,7 @@ from google.protobuf.internal.decoder import _DecodeVarint32
 from google.protobuf.timestamp_pb2 import Timestamp
 import json
 
-BASE = 60000
+BASE = 20000
 HOST = "127.0.0.1"
 
 
