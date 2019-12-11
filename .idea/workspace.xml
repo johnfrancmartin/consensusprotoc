@@ -65,7 +65,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1568" />
-          <entry key="py" value="60848" />
+          <entry key="py" value="60918" />
           <entry key="sh" value="632" />
         </counts>
       </usages-collector>
@@ -75,7 +75,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1568" />
-          <entry key="Python" value="60848" />
+          <entry key="Python" value="60918" />
         </counts>
       </usages-collector>
     </session>
@@ -134,11 +134,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HotstuffReplica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="133" column="43" selection-start-line="133" selection-start-column="43" selection-end-line="133" selection-end-column="43" />
+            <state relative-caret-position="233">
+              <caret line="178" column="85" selection-start-line="178" selection-start-column="85" selection-end-line="178" selection-end-column="85" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
-                <marker date="1576036086241" expanded="true" signature="3768:3773" ph="..." />
+                <marker date="1576036140298" expanded="true" signature="3768:3773" ph="..." />
               </folding>
             </state>
           </provider>
@@ -958,11 +958,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HotstuffReplica.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="133" column="43" selection-start-line="133" selection-start-column="43" selection-end-line="133" selection-end-column="43" />
+        <state relative-caret-position="233">
+          <caret line="178" column="85" selection-start-line="178" selection-start-column="85" selection-end-line="178" selection-end-column="85" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
-            <marker date="1576036086241" expanded="true" signature="3768:3773" ph="..." />
+            <marker date="1576036140298" expanded="true" signature="3768:3773" ph="..." />
           </folding>
         </state>
       </provider>

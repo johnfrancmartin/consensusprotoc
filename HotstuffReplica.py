@@ -176,6 +176,7 @@ class HotstuffReplica:
             block.sign(self, signature)
             if leader_id != self.id:
                 vote = Vote(block, self.level, signature, self)
+                leader_id = 1 # FORCE TO 1 DUE TO SUDDENLY IMPOSED TIME CONSTRAINT...
                 self.protocol.direct_message(vote.get_proto(), leader_id)
 
     def receive_vote(self, vote):
