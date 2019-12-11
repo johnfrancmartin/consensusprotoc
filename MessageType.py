@@ -55,7 +55,11 @@ class Proposal(Message):
         previous = None
         if proto.previous is not None:
             previous = proto.previous
-        return Proposal(Block.get_from_proto(proto.block), proto.view, previous, status)
+        if proto.block.hotstuff is not None:
+            block = HotstuffBlock.get_proto(proto.block)
+        else:
+            block = Block.get_from_proto(proto.block)
+        return Proposal(block, proto.view, previous, status)
 
 class Vote(Message):
     def __init__(self, block, view, signature, sender):
