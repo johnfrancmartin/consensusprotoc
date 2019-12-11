@@ -30,6 +30,7 @@ class Block:
             proto.hqc = self.hqc
         if self.lock_cert is not None:
             proto.lock_cert = self.lock_cert
+        proto.hotstuff = True
         return proto
 
     @staticmethod

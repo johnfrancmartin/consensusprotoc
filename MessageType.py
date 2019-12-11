@@ -1,6 +1,7 @@
 from enum import Enum
 import BFT_pb2
 from Block import Block
+from HotstuffBlock import Block as HotstuffBlock
 import hashlib
 
 class MessageType(Enum):
@@ -45,7 +46,10 @@ class Proposal(Message):
         i = 0
         if proto.status is not None:
             for blk in proto.status:
-                block = Block.get_from_proto(blk)
+                if blk.hotstuff is not None:
+                    block = HotstuffBlock.get_proto(blk)
+                else:
+                    block = Block.get_from_proto(blk)
                 status[i] = block
                 i += 1
         previous = None
@@ -73,7 +77,11 @@ class Vote(Message):
     @staticmethod
     def get_from_proto(proto):
         signature = int(proto.signature)
-        return Vote(Block.get_from_proto(proto.block), proto.view, signature, proto.sender)
+        if proto.block.hotstuff is not None:
+            block = HotstuffBlock.get_proto(proto.block)
+        else:
+            block = Block.get_from_proto(proto.block)
+        return Vote(block, proto.view, signature, proto.sender)
 
 class Blame(Message):
     def __init__(self, view, sender, status):
@@ -96,7 +104,10 @@ class Blame(Message):
     @staticmethod
     def get_from_proto(proto):
         signature = int(proto.signature)
-
+        if proto.block.hotstuff is not None:
+            block = HotstuffBlock.get_proto(proto.block)
+        else:
+            block = Block.get_from_proto(proto.block)
         return Vote(Block.get_from_proto(proto.block), proto.view, signature, proto.sender)
 
 class Command(Message):

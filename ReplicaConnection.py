@@ -4,7 +4,7 @@ import traceback
 from time import sleep, time
 from threading import Thread, Lock
 import atexit
-from MessageType import Block, Blame, Proposal, Vote, Command
+from MessageType import Blame, Proposal, Vote, Command
 import uuid
 import select
 from google.protobuf.internal.encoder import _EncodeVarint
