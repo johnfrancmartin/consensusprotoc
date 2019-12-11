@@ -16,9 +16,9 @@ class Replica:
         # Replica Core
         self.print = False
         self.n = n
-        self.f = math.floor(4*n/6)  # max-f for now
-        self.qc = 2 * self.f + 1
-        self.qr = 2 * self.f + 1
+        self.f = math.floor(n/3)  # max-f for now
+        self.qr = 0.5*n
+        self.qc = self.qr
         self.id = id
         self.protocol = ReplicaConnection(n, self)
         # Commands
