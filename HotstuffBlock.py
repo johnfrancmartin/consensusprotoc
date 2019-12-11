@@ -9,7 +9,7 @@ class Block:
         self.level = level
         self.qc_ref = None
         self.hqc = None
-        if qc_ref is not None:
+        if qc_ref is not None and qc_ref != "":
             self.qc_ref = qc_ref
         if hqc is not None:
             self.hqc = hqc
@@ -26,7 +26,8 @@ class Block:
         if prev == None:
             prev = ""
         proto.previous = prev
-        proto.hqc = self.hqc
+        if self.hqc is not None:
+            proto.hqc = self.hqc
         if self.lock_cert is not None:
             proto.lock_cert = self.lock_cert
         return proto

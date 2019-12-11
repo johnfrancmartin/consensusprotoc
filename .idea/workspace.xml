@@ -65,7 +65,7 @@
           <entry key="dummy" value="60" />
           <entry key="md" value="262" />
           <entry key="proto" value="1528" />
-          <entry key="py" value="59415" />
+          <entry key="py" value="59456" />
           <entry key="sh" value="593" />
         </counts>
       </usages-collector>
@@ -75,7 +75,7 @@
           <entry key="Markdown" value="262" />
           <entry key="PLAIN_TEXT" value="60" />
           <entry key="PROTO" value="1528" />
-          <entry key="Python" value="59415" />
+          <entry key="Python" value="59456" />
         </counts>
       </usages-collector>
     </session>
@@ -147,11 +147,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HotstuffBlock.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+            <state relative-caret-position="343">
+              <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <marker date="1576022502221" expanded="true" signature="1263:1269" ph="..." />
+                <marker date="1576022578655" expanded="true" signature="1317:1323" ph="..." />
               </folding>
             </state>
           </provider>
@@ -954,11 +954,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HotstuffBlock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+        <state relative-caret-position="343">
+          <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <marker date="1576022502221" expanded="true" signature="1263:1269" ph="..." />
+            <marker date="1576022578655" expanded="true" signature="1317:1323" ph="..." />
           </folding>
         </state>
       </provider>
