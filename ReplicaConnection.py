@@ -245,8 +245,12 @@ class ReplicaConnection:
         # execute_t = Thread(target=self.execute, args=())
         # execute_t.start()
         self.replica.network_initialized()
-        self.epoll_send()
+
+        send_t = Thread(target=self.epoll_send, args=())
+        send_t.start()
+        # self.epoll_send()
         listen_t.join()
+        send_t.join()
         # execute_t.join()
 
         # connect_t = Thread(target=self.connect_to_replicas, args=())
