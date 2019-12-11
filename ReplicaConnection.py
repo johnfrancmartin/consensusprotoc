@@ -166,7 +166,6 @@ class ReplicaConnection:
         for f, sock in self.sockets.items():
             sock.close()
         self.stop = True
-        self.replica.exit()
         print("EXITING", self.replica.id)
         total_cmts = len(self.replica.committed)
         print(self.replica.id, "COMMITTED TOTAL", total_cmts, "BLOCKS")
@@ -188,6 +187,7 @@ class ReplicaConnection:
             print(self.replica.id, "AVERAGE SEND TIME:", sum(self.send_times) / len(self.send_times))
         if len(self.transfer_times) > 0:
             print(self.replica.id, "AVERAGE TRANSFER TIME:", sum(self.transfer_times) / len(self.transfer_times))
+        self.replica.exit()
 
     def log(self):
         log_dict = {}

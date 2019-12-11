@@ -1,5 +1,6 @@
 import sys
 from HotstuffReplica import HotstuffReplica
+from time import sleep
 
 def main():
     args = sys.argv[1:]
@@ -11,6 +12,8 @@ def main():
         replica.run()
     except KeyboardInterrupt:
         replica.protocol.exit()
+        sleep(2)
+        raise KeyboardInterrupt
 
 
 if __name__ == "__main__":

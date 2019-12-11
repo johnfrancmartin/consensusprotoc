@@ -177,12 +177,18 @@ class HotstuffReplica:
 
     def receive_vote(self, vote):
         block = vote.block
+        sender_id = vote.sender
+        signature = vote.signature
+        block_hash = block.get_hash()
         if block.level % self.protocol.n != self.id:
             # NOT LEADER
             return
         if self.level != block.level:
             # Done with that level
             return
+        if block.get_hash() in self.blocks:
+            local_block = self.blocks[block_hash]
+            local_block.sign(sender_id, signature)
         if block.qc_ref is None and len(block.signatures) >= self.qr:
             block.certify()
             self.view_change(block)
