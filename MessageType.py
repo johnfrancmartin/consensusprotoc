@@ -55,7 +55,7 @@ class Proposal(Message):
         previous = None
         if proto.previous is not None:
             previous = proto.previous
-        if proto.block.hotstuff is not None:
+        if proto.block.hotstuff is not None and proto.block.hotstuff is True:
             block = HotstuffBlock.get_from_proto(proto.block)
         else:
             block = Block.get_from_proto(proto.block)
@@ -81,7 +81,7 @@ class Vote(Message):
     @staticmethod
     def get_from_proto(proto):
         signature = int(proto.signature)
-        if proto.block.hotstuff is not None:
+        if proto.block.hotstuff is not None and proto.block.hotstuff is True:
             block = HotstuffBlock.get_from_proto(proto.block)
         else:
             block = Block.get_from_proto(proto.block)
@@ -108,7 +108,7 @@ class Blame(Message):
     @staticmethod
     def get_from_proto(proto):
         signature = int(proto.signature)
-        if proto.block.hotstuff is not None:
+        if proto.block.hotstuff is not None and proto.block.hotstuff is True:
             block = HotstuffBlock.get_from_proto(proto.block)
         else:
             block = Block.get_from_proto(proto.block)
