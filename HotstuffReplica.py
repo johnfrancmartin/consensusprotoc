@@ -66,6 +66,7 @@ class HotstuffReplica:
         self.status = {}
         # Proposals
         self.proposals = []
+        self.proposal_hashes = []
         self.proposed = None
         # Pending
         self.pending_proposals = []
@@ -122,22 +123,31 @@ class HotstuffReplica:
     def propose(self, previous):
         print("PROPOSING", flush=True)
         self.propose_lock.acquire()
+        print("A", flush=True)
         if previous is not None:
             self.qc_ref = previous
             self.hqc = previous.level
-        if self.proposed is None:
-            block = self.create_block()
-            self.proposed = block
-            sig = self.sign_blk(block)
-            block.sign(self, sig)
-            proposal = Proposal(block, self.level, block.commit_certification, {})
-            self.proposals.append(proposal)
-            self.broadcast(proposal)
+        print("B", flush=True)
+        block = self.create_block()
+        print("C", flush=True)
+        self.proposed = block
+        print("D", flush=True)
+        sig = self.sign_blk(block)
+        print("E", flush=True)
+        block.sign(self, sig)
+        print("D", flush=True)
+        proposal = Proposal(block, self.level, block.commit_certification, {})
+        print("E", flush=True)
+        self.proposals.append(proposal)
+        self.proposal_hashes.append(proposal.get_hash())
+        self.broadcast(proposal.get_proto())
+        self.vote(block)
         self.propose_lock.release()
 
     def receive_proposal(self, proposal):
-        if proposal in self.proposals:
+        if proposal.get_hash() in self.proposal_hashes:
             return
+        self.proposal_hashes.append(proposal.get_hash())
         bnew = proposal.block
         if bnew.certification is None:
             if bnew.qc_ref is not None:
@@ -165,8 +175,9 @@ class HotstuffReplica:
         leader_id = block.level % self.protocol.n
         if self not in block.signatures:
             block.sign(self, signature)
-            vote = Vote(block, self.level, signature, self)
-            self.protocol.direct_message(vote.get_proto(), leader_id)
+            if leader_id != self.id:
+                vote = Vote(block, self.level, signature, self)
+                self.protocol.direct_message(vote.get_proto(), leader_id)
 
     def receive_vote(self, vote):
         block = vote.block
