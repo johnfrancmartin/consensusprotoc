@@ -219,8 +219,6 @@ class ReplicaConnection:
             json.dump(log_dict, jsfile)
 
     def direct_message(self, message, recipient_id):
-        while len(self.sockets) < self.n/2:
-            continue
         print("DIRECT MESSAGE", recipient_id)
         self.messages.append((recipient_id, message))
 
