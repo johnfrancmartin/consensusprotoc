@@ -14,8 +14,9 @@ class Block:
         if hqc is not None:
             self.hqc = hqc
         self.signatures = {}
-        self.lock_cert = None
         self.commit_certification = None
+        # For Consistency
+        self.lock_cert = None
 
     def get_proto(self):
         proto = BFT_pb2.Block()
@@ -28,8 +29,8 @@ class Block:
         proto.previous = prev
         if self.hqc is not None:
             proto.hqc = self.hqc
-        if self.lock_cert is not None:
-            proto.lock_cert = self.lock_cert
+        if self.qc_ref is not None:
+            proto.lock_cert = self.qc_ref
         proto.hotstuff = True
         return proto
 
@@ -41,7 +42,7 @@ class Block:
         block = Block(commands, proto.view, proto.previous, proto.hqc)
         lock_cert = proto.lock_cert
         if lock_cert is not None and lock_cert != "":
-            block.lock_cert = str(proto.lock_cert)
+            block.qc_ref = str(proto.lock_cert)
         return block
 
     def get_hash(self):

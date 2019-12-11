@@ -27,6 +27,8 @@ class Proposal(Message):
         cert = ""
         if self.block.lock_cert is not None:
             cert = self.block.lock_cert
+        elif self.block.qc_ref is not None:
+            cert = self.block.qc_ref
         hash_str = self.block.get_hash() + ":" + str(self.view) + ":" + str(self.previous_cert) \
                    + ":" + str(self.status) + ":" + str(cert)
         hash_bytes = str.encode(hash_str)

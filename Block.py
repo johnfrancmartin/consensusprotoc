@@ -21,6 +21,9 @@ class Block:
         self.lock_cert: str = None
         self.commit_cert: str = None
 
+        # For consistency
+        self.qc_ref = None
+
     def get_proto(self):
         proto = BFT_pb2.Block()
         for i in self.commands:

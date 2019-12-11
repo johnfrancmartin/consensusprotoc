@@ -128,7 +128,7 @@ class HotstuffReplica:
         if previous is not None:
             self.qc_ref = previous
             self.hqc = previous.level
-            previous_cert = previous.lock_cert
+            previous_cert = previous.qc_ref
         block = self.create_block()
         self.proposed = block
         sig = self.sign_blk(block)
@@ -141,6 +141,7 @@ class HotstuffReplica:
         self.propose_lock.release()
 
     def receive_proposal(self, proposal):
+        print("Receive proposal", flush=True)
         if proposal.get_hash() in self.proposal_hashes:
             return
         self.proposal_hashes.append(proposal.get_hash())
@@ -158,11 +159,13 @@ class HotstuffReplica:
 
     def update_hqc(self, bnew):
         if (self.hqc is None and bnew.hqc is not None) or bnew.hqc > self.hqc:
+            self.blockchain[bnew.level-1].qc_ref = bnew.qc_ref
             self.qc_ref = bnew.qc_ref
             self.hqc = bnew.level
             self.unlock()
 
     def vote(self, block):
+        print("Vote", flush=True)
         signature = self.sign_blk(block)
         # Conditionally Sign Block
         leader_id = block.level % self.protocol.n
@@ -180,12 +183,12 @@ class HotstuffReplica:
         if self.level != block.level:
             # Done with that level
             return
-        if block.lock_cert is None and len(block.signatures) >= self.qr:
+        if block.qc_ref is None and len(block.signatures) >= self.qr:
             block.certify()
             self.view_change(block)
-            if block.previous_hash in self.blocks and self.blocks[block.previous_hash].lock_cert is not None:
+            if block.previous_hash in self.blocks and self.blocks[block.previous_hash].qc_ref is not None:
                 minusOne = self.blocks[block.previous_hash]
-                if minusOne.previous_hash in self.blocks and self.blocks[minusOne.previous_hash].lock_cert is not None:
+                if minusOne.previous_hash in self.blocks and self.blocks[minusOne.previous_hash].qc_ref is not None:
                     minusTwo = self.blocks[minusOne.previous_hash]
                     self.commit(minusTwo)
 
