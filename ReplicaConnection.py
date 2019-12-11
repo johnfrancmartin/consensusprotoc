@@ -152,6 +152,7 @@ class ReplicaConnection:
                 # print(self.replica.id, "SENT MSG", message.id, flush=True)
                 start = time()
                 self.send_msg(sock, message)
+                print("SENT MESSAGE TO", replica_id, flush=True)
                 recv_time = time() - start
                 self.send_times.append(recv_time)
             except Exception as e:
@@ -348,7 +349,9 @@ class ReplicaConnection:
             proposal = Proposal.get_from_proto(message.proposal)
             return proposal
         elif message.HasField('vote'):
-            return Vote.get_from_proto(message.vote)
+            vote = Vote.get_from_proto(message.vote)
+            print("RECEIVED VOTE MESSAGE", flush=True)
+            return vote
         elif message.HasField('blame'):
             blame_proto = message.blame
             raise NotImplementedError
